@@ -4,7 +4,7 @@
 ---
 * simondereuver (Simon de Reuver)
 * Pramell94 (Gustav Pråmell)
-
+* McFluffen (Sir Jacob Danielsson)
 ---
 # Project plan
 
@@ -42,5 +42,8 @@ Link to kanban will be added here.
 
 ---
 I, Simon de Reuver, declare that I am the sole author of the content I add to this repository.
+
 I, Gustav Pråmell, declare that I am the sole author of the content I add to this repository.
+
+I, Jacob Danielsson, declare that I am the sole author of the content I add to this repository. 
 ---
