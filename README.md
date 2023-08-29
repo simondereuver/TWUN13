@@ -3,6 +3,7 @@
 # Github handles
 ---
 * simondereuver (Simon de Reuver)
+* Pramell94 (Gustav Pråmell)
 
 ---
 # Project plan
@@ -41,4 +42,5 @@ Link to kanban will be added here.
 
 ---
 I, Simon de Reuver, declare that I am the sole author of the content I add to this repository.
+I, Gustav Pråmell, declare that I am the sole author of the content I add to this repository.
 ---
