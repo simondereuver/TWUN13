@@ -42,13 +42,19 @@ Additional compiling and running instructions will be added.
 
 # Unit test
 Might not be implemented.
+
 ---
+
 # Code Coverage
 Might not be implemented.
+
 ---
+
 # Linter
 Might not be implemented.
+
 ---
+
 # Kanban Board
 Link to kanban will be added here.
 
