@@ -20,7 +20,9 @@ Mongodb, HUMONGOUS DATABASE.
 # Compiling and running instructions
 
 Create a directory for where you want the project to reside and enter:
-´´´git remote add origin https://github.com/simondereuver/TWUN13.git´´´
+
+```git remote add origin https://github.com/simondereuver/TWUN13.git```
+
 into the commandline while at the root directory. Before installing dependencies and make sure you have Node.js installed.
 
 Additional compiling and running instructions will be added.
