@@ -3,7 +3,7 @@
 # Github handles
 
 ---
-
+* samwalle (Samuel Wallander Leyonberg)
 * simondereuver (Simon de Reuver)
 * Pramell94 (Gustav Pråmell)
 * McFluffen (Sir Jacob Danielsson)
@@ -59,6 +59,7 @@ Might not be implemented.
 Link to kanban will be added here.
 
 ---
+I, Samuel Wallander Leyonberg, declare that I am the sole author of the content I add to this repository.
 
 I, Simon de Reuver, declare that I am the sole author of the content I add to this repository.
 
