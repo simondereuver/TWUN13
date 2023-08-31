@@ -1,0 +1,23 @@
+{
+  "name": "twun13",
+  "version": "1.0.0",
+  "description": "Initial package file",
+  "main": "index.js",
+  "scripts": {
+    "test": "not implemented"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simondereuver/TWUN13.git"
+  },
+  "author": "Simon de Reuver",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/simondereuver/TWUN13/issues"
+  },
+  "homepage": "https://github.com/simondereuver/TWUN13#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "react": "^18.2.0"
+  }
+}
