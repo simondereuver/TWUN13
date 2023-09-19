@@ -1,4 +1,4 @@
-import SidePanel from './Components/Sidepanel';
+import SidePanel from './components/Sidepanel';
 
 function App() {
   return (

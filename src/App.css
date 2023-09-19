@@ -1,6 +1,6 @@
 .App {
-    width: 100vw;
-    height: 100vh;
+    width: 98vw;
+    height: 98vh;
 }
 
 body {
@@ -9,8 +9,11 @@ body {
 }
 
 .SidePanel {
-    height: 95%;
+    height: 90%;
     width: 300px;
+    margin-left: 30px;
+    margin-top: 30px;
+    border-color: yellow;
     background-color: black;
 }
 
