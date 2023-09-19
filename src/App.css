@@ -60,3 +60,39 @@ body {
 .bar #title {
     flex: 70%;
 }
+
+
+.banner {
+    display: flex;
+    align-items: center;
+    background-color: orange;
+    height: 51px;
+  }
+  
+  .left-buttons {
+    display: flex;
+    align-items: center;
+    margin-right: auto; 
+  }
+  
+  .button {
+    background-color: grey;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .logo {
+    text-align: center;
+    flex-grow: 1; 
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    font-family: monospace;
+}
+  
+  .right-button {
+    margin-left: auto; 
+}
