@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 
+//for testing purpose
+import LoginWindow from './components/LoginComponent';
+
 function App() {
   return (
     <div className="App">
@@ -17,6 +20,9 @@ function App() {
         >
           Learn React
         </a>
+
+        <LoginWindow />
+        
       </header>
     </div>
   );
