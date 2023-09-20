@@ -1,5 +1,5 @@
 import {NavLink,Outlet} from 'react-router-dom';
-import Navigation_Bar from '../components/NavigationBar';
+import Navigation_Bar from '../components/Navigationbar';
 
 export default function RootLayout(){
     return(
