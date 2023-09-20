@@ -61,16 +61,25 @@ body {
     flex: 70%;
 }
 
-.sliding-window {
-  width: 300px; /* Set the desired width */
-  height: 200px; /* Set the desired height */
-  background-color: #fff; /* Set the background color */
-  border: 1px solid #ccc; /* Add borders or other styles as needed */
+.login-window {
+  width: 233px;  /*Set the desired width */
+  height: 250px; /*Set the desired height */
+  background-color: orange; /* Set the background color */
+  border-radius: 10px;
   position: absolute; /* Position it as needed, e.g., 'absolute' or 'fixed' */
   top: 50px; /* Adjust the top position */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Center horizontally */
-  transition: transform 0.3s ease; /* Add smooth transition effect */
+  left: 80%; /* Center horizontally */
+  transition: transform 0.9s ease; /* Add smooth transition effect */
+  position: fixed; /* Fixed positioning ensures it stays in the same place even when you scroll */
+  right: 0; /* Place the element at the right edge of the viewport */
+}
+
+.login-window-list {
+    height: auto;
+    padding: 5px;
+    width: 100%;
+    /*position: center;*/
+    left: 50%;
 }
 
 .banner {

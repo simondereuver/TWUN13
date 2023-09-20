@@ -2,7 +2,7 @@ import SidePanel from './components/Sidepanel';
 
 //for testing purpose
 import LoginWindow from './components/LoginComponent';
-import Navigation_Bar from './components/NavigationBar';
+import Navigation_Bar from './components/Navigationbar';
 
 function App() {
   return (
@@ -10,7 +10,6 @@ function App() {
 
       <Navigation_Bar></Navigation_Bar>
       <SidePanel></SidePanel>
-      < LoginWindow />
     </div>
   );
 }

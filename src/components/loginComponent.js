@@ -27,40 +27,31 @@ function LoginWindow() {
     const handleCreateAccount = () => {
         alert("Create account clicked");
     }
-
-
-    //Function and state defines for handling roll down/roll up
-    const [isOpen, setIsOpen] = useState(false);
-
-    const slideLoginWindow = () => {
-        setIsOpen(!isOpen);
-    }
-
+    
     //We return what we want to display?
     return (
         <div className="login-window">
-            <TextField id="email" label="Enter email" variant="outlined" />
-            <TextField id="password" label="Enter password" variant="outlined" />
-
-            <div>
-                <Button onClick={handleLoginClick} endIcon={<LoginIcon />}>
-                    Login
-                </Button>
-                <Button onClick= {handleCancelClick} endIcon={<CloseIcon />}>
-                    Close
-                </Button>
-            </div>
-
-            <div>
-                {/*Add css styling for text size and button size*/}
-                <p>
-                    Don't have an account?
-                    <Button onClick={handleCreateAccount} >
-                        Create Account
+            <ul className="login-window-list">
+                <TextField id="email" label="Enter email" variant="outlined" />
+                <TextField id="password" label="Enter password" variant="outlined" />
+                <div>
+                    <Button onClick={handleLoginClick} endIcon={<LoginIcon />}>
+                        Login
                     </Button>
-                </p>
-                
-            </div>
+                    <Button onClick= {handleCancelClick} endIcon={<CloseIcon />}>
+                        Close
+                    </Button>
+                </div>
+                <div>
+                    {/*Add css styling for text size and button size*/}
+                    <p>
+                        Don't have an account?
+                        <Button onClick={handleCreateAccount} >
+                            Create Account
+                        </Button>
+                    </p>
+                </div>
+                </ul>
         </div>
     )
 }
