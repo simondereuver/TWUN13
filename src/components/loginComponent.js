@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { TextField } from '@mui/material';
 
 // dont work 
-//import LoginIcon from '@mui/icons-material/Login';
+import LoginIcon from '@mui/icons-material/Login';
 // dont work 
-//import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '@mui/icons-material/Close';
 
 //I think we can just implement the logic in the navbar as done below
 //By implementing something similar to this on the correct button 
@@ -38,23 +38,28 @@ function LoginWindow() {
 
     //We return what we want to display?
     return (
-        <div>
+        <div className="login-window">
             <TextField id="email" label="Enter email" variant="outlined" />
             <TextField id="password" label="Enter password" variant="outlined" />
 
-            {/*<Button onClick={handleLoginClick} endIcon={<LoginIcon />}>
-                Login
-            </Button>
-            <Button onClick= {handleCancelClick} endIcon={<CloseIcon />}>
-                Close
-            </Button>*/}
+            <div>
+                <Button onClick={handleLoginClick} endIcon={<LoginIcon />}>
+                    Login
+                </Button>
+                <Button onClick= {handleCancelClick} endIcon={<CloseIcon />}>
+                    Close
+                </Button>
+            </div>
 
             <div>
                 {/*Add css styling for text size and button size*/}
-                <p>Dont have an account? Sign up!</p>
-                <Button onClick={handleCreateAccount}>
-                    Create Account
-                </Button>
+                <p>
+                    Don't have an account?
+                    <Button onClick={handleCreateAccount} >
+                        Create Account
+                    </Button>
+                </p>
+                
             </div>
         </div>
     )

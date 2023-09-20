@@ -1,4 +1,4 @@
-import SidePanel from './Components/Sidepanel';
+import SidePanel from './components/Sidepanel';
 
 //for testing purpose
 import LoginWindow from './components/LoginComponent';
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
 
       <SidePanel></SidePanel>
-
+      < LoginWindow />
     </div>
   );
 }
