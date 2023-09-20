@@ -14,3 +14,11 @@
 .msg{
     text-align: center;
 }
+.ErrorPage{
+    background-image: url('./img/ErrorPage.jpg');
+    background-size:contain;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 96vh;
+}
