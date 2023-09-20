@@ -1,6 +1,6 @@
 .App {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 body {
@@ -9,9 +9,16 @@ body {
 }
 
 .SidePanel {
-    height: 95%;
+    height: 500px;
     width: 300px;
+    margin-left: 30px;
+    margin-top: 150px;
+    border-radius: 25px;
     background-color: black;
+    box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);
+    -webkit-box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);
+    -moz-box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);
+
 }
 
 .SidePanelList {
@@ -25,6 +32,8 @@ body {
     height: 50px;
     list-style-type: none;
     margin: 0%;
+    border-radius: 25px;
+    margin-bottom: 2px;
     display: flex;
     flex-direction: row;
     color: darkgrey;
@@ -62,4 +71,39 @@ body {
   left: 50%; /* Center horizontally */
   transform: translateX(-50%); /* Center horizontally */
   transition: transform 0.3s ease; /* Add smooth transition effect */
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    background-color: orange;
+    height: 51px;
+  }
+  
+  .left-buttons {
+    display: flex;
+    align-items: center;
+    margin-right: auto; 
+  }
+  
+  .button {
+    background-color: grey;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .logo {
+    text-align: center;
+    flex-grow: 1; 
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    font-family: monospace;
+}
+  
+  .right-button {
+    margin-left: auto; 
 }
