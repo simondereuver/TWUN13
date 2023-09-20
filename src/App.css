@@ -13,6 +13,7 @@ body {
     width: 300px;
     margin-left: 30px;
     margin-top: 150px;
+    position: fixed;
     border-radius: 25px;
     background-color: black;
     box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);

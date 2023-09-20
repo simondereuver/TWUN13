@@ -1,39 +1,35 @@
 import React from 'react'
 
-// Find icons here https://mui.com/material-ui/material-icons/
-import BedIcon from '@mui/icons-material/Bed';
-import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
-import EventIcon from '@mui/icons-material/Event';
+import { BedOutlined, EventAvailableOutlined, QuestionMarkOutlined } from '@mui/icons-material';
 
 export const SidepanelData = [
-    // Everybox is for 1 tab copy paste for more tabs
     {
-        title: "Home",
-        icon: <BedIcon />,
-        link: "/home"
+        text: "Home",
+        icon: <BedOutlined color="secondary"/>,
+        path: "/"
     },
 
     {
-        title: "Create Event",
-        icon: <EventIcon />,
-        link: "/Event"
+        text: "Create Event",
+        icon: <EventAvailableOutlined color="secondary"/>,
+        path: "/Calender"
     },
 
     {
-        title: "TBD",
-        icon: <QuestionMarkOutlinedIcon />,
-        link: "/tbd"
+        text: "TBD",
+        icon: <QuestionMarkOutlined />,
+        path: "/tbd"
     },
 
     {
-        title: "TBD",
-        icon: <QuestionMarkOutlinedIcon />,
-        link: "/tbd"
+        text: "TBD",
+        icon: <QuestionMarkOutlined />,
+        path: "/tbd"
     },
 
     {
-        title: "TBD",
-        icon: <QuestionMarkOutlinedIcon />,
-        link: "/tbd"
+        text: "TBD",
+        icon: <QuestionMarkOutlined />,
+        path: "/tbd"
     }
 ]
