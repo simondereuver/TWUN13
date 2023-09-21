@@ -1,0 +1,46 @@
+.popup{
+    background-color: rgb(241, 241, 229);
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid rgb(223, 194, 140);
+}
+
+.date{
+    text-align: center;
+}
+
+.cudGrid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.create{
+    background-color: #fcbc0f;
+    box-shadow: 1px 2px 4px rgba(0,0,0, 0.5);
+    text-align: center;
+    border-radius: 5px;
+    height: 30px;
+    margin-left: 10px;
+  }
+
+.update{
+    background-color: #fcbc0f;
+    box-shadow: 1px 2px 4px rgba(0,0,0, 0.5);
+    text-align: center;
+    border-radius: 5px;
+    height: 30px;
+    text-align: center;
+  }
+
+.delete{
+    background-color: #fcbc0f;
+    box-shadow: 1px 2px 4px rgba(0,0,0, 0.5);
+    text-align: center;
+    border-radius: 5px;
+    height: 30px;
+    text-align: center;
+    margin-right: 10px;
+  }
