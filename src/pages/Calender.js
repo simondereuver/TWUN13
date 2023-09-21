@@ -1,8 +1,11 @@
+import SidePanel from "../components/Sidepanel";
+import { SidepanelDataCalender } from "../components/SidepanelData";
+
 export default function Calender()
 {
     return(
-        <text>
-            Hello
-        </text>
+        <div>
+            <SidePanel SideData={SidepanelDataCalender}/>
+        </div>
     )
 }
