@@ -15,12 +15,16 @@ function CreateAccountForm () {
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
     const [error, setError] = useState(false);
-
+    /*
     if (password1 !== password2)
+    {
       setError(true);
+    }
     else
+    {
       setError(false);
-    
+    }
+    */
 
     return (
         <Box
@@ -32,33 +36,35 @@ function CreateAccountForm () {
             autoComplete="off"
         >
             <div className="create-account">
+                <div>
+                    <p>Please fill in information needed to create your account!</p>
                 <TextField
                     required
                     id="user-name"
                     label="Required"
                     defaultValue="Enter username"
                 />
+                </div>
+                <div>
                 <TextField
                     required
                     id="email-adress"
                     label="Required"
                     defaultValue="Enter email"
                 />
+                </div>
+                <div>
                 <TextField
                     required
                     id="password-1"
                     label="Required"
-                    value={password1}
                     defaultValue="Enter password"
-                    onChange={(e) => setPassword1(e.target.value)}
                 />
                 <TextField
                     required
                     id="password-2"
                     label="Required"
-                    value={password2}
                     defaultValue="Confirm password"
-                    onChange={(e) => setPassword2(e.target.value)}
                 />
                 {error && (
                     <TextField
@@ -69,7 +75,7 @@ function CreateAccountForm () {
                         helperText="Passwords don't match."
                     />
                 )}
-                
+                </div>
             </div>
         </Box>
     );
