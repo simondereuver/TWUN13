@@ -1,4 +1,3 @@
-import SidePanel from './components/Sidepanel';
 import {Route,createBrowserRouter,RouterProvider,createRoutesFromElements} from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 import Home from './pages/Home';
