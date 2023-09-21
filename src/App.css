@@ -68,7 +68,7 @@ body {
   border-radius: 10px;
   position: absolute; /* Position it as needed, e.g., 'absolute' or 'fixed' */
   top: 50px; /* Adjust the top position */
-  left: 80%; /* Center horizontally */
+  left: 85%; /* Center horizontally */
   transition: transform 0.9s ease; /* Add smooth transition effect */
   position: fixed; /* Fixed positioning ensures it stays in the same place even when you scroll */
   right: 0; /* Place the element at the right edge of the viewport */
@@ -115,4 +115,27 @@ body {
   
   .right-button {
     margin-left: auto; 
+}
+
+.calender_day{
+    background-color: darkgray;
+    height: 200px;
+    width: 150px;
+}
+
+.date{
+    height: 30px;
+    width: 98%;
+    border: 2px solid;
+    font-size: 20px;
+    color: black;
+    font-weight: bolder;
+    text-align: center;
+    padding-top: 5px;
+
+    
+}
+
+.list_days{
+    list-style-type:none;
 }
