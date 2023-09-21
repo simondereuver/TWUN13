@@ -1,17 +1,16 @@
 import React from "react";
-import "../App.css";
-import { SidepanelData } from "./SidepanelData";
+import "./Sidepanel.css";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useLocation, useNavigate } from 'react-router-dom'
 
-function SidePanel() {
+function SidePanel( { SideData } ) {
     const navigate = useNavigate()
     const location = useLocation()
 
     return (
         <div className="SidePanel">
             <List className="SidePanelList">
-                {SidepanelData.map(item => (
+                {SideData.map(item => (
                     <ListItem className="bar"
                         key={item.text}
                         onClick={() => navigate(item.path)}
