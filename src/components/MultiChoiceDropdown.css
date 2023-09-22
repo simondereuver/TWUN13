@@ -1,0 +1,8 @@
+/* MultiChoiceDropdown.css */
+.multi-choice-dropdown {
+    width: 200px;
+  }
+  
+  .multi-choice-dropdown-select {
+    height: 200px; /* Set the desired height for the dropdown */
+  }

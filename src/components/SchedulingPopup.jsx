@@ -1,4 +1,5 @@
 import './schedulingPopup.css';
+import MultiChoiceDropdown from './MultiChoiceDropdown';
 import BasicTimePicker from './timePicker';
 import React, {useState} from 'react';
 
@@ -19,28 +20,35 @@ function SchedulingPopup() {
             </div>
             <BasicTimePicker/>
             <h3>AvalibleTimes</h3>
-            <h3>Location</h3>
-            <h3>Attendees</h3>
-            <textarea
-        value={text}
-        onChange={handleChange}
-        placeholder="Agenda"
-        style={{
-          width: '70%',
-          height: '70px',
-          padding: '8px',
-          boxSizing: 'border-box',
-          border: '1px solid gray',
-          borderRadius: '8px',
-          resize: 'none', // Disable resizing
-        }}
-      />
-            <div className='agendaContainer'>
-                <button className='agendabutton'>
-                    Submit
-                </button>
+            <textarea className='location'
+                value={text}
+                onChange={handleChange}
+                placeholder="Location"
+                style={{
+                    width: '50%',
+                    height: '35px',
+                    padding: '8px',
+                    boxSizing: 'border-box',
+                    border: '1px solid gray',
+                    borderRadius: '8px',
+                    resize: 'none', 
+                }}/>
+            <div>
+                <textarea className='agenda'
+                value={text}
+                onChange={handleChange}
+                placeholder="Agenda"
+                style={{
+                    width: '70%',
+                    height: '70px',
+                    padding: '8px',
+                    boxSizing: 'border-box',
+                    border: '1px solid gray',
+                    borderRadius: '8px',
+                    resize: 'none', 
+                }}/>
             </div>
-
+            <MultiChoiceDropdown/>
             <h3>UserRoles</h3>
         </div>
      );
