@@ -45,12 +45,3 @@
     margin-right: 10px;
   }
 
-.textarea{
-    width: '100px';
-    height: '110px';
-    padding: '8px';
-    box-Sizing: 'border-box';
-    border: '1px solid gray';
-    border-Radius: '8px';
-    resize: 'none';
-  }

@@ -1,11 +1,11 @@
-import SchedulingPopup from '../components/SchedulingPopup';
+import SidePanel from "../components/Sidepanel";
+import { SidepanelDataCalender } from "../components/SidepanelData";
 
 export default function Calender()
 {
     return(
-        <text>
-            Hello
-            <SchedulingPopup/>
-        </text>
+        <div>
+            <SidePanel SideData={SidepanelDataCalender}/>
+        </div>
     )
 }
