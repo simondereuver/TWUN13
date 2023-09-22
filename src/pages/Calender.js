@@ -5,6 +5,7 @@ export default function Calender()
     return(
         <text>
             Hello
+            <SchedulingPopup/>
         </text>
     )
 }
