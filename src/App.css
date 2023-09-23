@@ -86,3 +86,22 @@ body {
 .list_days{
     list-style-type:none;
 }
+
+.calendar{
+  width: 80%;
+  margin-left: 20%;
+  border-spacing: 0px;
+}
+.calendar tr {
+  font-weight: bolder;
+  text-align: center;
+}
+
+.calendar td {
+  font-weight: bolder;
+  text-align: center;
+  height: 100px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  
+}

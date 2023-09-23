@@ -1,25 +1,13 @@
-import { Grid, List } from "@mui/material";
 import CalenderDay from "../components/CalenderDay";
+import CalenderGrid from "../components/CalenderGrid";
 
-export default function Calender(date)
-{   
-        
-    let firstDay = new Date(date.getFullYear(), (date.getMonth() -1), 1 ).getDay();
-    let numOfDays = new Date(date.getFullYear(), date.getMonth(), 0 ).getDate(); 
-    
-    for(let i = 0; i < 6; i++)
-    {
-        for(let n = 0; n < 7; n++)
-        {
-        }
-    }
+export default function Calender({day})
+{  
+    let date = "hello";
+    return (
+        <div>
+            <CalenderDay day = {date}/>
+        </div>
+    )
 
-        return (
-        <Grid container>
-            <Grid>
-                
-            </Grid>
-
-        </Grid>
-        );
 }
