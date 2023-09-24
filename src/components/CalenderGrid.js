@@ -1,7 +1,8 @@
 import React from 'react';
 import "../App.css";
+import CalenderDay from './CalenderDay';
 
-function CalendarGrid(day) {
+function CalendarGrid({day,events}) {
   var numDays = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate(); // Get the number of days in the current month
   var fillValue = 1;
   const rows = [];
@@ -12,7 +13,7 @@ function CalendarGrid(day) {
     {
       if (fillValue <= numDays) 
       {
-        cols.push(<td key={c}>{fillValue}</td>);
+        cols.push(<td key={c}><CalenderDay day="hello" location="home2" time="9.00" attendies={["Jacob"]} /> {fillValue}</td>);
         fillValue++;
       }
     }

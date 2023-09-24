@@ -105,3 +105,42 @@ body {
   border-collapse: collapse;
   
 }
+
+.date{
+  border-color: darkslategray;
+  color: white;
+}
+.place{
+  display: flex;
+  font-size: 20px;
+  font-weight: 500;
+  align-items: center;
+  color:white;
+
+}
+
+.time{
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  margin-left: 10px;
+  color: white;
+  font-weight: 500;
+}
+
+.list_events li {
+  list-style-type: none;
+}
+
+.scrollable {
+  overflow:auto;
+  max-height: 69px;
+}
+.list_events{
+  margin-top:10px;
+  text-align: center;
+}
+
+.list_events li {
+  font-weight: bolder;
+}
