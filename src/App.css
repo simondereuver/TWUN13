@@ -67,7 +67,7 @@ body {
 .calender_day{
     background-color: darkgray;
     height: 200px;
-    width: 150px;
+    width: 200px;
 }
 
 .date{
@@ -97,12 +97,13 @@ body {
   text-align: center;
 }
 
+
 .calendar td {
   font-weight: bolder;
   text-align: center;
   height: 100px;
   border: 1px solid black;
-  border-collapse: collapse;
+  border: none;
   
 }
 

@@ -1,29 +1,51 @@
 import React from 'react';
 import "../App.css";
 import CalenderDay from './CalenderDay';
+import User from './User';
 
-function CalendarGrid({day,events}) {
-  var numDays = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate(); // Get the number of days in the current month
-  var fillValue = 1;
-  const rows = [];
+function CalendarGrid({ day, user }) {
+  const numDaysInMonth = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate();
+  const calendarGrid = [];
+  console.log("Attendies",user.listEvents.attendies);
 
+  let dayOfMonth = 1;
   for (let r = 0; r < 7; r++) {
-    const cols = [];
-    for (let c = 0; c < 5; c++) 
-    {
-      if (fillValue <= numDays) 
-      {
-        cols.push(<td key={c}><CalenderDay day="hello" location="home2" time="9.00" attendies={["Jacob"]} /> {fillValue}</td>);
-        fillValue++;
+    const row = [];
+    for (let c = 0; c < 5; c++) {
+      if (dayOfMonth <= numDaysInMonth) {
+        const currentDate = new Date(day.getFullYear(), day.getMonth(), dayOfMonth);
+        const eventsForCurrentDay = user.listEvents.filter((event) => {
+          return (
+            event.date.getDate() === currentDate.getDate() &&
+            event.date.getMonth() === currentDate.getMonth() &&
+            event.date.getFullYear() === currentDate.getFullYear()
+          );
+        });
+
+        row.push(
+          <td key={c}>
+            <CalenderDay
+              day={currentDate}
+              location={eventsForCurrentDay[0]?.location || ""}
+              time={eventsForCurrentDay[0]?.time || ""}
+              attendies={eventsForCurrentDay[0]?.attendies || []}
+            />
+          </td>
+        );
+        dayOfMonth++;
+      } else {
+        row.push(<td key={c}></td>); // Empty cell for days beyond the current month
       }
     }
-    rows.push(<tr key={r}>{cols}</tr>);
-  } 
+    calendarGrid.push(<tr key={r}>{row}</tr>);
+  }
 
   return (
     <div className="calendarContainer">
       <table className="calendar">
-        {rows}
+        <tbody>
+          {calendarGrid}
+        </tbody>
       </table>
     </div>
   );
