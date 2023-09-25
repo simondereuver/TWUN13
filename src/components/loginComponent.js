@@ -41,6 +41,7 @@ function LoginWindow() {
                     {/*Add css styling for text size and button size*/}
                     <p>
                         Don't have an account?
+
                             <Button onClick={handleCreateAccount}>
                                 Create Account
                             </Button>

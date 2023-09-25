@@ -5,6 +5,7 @@ import Calender from './pages/Calender';
 import Error from './pages/Error';
 import CreateAccountForm from './pages/CreateAccount';
 
+
 const router = createBrowserRouter(
   createRoutesFromElements (
     <Route path = {"/"} element ={<RootLayout/>}>
