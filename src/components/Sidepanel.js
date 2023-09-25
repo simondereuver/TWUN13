@@ -1,6 +1,6 @@
 import React from "react";
 import "./Sidepanel.css";
-import { List, ListItem, ListItemIcon, ListItemText, } from "@mui/material";
+import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useLocation, useNavigate } from 'react-router-dom'
 
 function SidePanel( { SideData, open} ) {
