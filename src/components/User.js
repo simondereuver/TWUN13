@@ -13,7 +13,7 @@ export default class User{
     {
         return this.listEvents;
     }
-
+    
     SetEvents(events)
     {
         if(Array.isArray(events))
