@@ -1,5 +1,9 @@
 /* CalenderDay Style  */
 
+*{ 
+  margin: 0;
+  padding: 0;
+}
 .calender_day{
     background: rgb(46,43,43);
     background: linear-gradient(347deg, rgba(46,43,43,1) 0%, rgba(126,126,126,1) 49%, rgba(238,238,238,1) 100%);
@@ -37,11 +41,14 @@
   /* Calender grid style */
 
   .calendar{
+    margin-right: 0;
     width: 80%;
   }
 
   .calendar td{
     width: 20%;
+    margin:0;
+    padding: 0;
 }
 .calendar td object{
     width: 90%;
@@ -49,13 +56,28 @@
 
   .calendar tr{
     width: 20%;
+    margin: 0;
+    padding: 0;
   }
 .list_events{
-    margin-top: -90px;
     margin-right: 10px;
 }
 .list_events li{
     margin-left: 30px;
     font-size: 1vw;
     color: white;
+}
+
+.prevMonth{
+  width: 5%;
+  height: 4vw;
+  position: absolute;
+}
+
+.nextMonth{
+  width: 5%;
+  height: 4vw;
+  position: absolute;
+  margin-left: 15%;
+
 }
