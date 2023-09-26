@@ -1,11 +1,9 @@
 import React from 'react';
-import "../App.css";
 import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import "./CalenderStyle.css";
 import BookingWinow from './SchedulingPopup';
 import {useState} from 'react';
-
-
 export default function CalenderDay({ day, location, time, attendies }) {
   // Convert the date object to a string
   const formattedDate = day.toLocaleDateString();
