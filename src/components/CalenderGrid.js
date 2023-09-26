@@ -1,7 +1,7 @@
 import React from 'react';
-import "../App.css";
 import CalenderDay from './CalenderDay';
 import User from './User';
+import './CalenderStyle.css';
 
 function CalendarGrid({ day, user }) {
   const numDaysInMonth = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate();

@@ -1,7 +1,7 @@
 import React from 'react';
-import "../App.css";
 import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import "./CalenderStyle.css";
 
 export default function CalenderDay({ day, location, time, attendies }) {
   // Convert the date object to a string
