@@ -3,7 +3,7 @@ import MultiChoiceDropdown from './MultiChoiceDropdown';
 import BasicTimePicker from './timePicker';
 import React, {useState} from 'react';
 
-function SchedulingPopup(day) {
+function SchedulingPopup({formattedDate}) {
 
     const [textAgenda, setTextAgenda] = useState('');
     const handleChangeAgenda = (e) =>{
@@ -20,7 +20,7 @@ function SchedulingPopup(day) {
     return ( 
         <div className="popup" >
             <div className='dateBox'>
-                <header>formattedDate Date</header>
+                <header>{formattedDate}</header>
             </div>
             <div className="cudGrid">
                 <button className="create">create</button>
