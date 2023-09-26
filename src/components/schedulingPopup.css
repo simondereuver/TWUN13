@@ -1,13 +1,14 @@
 .popup{
-    background-color: rgb(241, 241, 229);
+    background-color: rgb(242, 241, 241);
     width: 400px;
     height: 400px;
     border-radius: 10px;
     padding: 10px;
     border: 2px solid rgb(223, 194, 140);
+    position: absolute;
 }
 
-.date{
+.dateBox{
     text-align: center;
 }
 
@@ -45,14 +46,3 @@
     margin-right: 10px;
   }
 
-/*
-.agenda{
-  width: '70%';
-  height: '70px';
-  padding: '8px';
-  box-Sizing: 'border-box';
-  border: '1px solid gray';
-  border-Radius: '8px';
-  resize: 'none';
-}
-*/
