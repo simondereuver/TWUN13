@@ -3,11 +3,12 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import "./CreateAccount.css";
+import countryList from '../data/countriesData';
 
 function CreateAccountForm () {
 
@@ -22,6 +23,12 @@ function CreateAccountForm () {
 
     const [errorUserName, setErrorUserName] = useState(false);
     const [userName, setUserName] = useState('');
+
+    const [selectedCountry, setSelectedCountry] = useState("");
+
+    const handleChange = (event) => {
+        setSelectedCountry(event.target.value);
+    };
 
     
     const handleSignUpClick = () => {
@@ -100,6 +107,25 @@ function CreateAccountForm () {
                         error={errorEmail} // set error state
                         helperText={errorEmail ? "Invalid email address." : ""} 
                     />
+                </div>
+                <div>
+                <FormControl variant="outlined" sx={{ minWidth: 215 }}>
+                    <InputLabel>Select Country</InputLabel>
+                    <Select
+                        value={selectedCountry}
+                        onChange={handleChange}
+                        label="Select Country"
+                    >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    {countryList.map((country, index) => (
+                        <MenuItem key={index} value={country}>
+                        {country}
+                        </MenuItem>
+                    ))}
+                    </Select>
+                </FormControl>
                 </div>
                 <div>
                     <TextField
