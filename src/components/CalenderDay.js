@@ -34,7 +34,7 @@ export default function CalenderDay({ day, location, time, attendies }) {
       </ul>
       <div>
           {/* Render LoginWindow when loginWindowOpen is true */}
-          {BookingWindowOpen && <BookingWinow ClickedDate={day}/>} 
+          {BookingWindowOpen && <BookingWinow formattedDate={formattedDate}/>} 
         </div>
     </div>
   );
