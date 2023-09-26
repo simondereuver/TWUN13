@@ -13,7 +13,7 @@ export default class User{
     {
         return this.listEvents;
     }
-    //Will controll if this work first //JD
+    
     SetEvents(events)
     {
         if(Array.isArray(events))

@@ -6,7 +6,6 @@ import './CalenderStyle.css';
 function CalendarGrid({ day, user }) {
   const numDaysInMonth = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate();
   const calendarGrid = [];
-  console.log("Attendies",user.listEvents.attendies);
 
   let dayOfMonth = 1;
   for (let r = 0; r < 7; r++) {

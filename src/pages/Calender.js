@@ -14,13 +14,23 @@ export default function Calender()
     const [date, setDate] = useState(new Date());
 
     let loc = "home";
-    var d = new Date();
+    let loc1 = "JTH";
+    let d = new Date();
+    let d1 = new Date("2023-08-03");
+    let d2 = new Date("2023-10-05");
     let t = "08.00"
-    const persons = ["John", "Alice","BitchBoy","Fucktard"];
-    var event = new Event(d,loc,t,persons);
-    var person = new User("Jacob","2","Swedjen","Test","Retarded");
+    let t1 = "09.00";
+
+
+    let person = new User("Jacob","2","Swedjen","Test","Wonderful");
+    const persons = ["John", "Alice","El Samuel","Gurr"];
+    const attendendace = ["Simon","Simon2","Simon4"];
+    let event = new Event(d,loc,t,persons);
+    let event2 = new Event(d1,loc1,t1,attendendace);
+    let event3 = new Event(d2,loc1,t1,persons);
     person.listEvents.push(event);
-    console.log("This is length before",person);
+    person.listEvents.push(event2);
+    person.listEvents.push(event3);
 
     const prevMonth = () => {
         const newDate = new Date(date);

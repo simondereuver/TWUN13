@@ -3,16 +3,25 @@ import MultiChoiceDropdown from './MultiChoiceDropdown';
 import BasicTimePicker from './timePicker';
 import React, {useState} from 'react';
 
-function SchedulingPopup() {
+function SchedulingPopup(day) {
 
-    const [text, setText] = useState('');
-    const handleChange = (e) =>{
-        setText(e.target.value);
+    const [textAgenda, setTextAgenda] = useState('');
+    const handleChangeAgenda = (e) =>{
+        setTextAgenda(e.target.value);
     }
+
+    const [textLocation, setTextLocation] = useState('');
+    const handleChangeLocation = (e) =>{
+        setTextLocation(e.target.value);
+    }
+    //const formattedDate = day.toLocaleDateString();
+    //console.log(formattedDate);
 
     return ( 
         <div className="popup" >
-            <div className='date'>Date</div>
+            <div className='dateBox'>
+                <header>formattedDate Date</header>
+            </div>
             <div className="cudGrid">
                 <button className="create">create</button>
                 <button className="update">update</button>
@@ -21,8 +30,8 @@ function SchedulingPopup() {
             <BasicTimePicker/>
             <h3>AvalibleTimes</h3>
             <textarea className='location'
-                value={text}
-                onChange={handleChange}
+                value={textLocation}
+                onChange={handleChangeLocation}
                 placeholder="Location"
                 style={{
                     width: '50%',
@@ -35,8 +44,8 @@ function SchedulingPopup() {
                 }}/>
             <div>
                 <textarea className='agenda'
-                value={text}
-                onChange={handleChange}
+                value={textAgenda}
+                onChange={handleChangeAgenda}
                 placeholder="Agenda"
                 style={{
                     width: '70%',
