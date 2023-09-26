@@ -120,9 +120,9 @@ function CreateAccountForm () {
                         <em>None</em>
                     </MenuItem>
                     {countryList.map((country, index) => (
-                        <MenuItem key={index} value={country}>
+                    <MenuItem key={index} value={country}>
                         {country}
-                        </MenuItem>
+                    </MenuItem>
                     ))}
                     </Select>
                 </FormControl>
