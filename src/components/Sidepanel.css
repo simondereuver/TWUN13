@@ -6,7 +6,7 @@
     left: -250px;
     position: fixed;
     border-radius: 20px;
-    background-color: #f4f4f4;
+    background-color: orange;
     transition: 0.5s;
     box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);
     -webkit-box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);
@@ -59,8 +59,8 @@
 }
 
 .buttonSide {
-    height: 40px;
-    width: 100px;
+    height: 100%px;
+    width: 7%;
     position: absolute;
-    background-color: #f3f3f3;
+    background-color: orange;
 }
