@@ -2,14 +2,23 @@ import React from 'react';
 import "../App.css";
 import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import BookingWinow from './SchedulingPopup';
+import {useState} from 'react';
+
 
 export default function CalenderDay({ day, location, time, attendies }) {
   // Convert the date object to a string
   const formattedDate = day.toLocaleDateString();
 
+  const [BookingWindowOpen, SetBookingWindowOpen] = useState(false);
+  const toggleBookingWindow = () => {
+    SetBookingWindowOpen(!BookingWindowOpen)
+  };
+  console.log(BookingWindowOpen);
+  console.log("This is date",formattedDate)
   return (
     <div className="calender_day">
-      <header className="date">
+      <header className="date" onClick={toggleBookingWindow}>
         {formattedDate}
       </header>
       <h1 className="place">
@@ -25,6 +34,10 @@ export default function CalenderDay({ day, location, time, attendies }) {
           <li key={index}>{person}</li>
         ))}
       </ul>
+      <div>
+          {/* Render LoginWindow when loginWindowOpen is true */}
+          {BookingWindowOpen && <BookingWinow ClickedDate={day}/>} 
+        </div>
     </div>
   );
 }
