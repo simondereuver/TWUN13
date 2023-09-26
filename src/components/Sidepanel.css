@@ -2,15 +2,21 @@
     height: 400px;
     width: 220px;
     margin-left: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
+    left: -250px;
     position: fixed;
     border-radius: 20px;
-    background-color: black;
+    background-color: #f4f4f4;
+    transition: 0.5s;
     box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);
     -webkit-box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);
     -moz-box-shadow: 7px 1px 31px 1px rgba(110,110,110,0.75);
 
 }
+
+.SidePanel.open {
+    left: 0;
+  }
 
 .SidePanelList {
     height: auto;
@@ -50,4 +56,11 @@
 
 .bar #title {
     flex: 70%;
+}
+
+.buttonSide {
+    height: 40px;
+    width: 100px;
+    position: absolute;
+    background-color: #f3f3f3;
 }
