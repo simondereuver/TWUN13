@@ -2,7 +2,7 @@
     height: 400px;
     width: 220px;
     margin-left: 10px;
-    margin-top: 10px;
+    margin-top: 35%;
     left: -250px;
     position: fixed;
     border-radius: 20px;
@@ -57,10 +57,6 @@
 .bar #title {
     flex: 70%;
 }
-
 .buttonSide {
-    height: 100%px;
-    width: 7%;
-    position: absolute;
-    background-color: orange;
+    position: fixed;
 }
