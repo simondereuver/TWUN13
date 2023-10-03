@@ -131,3 +131,47 @@ body {
 .list_events li {
   font-weight: bolder;
 }
+
+.container {
+  display: flex;
+}
+
+.flex_calender{
+  flex: 80%;
+}
+.flex_eventView{
+  display: flex;
+  flex-direction: column;
+  flex: 20%;
+}
+
+.nextMonth{
+  flex: 20%;
+  height: 100%;
+}
+
+.prevMonth{
+  flex: 20%;
+  height: 100%;
+}
+
+.currentMonth{
+  flex: 60%;
+  text-align: center;
+}
+
+.flex_event{
+  flex: 95%;
+}
+
+.flex_button{
+  display: flex;
+  align-items: center;
+  flex: 5%;
+}
+
+.event{
+  text-align: center;
+  margin-top: 2%;
+  border: 2px solid black;
+}

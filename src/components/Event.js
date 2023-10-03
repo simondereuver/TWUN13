@@ -4,6 +4,6 @@ export default class Event{
         this.date = _date;
         this.location = _location;
         this.time = _time;
-        this.attendies = _attendies;
+        this.attendees = Array.isArray(_attendies) ? _attendies : [];
     }
 }

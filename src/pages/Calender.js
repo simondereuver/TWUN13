@@ -1,17 +1,18 @@
-import CalenderDay from "../components/CalenderDay";
 import CalenderGrid from "../components/CalenderGrid";
 import React, { useState } from 'react';
+import "../App.css";
 import User from '../components/User';
 import Event from '../components/Event';
-import SidePanel from '../components/Sidepanel';
-import {SidepanelDataCalender} from '../components/SidepanelData';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import EventList from "../components/EventList";
+import DisplayEvent from "../components/DisplayEvent";
+
 
 export default function Calender()
 {  
-    const [date, setDate] = useState(new Date());
+    const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [currentEvent, setCurrentEvent] = useState(null);
 
     let loc = "home";
     let loc1 = "JTH";
@@ -22,41 +23,63 @@ export default function Calender()
     let t1 = "09.00";
 
 
-    let person = new User("Jacob","2","Swedjen","Test","Wonderful");
+    let person = new User("Jacob","2","Sweden","Test","Wonderful");
     const persons = ["John", "Alice","El Samuel","Gurr"];
     const attendendace = ["Simon","Simon2","Simon4"];
     let event = new Event(d,loc,t,persons);
     let event2 = new Event(d1,loc1,t1,attendendace);
     let event3 = new Event(d2,loc1,t1,persons);
+    let event4 = new Event(d1, loc1, t1, ['Simon', 'Simon2', 'Simon4']);
     person.listEvents.push(event);
     person.listEvents.push(event2);
     person.listEvents.push(event3);
 
-    const prevMonth = () => {
-        const newDate = new Date(date);
-        newDate.setMonth(newDate.getMonth()-1);
-        setDate(newDate);
-    }
+    const setCurrentEventFunction = (event) => {
+        setCurrentEvent(event);
+      };
 
-    const nextMonth = () =>
-    {
-        const newDate = new Date(date);
-        newDate.setMonth(newDate.getMonth()+1);
-        setDate(newDate);
-    }
+    const nextMonth = () => {
+        const nextMonthDate = new Date(currentMonth);
+        nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
+        setCurrentMonth(nextMonthDate);
+      };
+    
+      const prevMonth = () => {
+        const prevMonthDate = new Date(currentMonth);
+        prevMonthDate.setMonth(prevMonthDate.getMonth() - 1);
+        setCurrentMonth(prevMonthDate);
+      };
+    
+      const getCurrentMonthName = () => {
+        const monthNames = [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+        return monthNames[currentMonth.getMonth()];
+      };
 
     console.log("This is length",person.listEvents);
 
     return (
-        <div>
+        <div className="container">
+            <div className="flex_eventView">
+                <div className="flex_button">
+                    <button className="prevMonth" onClick={prevMonth}>
+                        <ArrowCircleLeftIcon fontSize="large"/>
+                    </button>
+                    <h1 className="currentMonth">{getCurrentMonthName()} {currentMonth.getFullYear()}</h1>
+                    <button className="nextMonth" onClick={nextMonth}>
+                        <ArrowCircleRightIcon fontSize="large"/>
+                    </button>
+                </div>
+                <div className="flex_event">
+                    <DisplayEvent Event={currentEvent} setEvent={setCurrentEventFunction}></DisplayEvent>
+                </div>
+           </div>
+           <div className="flex_calender">
             <EventList person={person}/>
-           <button className="nextMonth" onClick={nextMonth}>
-            <ArrowCircleRightIcon fontSize="large"/>
-           </button>
-           <button className="prevMonth" onClick={prevMonth}>
-            <ArrowCircleLeftIcon fontSize="large"/>
-           </button>
-            <CalenderGrid day = {date} user = {person}></CalenderGrid>
+            <CalenderGrid day = {currentMonth} user = {person}></CalenderGrid>
+            </div>
         </div>
     )
 
