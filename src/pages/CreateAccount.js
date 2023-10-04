@@ -21,8 +21,10 @@ function CreateAccountForm () {
     //Move to model and server logic once it needs to be implemented
     const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const [errorUserName, setErrorUserName] = useState(false);
-    const [userName, setUserName] = useState('');
+    const [errorFirstName, setErrorFirstName] = useState(false);
+    const [userFirstName, setFirstName] = useState('');
+    const [errorLastName, setErrorLastName] = useState(false);
+    const [userLastName, setLastName] = useState('');
 
     const [selectedCountry, setSelectedCountry] = useState("");
 
@@ -51,10 +53,16 @@ function CreateAccountForm () {
         }
 
         //add check for username in users in server/model for now just set to false
-        if(userName === ""){
-            setErrorUserName(true);
+        if(userFirstName === ""){
+            setErrorFirstName(true);
         } else {
-            setErrorUserName(false);
+            setErrorFirstName(false);
+        }
+        if(userLastName === ""){
+            setErrorLastName(true);
+        }
+        else {
+            setErrorLastName(false);
         }
        
     };
@@ -84,16 +92,29 @@ function CreateAccountForm () {
                 <div>
                     <p>Please fill in information needed to create your account!</p>
                     <p id="required"> All fields with * needs to be filled in!</p>
-                    
-                    <TextField
+                </div>
+                <div>
+                <TextField
                         required
-                        id="user-name"
-                        label="Username"
-                        placeholder="Enter username"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                        error={errorUserName}
-                        helperText={errorUserName ? "Invalid username." : ""}
+                        id="first-name"
+                        label="Firstname"
+                        placeholder="Enter firstname"
+                        value={userFirstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        error={errorFirstName}
+                        helperText={errorFirstName ? "First name can't be empty." : ""}
+                    />
+                </div>
+                <div>
+                <TextField
+                        required
+                        id="last-name"
+                        label="Lastname"
+                        placeholder="Enter lastname"
+                        value={userLastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        error={errorLastName}
+                        helperText={errorLastName ? "Lastname can't be empty." : ""}
                     />
                 </div>
                 <div>
