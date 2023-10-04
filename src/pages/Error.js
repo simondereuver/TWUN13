@@ -1,4 +1,4 @@
-import "../components/background.css"
+import "../components/Background/background.css"
 
 export default function Error() {
   return (

@@ -1,46 +1,23 @@
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
-const env = require('dotenv');
-const { EnergySavingsLeaf } = require('@mui/icons-material');
-const SignUp = require("../backend/Models");
+const express = require('express')
+require('dotenv').config()
+const userRoutes = require('../backend/Routes/Users')
+const mongoose = require('mongoose')
 
-env.config();
+//express App
+const app = express()
 
-// If problems with Nodemon kör powershell som admin och kör
-//Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-function ConnectToDatabase()
-{
-    mongoose.connect(process.env.DATABASE_ACESS, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log("Database is connected");
-    })
-    .catch((error) => {
-        console.error("Error connecting to database:", error);
-    });
-
-app.listen(5000, () =>{
-    console.log("listening on port 5000");
+//MiddleWare
+app.use(express.json())
+app.get((req,res,next)=>{
+    console.log(req.path,req.method)
+    next()
 })
 
-}
-ConnectToDatabase();
-TestDatabase();
+//Routes
+app.use('/api/users',userRoutes)
 
- 
-
-
-
-async function TestDatabase()
-{
-    const user = new SignUp(
-        {
-            email:'Hello',
-            password:'pass'
-            
-        });
-    user.save();
-    let test = await SignUp.findOne({ email:'Hello' });
-    console.log(test);
-}
+//Connection Database
+mongoose.connect(process.env.DATABASE_ACESS)
+    .then(() => {
+        app.listen(3001,() => console.log('listening on port 3001'))})
+    .catch((error) =>{console.log(error)})
