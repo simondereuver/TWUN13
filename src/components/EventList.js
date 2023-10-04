@@ -1,16 +1,26 @@
-import Event from './Event';
+import React, { Component } from 'react';
 
-export default function EventList(person)
-{
-    console.log("This is length in func",person);
-    return(
-        <div>
-            <ul>
-            </ul>
-        </div>
-    )
+
+class EventList extends Component {
+  constructor() {
+    super();
+    this.state = {
+      events: [],
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.events.map((event) => (
+            <li key={event._id}>{event.title}</li>
+            // Replace "title" with the property name in your MongoDB documents
+          ))}
+        </ul>
+      </div>
+    );
+  }
 }
 
-/* <ul className={`list_of_events ${person.listEvents.length > 5 ? 'scrollable' : ''}`}>
-                {person.EventList.map((person, index) => (
-                <li key={index}>{person}</li> */
+export default EventList;

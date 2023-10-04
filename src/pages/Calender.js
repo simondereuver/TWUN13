@@ -7,6 +7,7 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import EventList from "../components/EventList";
 import DisplayEvent from "../components/DisplayEvent";
+import { Button } from "@mui/material";
 
 
 export default function Calender()
@@ -64,19 +65,19 @@ export default function Calender()
         <div className="container">
             <div className="flex_eventView">
                 <div className="flex_button">
-                    <button className="prevMonth" onClick={prevMonth}>
+                    <Button className="prevMonth" onClick={prevMonth}>
                         <ArrowCircleLeftIcon fontSize="large"/>
-                    </button>
+                    </Button>
                     <h1 className="currentMonth">{getCurrentMonthName()} {currentMonth.getFullYear()}</h1>
-                    <button className="nextMonth" onClick={nextMonth}>
+                    <Button className="nextMonth" onClick={nextMonth}>
                         <ArrowCircleRightIcon fontSize="large"/>
-                    </button>
+                    </Button>
                 </div>
                 <div className="flex_event">
                     <DisplayEvent Event={currentEvent} setEvent={setCurrentEventFunction}></DisplayEvent>
                     {/* Test buttons */}
-                    <button onClick={() => setCurrentEventFunction(event4)}>TestEvent</button>
-                    <button onClick={() => setCurrentEventFunction(null)}>NULL</button>
+                    <Button onClick={() => setCurrentEventFunction(event4)}>TestEvent</Button>
+                    <Button onClick={() => setCurrentEventFunction(null)}>NULL</Button>
                 </div>
            </div>
            <div className="flex_calender">
