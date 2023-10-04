@@ -2,6 +2,7 @@ import './schedulingPopup.css';
 import MultiChoiceDropdown from './MultiChoiceDropdown';
 import BasicTimePicker from './timePicker';
 import React, {useState} from 'react';
+import axios from 'axios';
 
 function SchedulingPopup({formattedDate}) {
 
@@ -14,8 +15,26 @@ function SchedulingPopup({formattedDate}) {
     const handleChangeLocation = (e) =>{
         setTextLocation(e.target.value);
     }
-    //const formattedDate = day.toLocaleDateString();
-    //console.log(formattedDate);
+
+    const [textEventName, setTextEventName] = useState('');
+    const handleEventName = (e) =>{
+        setTextEventName(e.target.value);
+    }
+
+    /*
+    const AddEvent = () =>{
+        const event; // = evnetModule
+        if(axios.get('api', ))
+    }
+*/
+
+    const UpdateEvents = () => {
+
+    }
+
+    const DeleteEvents = () => {
+
+    }
 
     return ( 
         <div className="popup" >
@@ -23,9 +42,24 @@ function SchedulingPopup({formattedDate}) {
                 <header>{formattedDate}</header>
             </div>
             <div className="cudGrid">
-                <button className="create">create</button>
-                <button className="update">update</button>
-                <button className="delete">delete</button>
+                <button className="create" onClick={AddEvent}>create</button>
+                <button className="update" onClick={UpdateEvents}>update</button>
+                <button className="delete" onClick={DeleteEvents}>delete</button>
+            </div>
+            <div>
+                <textarea className='eventName'
+                value={textEventName}
+                onChange={handleEventName}
+                placeholder="eventName"
+                style={{
+                    width: '50%',
+                    height: '35px',
+                    padding: '8px',
+                    boxSizing: 'border-box',
+                    border: '1px solid gray',
+                    borderRadius: '8px',
+                    resize: 'none', 
+                }}/>
             </div>
             <BasicTimePicker/>
             <h3>AvalibleTimes</h3>
