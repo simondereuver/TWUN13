@@ -78,41 +78,8 @@ body {
     width: 200px;
 }
 
-.date{
-    height: 30px;
-    width: 98%;
-    border: 2px solid;
-    font-size: 20px;
-    color: black;
-    font-weight: bolder;
-    text-align: center;
-    padding-top: 5px;
-
-    
-}
-
 .list_days{
     list-style-type:none;
-}
-
-.calendar{
-  width: 80%;
-  margin-left: 20%;
-  border-spacing: 0px;
-}
-.calendar tr {
-  font-weight: bolder;
-  text-align: center;
-}
-
-
-.calendar td {
-  font-weight: bolder;
-  text-align: center;
-  height: 100px;
-  border: 1px solid black;
-  border: none;
-  
 }
 
 .list_events li {

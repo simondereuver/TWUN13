@@ -7,16 +7,22 @@
 .calender_day{
     background: rgb(46,43,43);
     background: linear-gradient(347deg, rgba(46,43,43,1) 0%, rgba(126,126,126,1) 49%, rgba(238,238,238,1) 100%);
-    width: auto;
+    width: 100%;
    
 }
-
 .date{
     border-color: darkgoldenrod;
-    
     background: linear-gradient(0deg, rgba(195,87,34,1) 0%, rgba(253,187,45,1) 100%);
-    color: white;
+    height: 30px;
+    width: 100%;
+    border: 1px solid;
+    box-sizing: border-box;
+    font-size: 20px;
+    color: black;
+    font-weight: bolder;
+    text-align: center;
   }
+
   .place{
     display: flex;
     font-size: 30px;
@@ -40,32 +46,32 @@
 
   /* Calender grid style */
 
-  .calendar{
-    flex: 100%
+  .calendarContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
-  .calendar td{
-    width: 20%;
-    margin:0;
-    padding: 0;
-}
-.calendar td object{
-    width: 90%;
-}
-
-  .calendar tr{
-    width: 20%;
-    margin: 0;
-    padding: 0;
+  
+  .calendar {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
   }
-.list_events{
+  
+  .calendar tbody {
+    width: 100%;
+  }
+  
+  .calendar td {
+    width: 20%;
+  }
+  
+  .list_events {
     margin-right: 10px;
-}
-.list_events li{
+  }
+  
+  .list_events li {
     margin-left: 30px;
     font-size: 1vw;
     color: white;
-}
-.calendarContainer{
-  display: flex;
-}
+  }

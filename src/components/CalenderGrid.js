@@ -1,6 +1,5 @@
 import React from 'react';
 import CalenderDay from './CalenderDay';
-import User from './User';
 import './CalenderStyle.css';
 
 function CalendarGrid({ day, user }) {
@@ -42,7 +41,7 @@ function CalendarGrid({ day, user }) {
   return (
     <div className="calendarContainer">
       <table className="calendar">
-        <tbody>
+        <tbody className='calender'>
           {calendarGrid}
         </tbody>
       </table>
