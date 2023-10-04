@@ -1,5 +1,3 @@
-import Event from './Event';
-
 export default function EventList(person)
 {
     console.log("This is length in func",person);
