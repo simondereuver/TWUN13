@@ -1,16 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-//This is where you put the schemas "templates" for the data you want to store in the template
+const Schema = mongoose.Schema
 
-const SignUpTemplate = new mongoose.Schema({
+const userSchema = new Schema({
     email:{
         type:String,
-        required:true
+        required: true
     },
     password:{
         type:String,
-        required:true
+        required: true
     }
-}) 
+})
 
-module.exports = mongoose.model('SignUp',SignUpTemplate);
+//This creates a collection of element user into a collection of Users
+module.exports = mongoose.model('User',userSchema)

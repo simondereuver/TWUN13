@@ -1,13 +1,13 @@
-import CalenderDay from "../components/CalenderDay";
-import CalenderGrid from "../components/CalenderGrid";
+import CalenderDay from "../components/Calender/CalenderDay"
+import CalenderGrid from "../components/Calender/CalenderGrid"
 import React, { useState } from 'react';
 import User from '../components/User';
-import Event from '../components/Event';
-import SidePanel from '../components/Sidepanel';
-import {SidepanelDataCalender} from '../components/SidepanelData';
+import Event from '../Event/Event'
+import SidePanel from "../components/Sidepanel/Sidepanel";
+import { SidepanelDataCalender } from "../components/Sidepanel/SidepanelData";
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import EventList from "../components/EventList";
+import EventList from "../Event/EventList"
 
 export default function Calender()
 {  

@@ -1,6 +1,6 @@
 import React from 'react';
 import CalenderDay from './CalenderDay';
-import User from './User';
+import User from '../User';
 import './CalenderStyle.css';
 
 function CalendarGrid({ day, user }) {
