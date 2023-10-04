@@ -3,13 +3,9 @@ import "./CalenderStyle.css";
 import BookingWinow from './SchedulingPopup';
 import { Button } from '@mui/material';
 import setCurrentEventFunction from '../pages/Calender';
-import Event from './Event';
 import axios from 'axios';
 
-let event4 = new Event(new Date("2023-08-03"), "JTH", "09.00", ['Simon', 'Simon2', 'Simon4']);
-
 export default function CalenderDay({ day, location, time, attendies }) {
-  // Convert the date object to a string
   const formattedDate = day.toLocaleDateString();
   const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
   const [events, setEvents] = useState([]);
@@ -19,7 +15,6 @@ export default function CalenderDay({ day, location, time, attendies }) {
   };
 
   useEffect(() => {
-    // Fetch events from the database based on the formattedDate
     axios.get(`http://localhost:3000/api/events?date=${formattedDate}`)
       .then((response) => {
         setEvents(response.data);
@@ -30,7 +25,7 @@ export default function CalenderDay({ day, location, time, attendies }) {
   }, [formattedDate]);
 
 
-  //console.log(BookingWindowOpen);
+  console.log(formattedDate);
   console.log("This is date",formattedDate)
   return (
     <div className="calender_day">
@@ -39,7 +34,7 @@ export default function CalenderDay({ day, location, time, attendies }) {
       </header>
       {events.map((event) => (
         <Button key={event.id} onClick={() => setCurrentEventFunction(event)}>
-          {event.location}
+          {event.location} {event.time}
         </Button>
       ))}
       <div>
