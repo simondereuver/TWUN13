@@ -1,5 +1,5 @@
 import {Outlet} from 'react-router-dom';
-import NavigationBar from '../components/Navigationbar';
+import NavigationBar from '../components/NavigationBar/Navigationbar';
 
 export default function RootLayout(){
     return(

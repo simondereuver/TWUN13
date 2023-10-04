@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import "./CalenderStyle.css";
+<<<<<<< HEAD:src/components/CalenderDay.js
 import BookingWinow from './SchedulingPopup';
 import { Button } from '@mui/material';
 import setCurrentEventFunction from '../pages/Calender';
@@ -9,6 +10,13 @@ export default function CalenderDay({ day, location, time, attendies }) {
   const formattedDate = day.toLocaleDateString();
   const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
   const [events, setEvents] = useState([]);
+=======
+import BookingWinow from '../SchedulingPopup';
+import {useState} from 'react';
+export default function CalenderDay({ day, location, time, attendies }) {
+  // Convert the date object to a string
+  const formattedDate = day.toLocaleDateString();
+>>>>>>> main:src/components/Calender/CalenderDay.js
 
   const toggleBookingWindow = () => {
     setBookingWindowOpen(!bookingWindowOpen);
