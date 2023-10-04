@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const env = require('dotenv');
 const { EnergySavingsLeaf } = require('@mui/icons-material');
 const SignUp = require("../backend/Models");
+const eventModule = require('../backend/eventModule'); 
 
 env.config();
 
@@ -27,9 +28,8 @@ app.listen(5000, () =>{
 }
 ConnectToDatabase();
 TestDatabase();
-
+//AddEvent();
  
-
 
 
 async function TestDatabase()
@@ -44,3 +44,20 @@ async function TestDatabase()
     let test = await SignUp.findOne({ email:'Hello' });
     console.log(test);
 }
+
+/*
+async function AddEvent()
+{
+    const newEvent = new eventModule({
+        email: "samuel.leyonberg@gmail.com",
+        eventname: "test",
+        date: new Date().toDateString(),
+        time: "123",
+        location: "here",
+        agenda: "Just for test"
+    });
+    newEvent.save();
+    let test = await eventModule.findOne({ email:'samuel.leyonberg@gmail.com' });
+    console.log(test);
+}
+*/

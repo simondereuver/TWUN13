@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { request } = require('http');
+import {CalendarDayEvents} from './Models';
 
 router.post('/signup',(req,res) =>
 {
-    const newUser = new SignUpTemplateCpy({
+    const newUser = new CalendarDayEvents({
         email:request.body.email,
         password:request.body.password
     })
