@@ -11,7 +11,7 @@ function validateLastname(lastname) {
 function validateEmail(email) {
     const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     //returns true if success or false if not
-    return (emailValidation.test(userEmail));
+    return emailValidation.test(email);
 }
 
 function validatePassword(password1, password2) {

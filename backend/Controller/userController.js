@@ -45,14 +45,25 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   const userData = req.body;
+  console.log("Before parsed userdata");
+  
+  console.log("After parsed userdata");
+  
   const email = userData.email;
-  const passwordOne = userData.passwordOne;
+  const password = userData.passwordOne;
   const passwordTwo = userData.passwordTwo;
+  console.log("Email: ", email);
+  
+  console.log("Email: ", userData.email);
+  
+  console.log("Before validating");
 
   if (!validateEmail(email)) {
+    console.log("usercontroller1");
     return res.status(400).json({ error: "Email" });
   }
-  if (!validatePassword(passwordOne, passwordTwo)) {
+  if (!validatePassword(password, passwordTwo)) {
+    console.log("usercontroller2");
     return res.status(400).json({ error: "Password" });
   }
 
@@ -65,11 +76,18 @@ const createUser = async (req, res) => {
     return res.status(400).json({ error: 'Invalid lastname' });
   }
   */
-
+  console.log("Before printing values");
+  console.log("Email: ", email);
+  
+  //console.log("Email: ", parsedUserData.email);
+  //console.log("Password: ", parsedUserData.passwordOne);
   try {
-    const user = await User.create({ email, passwordOne });
+    const user = await User.create({ email, password });
+    console.log("usercontroller3");
     res.status(200).json(user);
   } catch (error) {
+    console.log("usercontroller4");
+    console.log("Error:", error);
     res.status(400).json({ error: error.message });
   }
 };

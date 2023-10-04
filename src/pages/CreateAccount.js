@@ -20,7 +20,7 @@ function CreateAccountForm () {
     const [errorEmail, setErrorEmail] = useState(false);
     const [userEmail, setEmail] = useState('');
     //Move to model and server logic once it needs to be implemented
-    const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const [errorFirstName, setErrorFirstName] = useState(false);
     const [userFirstName, setFirstName] = useState('');
@@ -41,14 +41,28 @@ function CreateAccountForm () {
         passwordOne: password1,
         passwordTwo: password2,
     };
-    const handleSignUpClick = () => {
 
-        axios.post('api/users', userData)
+    //Conver the userData to Json
+    const userDataJSON = JSON.stringify(userData);
+    const handleSignUpClick = async () => {
+        console.log("start of handleSignupclick");
+        console.log("json");
+        console.log(userDataJSON);
+        console.log("notjson");
+        console.log(userData);
+        console.log("single prints");
+        console.log(userData.email);
+        console.log(userData.passwordOne);
+        console.log(userDataJSON.email);
+        try {
+        await axios.post('http://localhost:3001/api/users', userData)
         .then((res) => {
             console.log("Succesfully created user, cool stuff. Here is the user:\n");
             console.log(res);
         })
-        .catch((error) => {
+        } catch(error) {
+            /*
+            console.log("Error from axios post", error);
             if (error === "Email"){
                 setErrorEmail(true);
             }
@@ -60,8 +74,22 @@ function CreateAccountForm () {
             }
             else {
                 setErrorPassword(false);
+            }*/
+            
+
+            const serverError = error.response.data.error;
+    
+            if (serverError === "Email") {
+                setErrorEmail(true);
+            } else if (serverError === "Password") {
+                setErrorPassword(true);
+            } else {
+                console.log("Error from axios post", error.response.data);
+                setErrorEmail(false);
+                setErrorPassword(false);
             }
-        })
+        };
+    
         //Put a fetch request here to the server-side once it has been implemented
         //Maybe return an array with true or false and index into the if-cases to set the error boxes instead.
 
@@ -94,7 +122,7 @@ function CreateAccountForm () {
             setErrorLastName(false);
         }
         
-       
+        console.log("end of handleSignupclick");
     };
     
     
