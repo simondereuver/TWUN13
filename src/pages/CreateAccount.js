@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import "./CreateAccount.css";
 import countryList from '../data/countriesData';
+import axios from 'axios';
 
 function CreateAccountForm () {
 
@@ -32,14 +33,41 @@ function CreateAccountForm () {
         setSelectedCountry(event.target.value);
     };
 
-    
+    const userData = {
+        //finish implementaion once database schema for user is updated.
+        //firstname: userFirstName,
+        //lastname: userLastName,
+        email: userEmail,
+        passwordOne: password1,
+        passwordTwo: password2,
+    };
     const handleSignUpClick = () => {
 
+        axios.post('api/users', userData)
+        .then((res) => {
+            console.log("Succesfully created user, cool stuff. Here is the user:\n");
+            console.log(res);
+        })
+        .catch((error) => {
+            if (error === "Email"){
+                setErrorEmail(true);
+            }
+            else {
+                setErrorEmail(false);
+            }
+            if (error === "Password"){
+                setErrorPassword(true);
+            }
+            else {
+                setErrorPassword(false);
+            }
+        })
         //Put a fetch request here to the server-side once it has been implemented
         //Maybe return an array with true or false and index into the if-cases to set the error boxes instead.
 
         //We actually want to send this to the model via controller and handle the sign up logic there
         //move this to server side, just send the information over and do something similar like this
+        /*
         if (password1 !== password2) {
             setErrorPassword(true);
         } else {
@@ -51,6 +79,7 @@ function CreateAccountForm () {
         } else {
             setErrorEmail(false);
         }
+        */
 
         //add check for username in users in server/model for now just set to false
         if(userFirstName === ""){
@@ -64,6 +93,7 @@ function CreateAccountForm () {
         else {
             setErrorLastName(false);
         }
+        
        
     };
     

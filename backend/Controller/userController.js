@@ -1,7 +1,7 @@
 //Models
 const User = require('../Models/Models');
 const mongoose = require('mongoose')
-
+const { validateFirstname, validateLastname, validateEmail, validatePassword } = require('../Models/InputValidation');
 
 //API: Endpoint: /api/users/id 
 //WHAT: Returns a user from database based on MONGO ID or email
@@ -44,9 +44,30 @@ const getUser = async (req, res) => {
         //BODY {"email": "bababoi@gmail.com", "password": "secure"}
 
 const createUser = async (req, res) => {
-  const { email, password } = req.body;
+  const userData = req.body;
+  const email = userData.email;
+  const passwordOne = userData.passwordOne;
+  const passwordTwo = userData.passwordTwo;
+
+  if (!validateEmail(email)) {
+    return res.status(400).json({ error: "Email" });
+  }
+  if (!validatePassword(passwordOne, passwordTwo)) {
+    return res.status(400).json({ error: "Password" });
+  }
+
+  /*
+  FINISH THIS IMPLEMENTATION ONCE USERSCHEMA IN DATABASE HAS BEEN UPDATED
+  if (!validateFirstName(userData.firstname)) {
+    return res.status(400).json({ error: 'Invalid firstname' });
+  }
+  if (!validateLastName(userData.lastname)) {
+    return res.status(400).json({ error: 'Invalid lastname' });
+  }
+  */
+
   try {
-    const user = await User.create({ email, password });
+    const user = await User.create({ email, passwordOne });
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
