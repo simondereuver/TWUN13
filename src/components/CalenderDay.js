@@ -11,39 +11,40 @@ let event4 = new Event(new Date("2023-08-03"), "JTH", "09.00", ['Simon', 'Simon2
 export default function CalenderDay({ day, location, time, attendies }) {
   // Convert the date object to a string
   const formattedDate = day.toLocaleDateString();
-  const [BookingWindowOpen, SetBookingWindowOpen] = useState(false);
-  const [eventsExist, setEventsExist] = useState(false);
+  const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
+  const [events, setEvents] = useState([]);
+
   const toggleBookingWindow = () => {
-    SetBookingWindowOpen(!BookingWindowOpen)
+    setBookingWindowOpen(!bookingWindowOpen);
   };
 
   useEffect(() => {
-    // Fetch events and set the eventsExist state based on the result
-    axios.get('http://localhost:3000/api/events')
+    // Fetch events from the database based on the formattedDate
+    axios.get(`http://localhost:3000/api/events?date=${formattedDate}`)
       .then((response) => {
-        const filteredEvents = response.data.filter((event) => event.startDate >= formattedDate);
-        setEventsExist(filteredEvents.length > 0); // Check if events exist
+        setEvents(response.data);
       })
       .catch((error) => {
         console.error('Error fetching events:', error);
       });
-  }, []);
+  }, [formattedDate]);
 
 
-  console.log(BookingWindowOpen);
+  //console.log(BookingWindowOpen);
   console.log("This is date",formattedDate)
   return (
     <div className="calender_day">
       <header className="date" onClick={toggleBookingWindow}>
         {formattedDate}
       </header>
-      {eventsExist && (
-        <Button onClick={() => setCurrentEventFunction(event4)}>{event4.location}</Button>
-      )}
+      {events.map((event) => (
+        <Button key={event.id} onClick={() => setCurrentEventFunction(event)}>
+          {event.location}
+        </Button>
+      ))}
       <div>
-          {/* Render LoginWindow when loginWindowOpen is true */}
-          {BookingWindowOpen && <BookingWinow formattedDate={formattedDate}/>} 
-        </div>
+        {bookingWindowOpen && <BookingWinow formattedDate={formattedDate} />}
+      </div>
     </div>
   );
 }
