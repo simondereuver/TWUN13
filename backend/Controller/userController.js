@@ -1,7 +1,7 @@
 //Models
 const User = require('../Models/Models');
 const mongoose = require('mongoose')
-
+const { validateFirstname, validateLastname, validateEmail, validatePassword } = require('./InputValidation');
 
 //API: Endpoint: /api/users/id 
 //WHAT: Returns a user from database based on MONGO ID or email
@@ -45,11 +45,45 @@ const getUser = async (req, res) => {
         //BODY {"email": "bababoi@gmail.com", "password": "secure"}
 
 const createUser = async (req, res) => {
-  const { email, password } = req.body;
+
+  //extract the information from the user input
+  const userData = req.body;  
+  const email = userData.email;
+  const password = userData.passwordOne;
+  const passwordTwo = userData.passwordTwo; 
+
+  //Some console logs for bug searching
+  console.log("Before validating");
+
+  if (!validateEmail(email)) {
+    console.log("Validating email failed");
+    return res.status(400).json({ error: "Email" });
+  }
+  if (!validatePassword(password, passwordTwo)) {
+    console.log("Validating password failed");
+    return res.status(400).json({ error: "Password" });
+  }
+  
+  /*
+  FINISH THIS IMPLEMENTATION ONCE USERSCHEMA IN DATABASE HAS BEEN UPDATED
+  if (!validateFirstName(userData.firstname)) {
+    return res.status(400).json({ error: 'Invalid firstname' });
+  }
+  if (!validateLastName(userData.lastname)) {
+    return res.status(400).json({ error: 'Invalid lastname' });
+  }
+  */
+
+  console.log("After validating");
+  
+  //Try adding the user to database
   try {
     const user = await User.create({ email, password });
+    console.log("usercontroller3");
     res.status(200).json(user);
   } catch (error) {
+    console.log("usercontroller4");
+    console.log("Error:", error);
     res.status(400).json({ error: error.message });
   }
 };
