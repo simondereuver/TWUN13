@@ -7,6 +7,7 @@ import axios from 'axios';
 
 export default function CalenderDay({ day, location, time, attendies }) {
   const formattedDate = day.toLocaleDateString();
+  const NameID = "gustav";
   const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
@@ -15,7 +16,7 @@ export default function CalenderDay({ day, location, time, attendies }) {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/events?date=${formattedDate}`)
+    axios.get(`http://localhost:3001/api/events/${NameID}/${formattedDate}`)
       .then((response) => {
         setEvents(response.data);
       })
