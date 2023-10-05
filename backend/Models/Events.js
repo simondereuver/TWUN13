@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const eventSchema = new Schema({
+    email:{
+        type:String,
+        required:true
+    },
     eventName:{
         type:String,
         required: true
@@ -22,10 +26,6 @@ const eventSchema = new Schema({
    },
    attendies:{
     type:Array,
-   },
-   votable:{
-    type:Boolean,
-    required:true
    }
 })
 
