@@ -25,7 +25,7 @@ export default function CalenderDay({ day, location, time, attendies }) {
       });
   }, [formattedDate]);
 
-
+  console.log(events);
   console.log(formattedDate);
   console.log("This is date",formattedDate)
   return (
