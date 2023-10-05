@@ -25,9 +25,9 @@ const mongoose = require('mongoose')
     const getUserEventsTime = async (req,res) => {
         try{
             const {id,date,time} = req.params
-
-            const user = await User.findOne({email: id})
-            const events = await Event.find({email:id,date:date,time:time})
+            console.log('getUserEventsTime called');
+            const events = await Event.findOne({email:id,date:date,time:time})
+            console.log(events);
     
         if(!events)
         {
@@ -40,8 +40,36 @@ const mongoose = require('mongoose')
         }
     }
 
+    const createEvent = async (req, res) => {
+        try {
+            const { email, eventName, date, time, location, agenda, attendies } = req.body;
+            const event = await Event.create({
+                email,
+                eventName,
+                date,
+                time,
+                location,
+                agenda,
+                attendies
+            });
+
+            if (!event) {
+                return res.status(400).json({ error: "Could not create event" });
+            }
+
+            // Send a success response
+            return res.status(201).json({ message: "Event created successfully", event });
+        } catch (error) {
+            console.error("Error creating event:", error);
+            // Handle the error and send an appropriate response
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+    };
+
+
 
 module.exports = {
     getUserEvents,
-    getUserEventsTime
+    getUserEventsTime,
+    createEvent
 };

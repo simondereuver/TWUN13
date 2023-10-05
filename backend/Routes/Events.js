@@ -1,5 +1,5 @@
 const express = require('express');
-const {getUserEvents, getUserEventsTime} = require('../Controller/eventController')
+const {getUserEvents, getUserEventsTime, createEvent} = require('../Controller/eventController')
 
 const eventRouter = express.Router()
 
@@ -9,5 +9,7 @@ eventRouter.get('/:id/:date',getUserEvents)
 
 //Get User events on specific time and date
 eventRouter.get('/:id/:date/:time',getUserEventsTime)
+
+eventRouter.post('/', createEvent)
 
 module.exports = eventRouter
