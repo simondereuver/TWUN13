@@ -14,7 +14,7 @@ const mongoose = require('mongoose')
             const { id,date } = req.params;  
             const events = await Event.find({attendies: id , date: date})
             console.log(events)
-            if(!events)
+            if(events.length <= 0)
             {
                 return res.status(404).json({mssg: "No Events found"}) 
             }
@@ -31,7 +31,7 @@ const mongoose = require('mongoose')
     const getUserEventsTime = async (req,res) => {
         try{
             const {id,date,time} = req.params
-
+            
             const events = await Event.findOne({attendies:id, date:date,time:time})
     
             if(!events)

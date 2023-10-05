@@ -47,9 +47,18 @@ const getUser = async (req, res) => {
 
 //TESTED: WORKS
 const createUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, firstname,lastname,country } = req.body;
   try {
-    const user = await User.create({ email, password });
+    //const existingUser = await User.getUser(email)
+    
+    /*
+    if(existingUser == res.status(200))
+
+      return res.status(409).json({message: 'User already exists'})
+    }
+    */
+    //if get user returns 200 then return error 
+    const user = await User.create({ email, password,firstname,lastname,country });
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -65,13 +74,16 @@ const createUser = async (req, res) => {
 //TESTED: WORKS
 
 const updateUser = async (req, res) => {
-  const { id } = req.params;
+  const { id, password,firstname,lastname,country } = req.params;
 
   // Check if the provided parameter is a valid ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     // If it's not a valid ObjectId, assume it's an email
     try {
-      const user = await User.findOneAndUpdate({ email: id }, { ...req.body });
+      const user = await User.findOneAndUpdate(
+        { email: id }, // Match the user based on the email
+        { $set: { ...req.body }})
+
 
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
@@ -81,19 +93,6 @@ const updateUser = async (req, res) => {
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
-  }
-
-  // If a valid ObjectId, update the user by ID
-  try {
-    const user = await User.findByIdAndUpdate(id, { ...req.body });
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    return res.status(200).json({ message: 'User was updated' });
-  } catch (error) {
-    return res.status(400).json({ error: error.message });
   }
 };
 
