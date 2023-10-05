@@ -4,17 +4,21 @@ const Event = require('../Models/Events')
 const mongoose = require('mongoose')
 
 
+//API: Endpoint: /api/events/:id
+//WHAT: Updates a user on a PATCH reqqust 
+//USE: PATCH localhost.../api/users/id 
+    // PATCH localhost../api/users/bababoi@gmail.com
+        //BODY {"email": "bababoi@gmail.com", "password": "secure"}
     const getUserEvents = async (req, res) => {
         try {
-
             const { id,date } = req.params;  
-            const user = await User.findOne({ email: id });
-            const events = await Event.find({attendies: id,date:date})
-
+            const events = await Event.find({attendies: id , date: date})
+            console.log(events)
             if(!events)
             {
                 return res.status(404).json({mssg: "No Events found"}) 
             }
+            return res.status(200).json(events);
             
           }
       catch(error){
@@ -22,23 +26,31 @@ const mongoose = require('mongoose')
       }
     }
 
+
+
     const getUserEventsTime = async (req,res) => {
         try{
             const {id,date,time} = req.params
-            console.log('getUserEventsTime called');
-            const events = await Event.findOne({email:id,date:date,time:time})
-            console.log(events);
+
+            const events = await Event.findOne({attendies:id, date:date,time:time})
     
-        if(!events)
-        {
-            return res.status(404).json({mssg:"No events found"})
-        }
-    
+            if(!events)
+            {
+                return res.status(404).json({mssg:"No events found"})
+            }
+        return res.status(200).json(events);
+
         }
         catch(error){
             return res.status(500).json({mssg:"Internal Server error"})
         }
     }
+
+
+//API: Endpoint: /api/events/
+//WHAT: Creates a new event 
+//USE: PATCH localhost.../api/events/
+        //BODY {"email", "eventName", "date", "time", location, agenda, attendies, votable }
 
     const createEvent = async (req, res) => {
         try {
@@ -50,13 +62,13 @@ const mongoose = require('mongoose')
                 time,
                 location,
                 agenda,
-                attendies
+                attendies,
             });
-
+    
             if (!event) {
                 return res.status(400).json({ error: "Could not create event" });
             }
-
+    
             // Send a success response
             return res.status(201).json({ message: "Event created successfully", event });
         } catch (error) {
@@ -65,11 +77,49 @@ const mongoose = require('mongoose')
             return res.status(500).json({ error: "Internal Server Error" });
         }
     };
+    
 
+    const updateEvent = async (req, res) => {
+        const { id,date,time} = req.params;
+      
+        // Check if the provided parameter is a valid ObjectId
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+          // If it's not a valid ObjectId, assume it's an email
+          try {
+            const user = await Event.findOneAndUpdate({ email: id,date: date,time:time }, { ...req.body });
+
+      
+            if (!user) {
+              return res.status(404).json({ error: 'User not found' });
+            }
+      
+            return res.status(200).json({ message: 'User was updated' });
+          } catch (error) {
+            return res.status(400).json({ error: error.message });
+          }
+        }
+      };
+
+const deleteEvent = async (req,res) => {
+    const {id,date,time} = req.body
+    try{
+         if (!mongoose.Types.ObjectId.isValid(id)) {
+            const event = await Event.findByIdAndDelete({email:id,date:date,time:time})
+
+            if(!event){
+                return res.status(404).json({error: 'No event found to delete'})
+            }
+            res.status(200.).json({message:'User was deleted'})
+        }
+      }
+      catch(error)
+      {
+        return res.status(400).json({ error: error.message })
+      }
+    }
 
 
 module.exports = {
     getUserEvents,
-    getUserEventsTime,
-    createEvent
+    getUserEventsTime
 };

@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 const eventSchema = new Schema({
     email:{
-        type: String,
-        required: true
+        type:String,
+        required:true
     },
     eventName:{
         type:String,
@@ -26,7 +26,7 @@ const eventSchema = new Schema({
    },
    attendies:{
     type:Array,
-   },
+   }
 })
 
 module.exports = mongoose.model('event',eventSchema)

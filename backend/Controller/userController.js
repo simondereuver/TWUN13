@@ -8,6 +8,8 @@ const { validateFirstname, validateLastname, validateEmail, validatePassword } =
 //USE: GET localhost.../api/users/123 (for ID)
     //GET localhost.../api/users/bababoi@gmail.com
 
+//TESTED: WORKS
+
 const getUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,6 +46,7 @@ const getUser = async (req, res) => {
 
         //BODY {"email": "bababoi@gmail.com", "password": "secure"}
 
+//TESTED: WORKS
 const createUser = async (req, res) => {
 
   //extract the information from the user input
@@ -94,6 +97,7 @@ const createUser = async (req, res) => {
     // PATCH localhost../api/users/bababoi@gmail.com
         //BODY {"email": "bababoi@gmail.com", "password": "secure"}
 
+//TESTED: WORKS
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
