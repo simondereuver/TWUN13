@@ -1,7 +1,7 @@
 //Models
 const User = require('../Models/Models');
 const mongoose = require('mongoose')
-const { validateFirstname, validateLastname, validateEmail, validatePassword } = require('../Models/InputValidation');
+const { validateFirstname, validateLastname, validateEmail, validatePassword } = require('./InputValidation');
 
 //API: Endpoint: /api/users/id 
 //WHAT: Returns a user from database based on MONGO ID or email
@@ -44,29 +44,25 @@ const getUser = async (req, res) => {
         //BODY {"email": "bababoi@gmail.com", "password": "secure"}
 
 const createUser = async (req, res) => {
-  const userData = req.body;
-  console.log("Before parsed userdata");
-  
-  console.log("After parsed userdata");
-  
+
+  //extract the information from the user input
+  const userData = req.body;  
   const email = userData.email;
   const password = userData.passwordOne;
-  const passwordTwo = userData.passwordTwo;
-  console.log("Email: ", email);
-  
-  console.log("Email: ", userData.email);
-  
+  const passwordTwo = userData.passwordTwo; 
+
+  //Some console logs for bug searching
   console.log("Before validating");
 
   if (!validateEmail(email)) {
-    console.log("usercontroller1");
+    console.log("Validating email failed");
     return res.status(400).json({ error: "Email" });
   }
   if (!validatePassword(password, passwordTwo)) {
-    console.log("usercontroller2");
+    console.log("Validating password failed");
     return res.status(400).json({ error: "Password" });
   }
-
+  
   /*
   FINISH THIS IMPLEMENTATION ONCE USERSCHEMA IN DATABASE HAS BEEN UPDATED
   if (!validateFirstName(userData.firstname)) {
@@ -76,11 +72,10 @@ const createUser = async (req, res) => {
     return res.status(400).json({ error: 'Invalid lastname' });
   }
   */
-  console.log("Before printing values");
-  console.log("Email: ", email);
+
+  console.log("After validating");
   
-  //console.log("Email: ", parsedUserData.email);
-  //console.log("Password: ", parsedUserData.passwordOne);
+  //Try adding the user to database
   try {
     const user = await User.create({ email, password });
     console.log("usercontroller3");
