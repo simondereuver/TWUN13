@@ -5,9 +5,10 @@ import { Button } from '@mui/material';
 import setCurrentEventFunction from '../../pages/Calender';
 import axios from 'axios';
 
-export default function CalenderDay({ day, location, time, attendies }) {
+export default function CalenderDay({ day }) {
   const formattedDate = day.toLocaleDateString();
-  const NameID = "gustav";
+  const date = day.toISOString();
+  const NameID = "Gustav";
   const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
@@ -16,26 +17,26 @@ export default function CalenderDay({ day, location, time, attendies }) {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/events/${NameID}/${formattedDate}`)
+    axios
+      .get(`http://localhost:3001/api/events/${NameID}/${date}`)
       .then((response) => {
         setEvents(response.data);
       })
       .catch((error) => {
         console.error('Error fetching events:', error);
       });
-  }, [formattedDate]);
+  }, [date]);
 
+  console.log(date);
   console.log(events);
-  console.log(formattedDate);
-  console.log("This is date",formattedDate)
   return (
     <div className="calender_day">
       <header className="date" onClick={toggleBookingWindow}>
         {formattedDate}
       </header>
-      {events.map((event) => (
-        <Button key={event.id} onClick={() => setCurrentEventFunction(event)}>
-          {event.location} {event.time}
+      {events.map((events) => (
+        <Button key={events.id} onClick={() => setCurrentEventFunction(events)}>
+          {events.location} {events.times}
         </Button>
       ))}
       <div>
