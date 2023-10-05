@@ -2,7 +2,7 @@ import React from 'react';
 import CalenderDay from './CalenderDay';
 import './CalenderStyle.css';
 
-function CalendarGrid({ day }) {
+function CalendarGrid({ day, monthChanged, setEvent}) {
   const numDaysInMonth = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate();
   const calendarGrid = [];
 
@@ -16,6 +16,8 @@ function CalendarGrid({ day }) {
           <td key={c}>
             <CalenderDay
               day={currentDate}
+              monthChanged={monthChanged}
+              setEventCallBack={setEvent}
             />
           </td>
         );

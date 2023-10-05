@@ -75,3 +75,9 @@
     font-size: 1vw;
     color: white;
   }
+
+  .event{
+    text-align: center;
+    width: 100%;
+    color:black;
+  }
