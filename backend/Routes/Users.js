@@ -4,19 +4,16 @@ const {createUser,getUser,updateUser} = require('../Controller/userController')
 
 
 //Router
-const router = express.Router();
+const Userrouter = express.Router();
 
-router.get('/',(req,res) =>{
-    res.json({mssg:'GET USERS'})
-})
 
 //Get user
-router.get('/:id',getUser)
+Userrouter.get('/:id',getUser)
 
 //Create a new user
-router.post('/', createUser)
+Userrouter.post('/', createUser)
 
 //Update a user 
-router.patch('/:id',updateUser)
+Userrouter.patch('/:id',updateUser)
 
-module.exports = router;
+module.exports = Userrouter;

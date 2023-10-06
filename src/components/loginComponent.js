@@ -8,8 +8,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import { deepPurple } from '@mui/material/colors';
 
 function LoginWindow() {
 

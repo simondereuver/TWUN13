@@ -1,41 +1,53 @@
-import React from 'react';
-import RoomIcon from '@mui/icons-material/Room';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import React, {useState, useEffect} from 'react';
 import "./CalenderStyle.css";
 import BookingWinow from '../SchedulingPopup';
-import {useState} from 'react';
-export default function CalenderDay({ day, location, time, attendies }) {
-  // Convert the date object to a string
-  const formattedDate = day.toLocaleDateString();
+import { Button } from '@mui/material';
+import axios from 'axios';
 
-  const [BookingWindowOpen, SetBookingWindowOpen] = useState(false);
+export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
+  const formattedDate = day.toLocaleDateString();
+  const isoDateTime = new Date(day.getTime() - (day.getTimezoneOffset() * 60000)).toISOString();
+  /*THIS IS CURRENTLY WHAT ATTENDE NAME IT LOOKS FOR*/
+  const NameID = "Gustav";
+  const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
+  const [events, setEvents] = useState([]);
+
   const toggleBookingWindow = () => {
-    SetBookingWindowOpen(!BookingWindowOpen)
+    setBookingWindowOpen(!bookingWindowOpen);
   };
-  console.log(BookingWindowOpen);
-  console.log("This is date",formattedDate)
+
+  useEffect(() => {
+    if (monthChanged) {
+      setEvents([]);
+    }
+    axios
+      .get(`http://localhost:3001/api/events/${NameID}/${isoDateTime}`)
+      .then((response) => {
+        setEvents(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching events:', error);
+      });
+  }, [isoDateTime, monthChanged]);
+
+  console.log(isoDateTime);
+  console.log(events);
   return (
     <div className="calender_day">
       <header className="date" onClick={toggleBookingWindow}>
         {formattedDate}
       </header>
-      <h1 className="place">
-        <RoomIcon />
-        {location}
-      </h1>
-      <h2 className="time">
-        <AccessTimeIcon />
-        {time}
-      </h2>
-      <ul className={`list_events ${attendies.length > 3 ? 'scrollable' : ''}`}>
-        {attendies.map((person, index) => (
-          <li key={index}>{person}</li>
-        ))}
-      </ul>
+      {events &&
+        events
+          .sort((a, b) => a.time.localeCompare(b.time))
+          .map((event) => (
+            <Button className='event' style={{ color: 'black' }}  onClick={() => setEventCallBack(event)}>
+              {event.location}  |  {event.time}
+            </Button>
+          ))}
       <div>
-          {/* Render LoginWindow when loginWindowOpen is true */}
-          {BookingWindowOpen && <BookingWinow formattedDate={formattedDate}/>} 
-        </div>
+        {bookingWindowOpen && <BookingWinow formattedDate={formattedDate} />}
+      </div>
     </div>
   );
 }
