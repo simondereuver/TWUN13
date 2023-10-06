@@ -9,57 +9,26 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import "./CreateAccount.css";
 import countryList from '../data/countriesData';
+import axios from 'axios';
 
 function CreateAccountForm () {
 
+    //For email
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [userEmail, setEmail] = useState('');
+
+    //For firstname
+    const [errorFirstName, setErrorFirstName] = useState(false);
+    const [userFirstName, setFirstName] = useState('');
+
+    //For lastname
+    const [errorLastName, setErrorLastName] = useState(false);
+    const [userLastName, setLastName] = useState('');
+
+    //for password
     const [errorPassword, setErrorPassword] = useState(false);
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
-
-    const [errorEmail, setErrorEmail] = useState(false);
-    const [userEmail, setEmail] = useState('');
-    //Move to model and server logic once it needs to be implemented
-    const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    const [errorUserName, setErrorUserName] = useState(false);
-    const [userName, setUserName] = useState('');
-
-    const [selectedCountry, setSelectedCountry] = useState("");
-
-    const handleChange = (event) => {
-        setSelectedCountry(event.target.value);
-    };
-
-    
-    const handleSignUpClick = () => {
-
-        //Put a fetch request here to the server-side once it has been implemented
-        //Maybe return an array with true or false and index into the if-cases to set the error boxes instead.
-
-        //We actually want to send this to the model via controller and handle the sign up logic there
-        //move this to server side, just send the information over and do something similar like this
-        if (password1 !== password2) {
-            setErrorPassword(true);
-        } else {
-            setErrorPassword(false);
-        }
-    
-        if (!emailValidation.test(userEmail)) {
-            setErrorEmail(true);
-        } else {
-            setErrorEmail(false);
-        }
-
-        //add check for username in users in server/model for now just set to false
-        if(userName === ""){
-            setErrorUserName(true);
-        } else {
-            setErrorUserName(false);
-        }
-       
-    };
-    
-    
 
     const [showPassword1, setShowPassword1] = React.useState(false);
     const [showPassword2, setShowPassword2] = React.useState(false);
@@ -69,6 +38,62 @@ function CreateAccountForm () {
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
+    };
+
+    //For selecting country
+    const [selectedCountry, setSelectedCountry] = useState("");
+
+    const handleChange = (event) => {
+        setSelectedCountry(event.target.value);
+    };
+
+    const userData = {
+        //finish implementaion once database schema for user is updated.
+        //firstname: userFirstName,
+        //lastname: userLastName,
+        //country: selectedCountry,
+        email: userEmail,
+        passwordOne: password1,
+        passwordTwo: password2,
+    };
+
+    const handleSignUpClick = async () => {
+
+        try {
+        await axios.post('http://localhost:3001/api/users', userData)
+        .then((res) => {
+            console.log("Succesfully created user, cool stuff. Here is the user:\n");
+            console.log(res);
+            setErrorEmail(false);
+            setErrorPassword(false);
+        })
+        } catch(error) {
+            
+            const serverError = error.response.data.error;
+            //set error states on input fields
+            if (serverError === "Email") {
+                setErrorEmail(true);
+            } else if (serverError === "Password") {
+                setErrorPassword(true);
+            } else {
+                console.log("Error from axios post", error.response.data);
+                setErrorEmail(false);
+                setErrorPassword(false);
+            }
+        };
+        
+        //once database schema for users has been updated create more error messages similar to password and email
+        if(userFirstName === ""){
+            setErrorFirstName(true);
+        } else {
+            setErrorFirstName(false);
+        }
+        if(userLastName === ""){
+            setErrorLastName(true);
+        }
+        else {
+            setErrorLastName(false);
+        }
     };
 
     return (
@@ -84,16 +109,29 @@ function CreateAccountForm () {
                 <div>
                     <p>Please fill in information needed to create your account!</p>
                     <p id="required"> All fields with * needs to be filled in!</p>
-                    
-                    <TextField
+                </div>
+                <div>
+                <TextField
                         required
-                        id="user-name"
-                        label="Username"
-                        placeholder="Enter username"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                        error={errorUserName}
-                        helperText={errorUserName ? "Invalid username." : ""}
+                        id="first-name"
+                        label="Firstname"
+                        placeholder="Enter firstname"
+                        value={userFirstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        error={errorFirstName}
+                        helperText={errorFirstName ? "First name can't be empty." : ""}
+                    />
+                </div>
+                <div>
+                <TextField
+                        required
+                        id="last-name"
+                        label="Lastname"
+                        placeholder="Enter lastname"
+                        value={userLastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        error={errorLastName}
+                        helperText={errorLastName ? "Lastname can't be empty." : ""}
                     />
                 </div>
                 <div>

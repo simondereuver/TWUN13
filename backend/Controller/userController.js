@@ -1,7 +1,7 @@
 //Models
 const User = require('../Models/Models');
 const mongoose = require('mongoose')
-
+const { validateFirstname, validateLastname, validateEmail, validatePassword } = require('./InputValidation');
 
 //API: Endpoint: /api/users/id 
 //WHAT: Returns a user from database based on MONGO ID or email
@@ -47,23 +47,45 @@ const getUser = async (req, res) => {
 
 //TESTED: WORKS
 const createUser = async (req, res) => {
-  const { email, password, firstname,lastname,country } = req.body;
-  try {
-    //const existingUser = await User.getUser(email)
-    
-    /*
-    if(existingUser == res.status(200))
+  const { email, password,passwordOne, firstname,lastname,country } = req.body;
+try {
+    //Some console logs for bug searching
+    console.log("Before validating");
 
-      return res.status(409).json({message: 'User already exists'})
+    if (!validateEmail(email)) {
+      console.log("Validating email failed");
+        return res.status(400).json({ error: "Email" });
     }
-    */
-    //if get user returns 200 then return error 
-    const user = await User.create({ email, password,firstname,lastname,country });
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    if (!validatePassword(password, passwordOne)) {
+      console.log("Validating password failed");
+        return res.status(400).json({ error: "Password" });
+    }
+
+/*
+FINISH THIS IMPLEMENTATION ONCE USERSCHEMA IN DATABASE HAS BEEN UPDATED
+if (!validateFirstName(userData.firstname)) {
+  return res.status(400).json({ error: 'Invalid firstname' });
+}
+if (!validateLastName(userData.lastname)) {
+  return res.status(400).json({ error: 'Invalid lastname' });
+}
+*/
+
+  console.log("After validating");
+
+//Try adding the user to database
+  const user = await User.create({ email, password,firstname,lastname,country });
+      console.log("usercontroller3");
+      return res.status(200).json(user);
+    }
+  catch(error){
+     console.log("usercontroller4");
+      console.log("Error:", error);
+    return res.status(400).json({ error: error.message });
   }
-};
+}
+
+
 
 //API: Endpoint: /api/users/id
 //WHAT: Updates a user on a PATCH reqqust 
