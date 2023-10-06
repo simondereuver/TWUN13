@@ -31,7 +31,7 @@ const mongoose = require('mongoose')
     const getUserEventsTime = async (req,res) => {
         try{
             const {id,date,time} = req.params
-
+            
             const events = await Event.findOne({attendies:id, date:date,time:time})
     
             if(!events)
