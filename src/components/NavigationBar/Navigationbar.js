@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../App.css"
+import "../../App.css";
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import LoginWindow from '../loginComponent';
 import { ViewSidebarOutlined } from '@mui/icons-material';
-import { SidepanelDataHome} from '../Sidepanel/SidepanelData'
+import { SidepanelDataHome} from '../Sidepanel/SidepanelData';
 import SidePanel from '../Sidepanel/Sidepanel';
 
 function Navigation_Bar()
