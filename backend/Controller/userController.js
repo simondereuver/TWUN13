@@ -1,7 +1,7 @@
 //Models
 const User = require('../Models/Models');
 const mongoose = require('mongoose')
-const { validateFirstname, validateLastname, validateEmail, validatePassword } = require('./InputValidation');
+const { validateFirstname, validateLastname, validateEmail, validatePassword, existingEmailCheck } = require('./InputValidation');
 
 //API: Endpoint: /api/users/id 
 //WHAT: Returns a user from database based on MONGO ID or email
@@ -18,11 +18,12 @@ const getUser = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       // If  not a valid id assume its an email
       const user = await User.findOne({ email: id });
-
+      console.log("checking email in mongo")
       if (!user) {
+        console.log("didnt find by email");
         return res.status(404).json({ error: 'User not found' });
       }
-
+      console.log("found by email");
       return res.status(200).json(user);
     }
 
@@ -47,41 +48,42 @@ const getUser = async (req, res) => {
 
 //TESTED: WORKS
 const createUser = async (req, res) => {
-  const { email, password,passwordOne, firstname,lastname,country } = req.body;
-try {
-    //Some console logs for bug searching
-    console.log("Before validating");
+  const { email, password, passwordConfirm, firstname, lastname, country } = req.body;
+  try {
+      //Some console logs for bug searching
+      console.log("Before validating");
 
-    if (!validateEmail(email)) {
-      console.log("Validating email failed");
-        return res.status(400).json({ error: "Email" });
-    }
-    if (!validatePassword(password, passwordOne)) {
-      console.log("Validating password failed");
-        return res.status(400).json({ error: "Password" });
-    }
+      if (!validateEmail(email)) {
+        console.log("Validating email failed");
+          return res.status(400).json({ error: "Email" });
+      }
+      if (!validatePassword(password, passwordConfirm)) {
+        console.log("Validating password failed");
+          return res.status(400).json({ error: "Password" });
+      }
+      if (!validateFirstname(firstname)) {
+        console.log("Validating firstname failed");
+        return res.status(400).json({ error: "Firstname" });
+      }
+      if (!validateLastname(lastname)) {
+        console.log("Validating lastname failed");
+        return res.status(400).json({ error: "Lastname" });
+      }
+      if(await existingEmailCheck(email)){
+        console.log("Email already exists");
+        return res.status(400).json({ error: "Email already exist" });
+      }
+      console.log("After validating");
 
-/*
-FINISH THIS IMPLEMENTATION ONCE USERSCHEMA IN DATABASE HAS BEEN UPDATED
-if (!validateFirstName(userData.firstname)) {
-  return res.status(400).json({ error: 'Invalid firstname' });
-}
-if (!validateLastName(userData.lastname)) {
-  return res.status(400).json({ error: 'Invalid lastname' });
-}
-*/
-
-  console.log("After validating");
-
-//Try adding the user to database
-  const user = await User.create({ email, password,firstname,lastname,country });
-      console.log("usercontroller3");
+      //Try adding the user to database
+      const user = await User.create({ email, password, firstname, lastname, country });
+      console.log("Added user to database");
       return res.status(200).json(user);
-    }
+  }
   catch(error){
-     console.log("usercontroller4");
+      console.log("Failed to add user to database");
       console.log("Error:", error);
-    return res.status(400).json({ error: error.message });
+      return res.status(400).json({ error: error.message });
   }
 }
 

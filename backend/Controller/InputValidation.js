@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 function validateFirstname(firstname) {
     // Custom validation logic here
     return (firstname !== "");
@@ -14,16 +16,25 @@ function validateEmail(email) {
     return emailValidation.test(email);
 }
 
-function validatePassword(password1, password2) {
-    /*
-    if (password1 !== password2) {
-       return true;
-    } 
-    else {
-        return false;
+async function existingEmailCheck(email) {
+  //can be used for creating accounts and log in
+  try {
+      //we can use the response later for logging in if needed
+      const response = await axios.get(`http://localhost:3001/api/users/${email}`)
+      console.log("User exists");
+      return true;
+  } catch(error) {
+    //If we get an error, the user was not found, create the account
+    const serverError = error.response.data.error;
+    console.log("User doesnt exist");
+    if (serverError === 'User not found'){
+      return false;
     }
-    */
-    return (password1 === password2);
+  }
+}
+
+function validatePassword(password, passwordConfirm) {
+    return (password === passwordConfirm);
 }
   
   module.exports = {
@@ -31,5 +42,6 @@ function validatePassword(password1, password2) {
     validateLastname,
     validateEmail,
     validatePassword,
+    existingEmailCheck,
     // Add more validation functions as needed
   };
