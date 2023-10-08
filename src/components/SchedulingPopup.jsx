@@ -44,7 +44,8 @@ function SchedulingPopup({formattedDate}) {
         console.log(newEventData);
           axios.get(`http://localhost:3001/api/events/samuel.leyonberg@gmail.com/${formattedDate}/123`)
           .then(response => {
-            if(response.data.length !== 0 )
+            console.log(response);
+            if(response.status !== 202 )
             {
                 alert("There is already an event for this time");
                 console.log("not added")
@@ -78,7 +79,7 @@ function SchedulingPopup({formattedDate}) {
           
       axios.get(`http://localhost:3001/api/events/samuel.leyonberg@gmail.com/${formattedDate}/123`)
       .then(response => {
-        if(response.data.length == 0 )
+        if(response.status == 202)
         {
             alert("There is no an event for this time");
             console.log("not updated")

@@ -26,17 +26,15 @@ const mongoose = require('mongoose')
       }
     }
 
-
-
     const getUserEventsTime = async (req,res) => {
         try{
             const {id,date,time} = req.params
             
-            const events = await Event.findOne({attendies:id, date:date,time:time})
+            const events = await Event.findOne({email:id, date:date, time:time})
     
             if(!events)
             {
-                return res.status(404).json({mssg:"No events found"})
+                return res.status(202).json(0)
             }
         return res.status(200).json(events);
 
