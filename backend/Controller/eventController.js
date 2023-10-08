@@ -14,7 +14,7 @@ const mongoose = require('mongoose')
             const { id,date } = req.params;  
             const events = await Event.find({attendies: id , date: date})
             console.log(events)
-            if(!events)
+            if(events.length <= 0)
             {
                 return res.status(404).json({mssg: "No Events found"}) 
             }
@@ -30,18 +30,17 @@ const mongoose = require('mongoose')
 
     const getUserEventsTime = async (req,res) => {
         try{
-            const { id, date, time } = req.params;
+            const {id,date,time} = req.params
+            
+            const events = await Event.findOne({attendies:id, date:date,time:time})
+    
+            if(!events)
+            {
+                return res.status(404).json({mssg:"No events found"})
+            }
+        return res.status(200).json(events);
 
-            const event = await Event.find({ email: id, date: date, time: time });
-        
-            // Check if an event was found, and return 0 if not
-            if (event) {
-              // Do something with 'event'
-              res.status(200).json(event);
-            } else {
-              // Return 0 when no event is found
-              res.status(200).json({ message: "Event not found", result: 0 });
-            }}
+        }
         catch(error){
             return res.status(500).json({mssg:"Internal Server error"})
         }

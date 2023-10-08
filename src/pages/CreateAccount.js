@@ -16,7 +16,8 @@ function CreateAccountForm () {
     //For email
     const [errorEmail, setErrorEmail] = useState(false);
     const [userEmail, setEmail] = useState('');
-
+    const [errorEmailAlreadyExists, setErrorEmailAlreadyExists] = useState(false);
+    
     //For firstname
     const [errorFirstName, setErrorFirstName] = useState(false);
     const [userFirstName, setFirstName] = useState('');
@@ -48,13 +49,12 @@ function CreateAccountForm () {
     };
 
     const userData = {
-        //finish implementaion once database schema for user is updated.
-        //firstname: userFirstName,
-        //lastname: userLastName,
-        //country: selectedCountry,
         email: userEmail,
-        passwordOne: password1,
-        passwordTwo: password2,
+        password: password1,
+        passwordConfirm: password2,
+        firstname: userFirstName,
+        lastname: userLastName,
+        country: selectedCountry,
     };
 
     const handleSignUpClick = async () => {
@@ -62,10 +62,11 @@ function CreateAccountForm () {
         try {
         await axios.post('http://localhost:3001/api/users', userData)
         .then((res) => {
-            console.log("Succesfully created user, cool stuff. Here is the user:\n");
-            console.log(res);
+            console.log("Succesfully created user.\n");
             setErrorEmail(false);
             setErrorPassword(false);
+            setErrorLastName(false); 
+            setErrorFirstName(false);
         })
         } catch(error) {
             
@@ -73,27 +74,43 @@ function CreateAccountForm () {
             //set error states on input fields
             if (serverError === "Email") {
                 setErrorEmail(true);
+                setErrorPassword(false);
+                setErrorLastName(false); 
+                setErrorFirstName(false);
+                setErrorEmailAlreadyExists(false);
             } else if (serverError === "Password") {
                 setErrorPassword(true);
-            } else {
-                console.log("Error from axios post", error.response.data);
+                setErrorEmail(false);
+                setErrorLastName(false); 
+                setErrorFirstName(false);
+                setErrorEmailAlreadyExists(false);
+            } else if (serverError === "Firstname") {
+                setErrorFirstName(true);
                 setErrorEmail(false);
                 setErrorPassword(false);
+                setErrorLastName(false); 
+                setErrorEmailAlreadyExists(false);
+            }else if (serverError === "Lastname") {
+                setErrorLastName(true); 
+                setErrorEmail(false);
+                setErrorPassword(false);
+                setErrorFirstName(false);
+                setErrorEmailAlreadyExists(false);
+            }else if (serverError === "Email already exist") {
+                setErrorEmailAlreadyExists(true);
+                setErrorLastName(false); 
+                setErrorEmail(false);
+                setErrorPassword(false);
+                setErrorFirstName(false); 
+            }else {
+                console.log("Error from axios post", error.response.data);
+                setErrorEmailAlreadyExists(false);
+                setErrorEmail(false);
+                setErrorPassword(false);
+                setErrorLastName(false); 
+                setErrorFirstName(false);
             }
         };
-        
-        //once database schema for users has been updated create more error messages similar to password and email
-        if(userFirstName === ""){
-            setErrorFirstName(true);
-        } else {
-            setErrorFirstName(false);
-        }
-        if(userLastName === ""){
-            setErrorLastName(true);
-        }
-        else {
-            setErrorLastName(false);
-        }
     };
 
     return (
@@ -108,7 +125,7 @@ function CreateAccountForm () {
             <div className="create-account">
                 <div>
                     <p>Please fill in information needed to create your account!</p>
-                    <p id="required"> All fields with * needs to be filled in!</p>
+                    <p id="required"> All fields marked with * needs to be filled in!</p>
                 </div>
                 <div>
                 <TextField
@@ -119,7 +136,7 @@ function CreateAccountForm () {
                         value={userFirstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         error={errorFirstName}
-                        helperText={errorFirstName ? "First name can't be empty." : ""}
+                        helperText={errorFirstName ? "Please fill in required fields." : ""}
                     />
                 </div>
                 <div>
@@ -131,7 +148,7 @@ function CreateAccountForm () {
                         value={userLastName}
                         onChange={(e) => setLastName(e.target.value)}
                         error={errorLastName}
-                        helperText={errorLastName ? "Lastname can't be empty." : ""}
+                        helperText={errorLastName ? "Please fill in required fields." : ""}
                     />
                 </div>
                 <div>
@@ -142,8 +159,8 @@ function CreateAccountForm () {
                         placeholder="Enter email"
                         value={userEmail}
                         onChange={(e) => setEmail(e.target.value)}
-                        error={errorEmail} // set error state
-                        helperText={errorEmail ? "Invalid email address." : ""} 
+                        error={errorEmail || errorEmailAlreadyExists} // set error state
+                        helperText={errorEmail && !errorEmailAlreadyExists ? "Invalid email address." : errorEmailAlreadyExists ? "Email already in use." : ""} 
                     />
                 </div>
                 <div>

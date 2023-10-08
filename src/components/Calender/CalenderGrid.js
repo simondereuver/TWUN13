@@ -2,7 +2,7 @@ import React from 'react';
 import CalenderDay from './CalenderDay';
 import './CalenderStyle.css';
 
-function CalendarGrid({ day, user }) {
+function CalendarGrid({ day, monthChanged, setEvent}) {
   const numDaysInMonth = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate();
   const calendarGrid = [];
 
@@ -12,21 +12,12 @@ function CalendarGrid({ day, user }) {
     for (let c = 0; c < 5; c++) {
       if (dayOfMonth <= numDaysInMonth) {
         const currentDate = new Date(day.getFullYear(), day.getMonth(), dayOfMonth);
-        const eventsForCurrentDay = user.listEvents.filter((event) => {
-          return (
-            event.date.getDate() === currentDate.getDate() &&
-            event.date.getMonth() === currentDate.getMonth() &&
-            event.date.getFullYear() === currentDate.getFullYear()
-          );
-        });
-
         row.push(
           <td key={c}>
             <CalenderDay
               day={currentDate}
-              location={eventsForCurrentDay[0]?.location || ""}
-              time={eventsForCurrentDay[0]?.time || ""}
-              attendies={eventsForCurrentDay[0]?.attendies || []}
+              monthChanged={monthChanged}
+              setEventCallBack={setEvent}
             />
           </td>
         );
@@ -41,7 +32,7 @@ function CalendarGrid({ day, user }) {
   return (
     <div className="calendarContainer">
       <table className="calendar">
-        <tbody>
+        <tbody className='calender'>
           {calendarGrid}
         </tbody>
       </table>

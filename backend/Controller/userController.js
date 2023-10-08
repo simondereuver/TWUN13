@@ -1,7 +1,7 @@
 //Models
 const User = require('../Models/Models');
 const mongoose = require('mongoose')
-const { validateFirstname, validateLastname, validateEmail, validatePassword } = require('./InputValidation');
+const { validateFirstname, validateLastname, validateEmail, validatePassword, existingEmailCheck } = require('./InputValidation');
 
 //API: Endpoint: /api/users/id 
 //WHAT: Returns a user from database based on MONGO ID or email
@@ -18,11 +18,12 @@ const getUser = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       // If  not a valid id assume its an email
       const user = await User.findOne({ email: id });
-
+      console.log("checking email in mongo")
       if (!user) {
+        console.log("didnt find by email");
         return res.status(404).json({ error: 'User not found' });
       }
-
+      console.log("found by email");
       return res.status(200).json(user);
     }
 
@@ -48,48 +49,46 @@ const getUser = async (req, res) => {
 
 //TESTED: WORKS
 const createUser = async (req, res) => {
-
-  //extract the information from the user input
-  const userData = req.body;  
-  const email = userData.email;
-  const password = userData.passwordOne;
-  const passwordTwo = userData.passwordTwo; 
-
-  //Some console logs for bug searching
-  console.log("Before validating");
-
-  if (!validateEmail(email)) {
-    console.log("Validating email failed");
-    return res.status(400).json({ error: "Email" });
-  }
-  if (!validatePassword(password, passwordTwo)) {
-    console.log("Validating password failed");
-    return res.status(400).json({ error: "Password" });
-  }
-  
-  /*
-  FINISH THIS IMPLEMENTATION ONCE USERSCHEMA IN DATABASE HAS BEEN UPDATED
-  if (!validateFirstName(userData.firstname)) {
-    return res.status(400).json({ error: 'Invalid firstname' });
-  }
-  if (!validateLastName(userData.lastname)) {
-    return res.status(400).json({ error: 'Invalid lastname' });
-  }
-  */
-
-  console.log("After validating");
-  
-  //Try adding the user to database
+  const { email, password, passwordConfirm, firstname, lastname, country } = req.body;
   try {
-    const user = await User.create({ email, password });
-    console.log("usercontroller3");
-    res.status(200).json(user);
-  } catch (error) {
-    console.log("usercontroller4");
-    console.log("Error:", error);
-    res.status(400).json({ error: error.message });
+      //Some console logs for bug searching
+      console.log("Before validating");
+
+      if (!validateEmail(email)) {
+        console.log("Validating email failed");
+          return res.status(400).json({ error: "Email" });
+      }
+      if (!validatePassword(password, passwordConfirm)) {
+        console.log("Validating password failed");
+          return res.status(400).json({ error: "Password" });
+      }
+      if (!validateFirstname(firstname)) {
+        console.log("Validating firstname failed");
+        return res.status(400).json({ error: "Firstname" });
+      }
+      if (!validateLastname(lastname)) {
+        console.log("Validating lastname failed");
+        return res.status(400).json({ error: "Lastname" });
+      }
+      if(await existingEmailCheck(email)){
+        console.log("Email already exists");
+        return res.status(400).json({ error: "Email already exist" });
+      }
+      console.log("After validating");
+
+      //Try adding the user to database
+      const user = await User.create({ email, password, firstname, lastname, country });
+      console.log("Added user to database");
+      return res.status(200).json(user);
   }
-};
+  catch(error){
+      console.log("Failed to add user to database");
+      console.log("Error:", error);
+      return res.status(400).json({ error: error.message });
+  }
+}
+
+
 
 //API: Endpoint: /api/users/id
 //WHAT: Updates a user on a PATCH reqqust 
@@ -100,13 +99,16 @@ const createUser = async (req, res) => {
 //TESTED: WORKS
 
 const updateUser = async (req, res) => {
-  const { id } = req.params;
+  const { id, password,firstname,lastname,country } = req.params;
 
   // Check if the provided parameter is a valid ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     // If it's not a valid ObjectId, assume it's an email
     try {
-      const user = await User.findOneAndUpdate({ email: id }, { ...req.body });
+      const user = await User.findOneAndUpdate(
+        { email: id }, // Match the user based on the email
+        { $set: { ...req.body }})
+
 
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
@@ -116,19 +118,6 @@ const updateUser = async (req, res) => {
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
-  }
-
-  // If a valid ObjectId, update the user by ID
-  try {
-    const user = await User.findByIdAndUpdate(id, { ...req.body });
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    return res.status(200).json({ message: 'User was updated' });
-  } catch (error) {
-    return res.status(400).json({ error: error.message });
   }
 };
 
