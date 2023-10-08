@@ -30,17 +30,18 @@ const mongoose = require('mongoose')
 
     const getUserEventsTime = async (req,res) => {
         try{
-            const {id,date,time} = req.params
+            const { id, date, time } = req.params;
 
-            const events = await Event.findOne({attendies:id, date:date,time:time})
-    
-            if(!events)
-            {
-                return res.status(404).json({mssg:"No events found"})
-            }
-        return res.status(200).json(events);
-
-        }
+            const event = await Event.find({ email: id, date: date, time: time });
+        
+            // Check if an event was found, and return 0 if not
+            if (event) {
+              // Do something with 'event'
+              res.status(200).json(event);
+            } else {
+              // Return 0 when no event is found
+              res.status(200).json({ message: "Event not found", result: 0 });
+            }}
         catch(error){
             return res.status(500).json({mssg:"Internal Server error"})
         }
@@ -74,7 +75,7 @@ const mongoose = require('mongoose')
         } catch (error) {
             console.error("Error creating event:", error);
             // Handle the error and send an appropriate response
-            return res.status(500).json({ error: "Internal Server Error" });
+            return res.status(500).json({ error: error.message });
         }
     };
     
@@ -86,7 +87,7 @@ const mongoose = require('mongoose')
         if (!mongoose.Types.ObjectId.isValid(id)) {
           // If it's not a valid ObjectId, assume it's an email
           try {
-            const user = await Event.findOneAndUpdate({ email: id,date: date,time:time }, { ...req.body });
+            const user = await Event.findOneAndUpdate({ email: id, date: date, time: time }, { ...req.body });
 
       
             if (!user) {
@@ -121,5 +122,8 @@ const deleteEvent = async (req,res) => {
 
 module.exports = {
     getUserEvents,
-    getUserEventsTime
+    getUserEventsTime,
+    createEvent,
+    updateEvent,
+    deleteEvent
 };
