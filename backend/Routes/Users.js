@@ -1,11 +1,8 @@
 const express = require('express');
 const {createUser,getUser,updateUser} = require('../Controller/userController')
 
-
-
 //Router
 const Userrouter = express.Router();
-
 
 //Get user
 Userrouter.get('/:id',getUser)
