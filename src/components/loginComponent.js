@@ -8,37 +8,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function LoginWindow() {
-
-    //Function defines, handle actions by user
-    const handleLoginClick = () => {
-        //Reset for each click
-        setErrorPassword(false);
-        setErrorEmail(false);
-        if(email === "admin" && password === "admin")
-        {
-            setLoggedIn(true);
-        }
-        else if (email !== "admin") {
-            setErrorEmail(true);
-        }
-        else if (password !== "admin") {
-            setErrorPassword(true);
-        }
-        else {
-            setErrorPassword(true);
-            setErrorEmail(true);
-        }
-    }
-
-    const handleLogoutClick = () => {
-        setErrorPassword(false);
-        setErrorEmail(false);
-        setLoggedIn(false);
-        setEmail('');
-        setPassword('');
-    }
 
     const [loginClicked, setLoggedIn] = useState(false);
 
@@ -58,6 +30,67 @@ function LoginWindow() {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    const loginData = {
+        email: email,
+        password: password,
+    };
+
+    //Function defines, handle actions by user
+    const handleLoginClick = async () => {
+        //Reset for each click
+        setErrorPassword(false);
+        setErrorEmail(false);
+
+        /*
+        if(email === "admin" && password === "admin")
+        {
+            setLoggedIn(true);
+        }
+        else if (email !== "admin") {
+            setErrorEmail(true);
+        }
+        else if (password !== "admin") {
+            setErrorPassword(true);
+        }
+        else {
+            setErrorPassword(true);
+            setErrorEmail(true);
+        }
+        */
+
+        try {
+            const response = await axios.post('http://localhost:3001/api/login', loginData);
+                setErrorEmail(false);
+                setErrorPassword(false);
+                
+                //response.data.token
+            } catch(error) {
+                
+                const serverError = error.response.data.error;
+                //set error states on input fields
+                if (serverError === "Email") {
+                    setErrorEmail(true);
+                    setErrorPassword(false);
+                } else if (serverError === "Password") {
+                    setErrorPassword(true);
+                    setErrorEmail(false);
+                }else {
+                    console.log("Error from axios post", error.response.data);
+                    setErrorEmail(false);
+                    setErrorPassword(false);
+                }
+            };
+        
+    }
+
+    const handleLogoutClick = () => {
+        setErrorPassword(false);
+        setErrorEmail(false);
+        setLoggedIn(false);
+        setEmail('');
+        setPassword('');
+    }
 
     return (
         <div className="login-window">
