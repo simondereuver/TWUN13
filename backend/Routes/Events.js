@@ -1,5 +1,5 @@
 const express = require('express');
-const {getUserEvents, getUserEventsTime,createEvent, updateEvent} = require('../Controller/eventController')
+const {getUserEvents, getUserEventsTime,createEvent, updateEvent, deleteEvent} = require('../Controller/eventController')
 
 const eventRouter = express.Router()
 
@@ -13,5 +13,7 @@ eventRouter.get('/:id/:date/:time',getUserEventsTime)
 eventRouter.post('/',createEvent)
 
 eventRouter.patch('/:id/:date/:time',updateEvent)
+
+eventRouter.delete('/:id/:date/:time', deleteEvent)
 
 module.exports = eventRouter

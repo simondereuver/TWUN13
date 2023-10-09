@@ -3,7 +3,6 @@ import MultiChoiceDropdown from './MultiChoiceDropdown';
 import BasicTimePicker from './timePicker';
 import React, {useState} from 'react';
 import axios from 'axios';
-//import eventSchema from '../../backend/Models/Events';
 
 function SchedulingPopup({formattedDate}) {
 
@@ -22,14 +21,14 @@ function SchedulingPopup({formattedDate}) {
         setTextEventName(e.target.value);
     }
 
-    const [selectedTime, setSelectedTime] = useState(null);
+    const [selectedTime, setSelectedTime] = useState('');
     const handleTimeChange = (newTime) => {
       setSelectedTime(newTime);
     };
-   
 
     const AddEvent = () =>{
-
+       // const dateString = selectedTime.toLocaleTimeString();
+       // const formattedTime = dateString.slice(-8);
         const atendees = ['samuel.leyonberg@gmail.com','n'];
         const newEventData = {
           email: 'samuel.leyonberg@gmail.com',
@@ -97,34 +96,28 @@ function SchedulingPopup({formattedDate}) {
         console.log("not added")
       })
     }
-    /*
-    const DeleteEvents = () => {
-        const queryParams = {
-            email: 'Samuel.leyonberg@gmail.com',
-            eventName: 'Test',
-          };
-          
-          const config = {
-            params: queryParams,
-          };
-          
-          axios.get(apiUrl, config)
-          .then(response => {
-            if(response.data.length == 0)
-            {
-                alert("There is no an event for this time");
-            }
-            else{
-                axios.delite(apiUri, config);
-            }
-          })          
-          .catch(err => {
-            console.log(err);
-          })
 
+    const DeleteEvent = () => {
+
+      axios.get(`http://localhost:3001/api/events/samuel.leyonberg@gmail.com/${formattedDate}/123`)
+      .then(response => {
+        if(response.status == 202)
+        {
+            alert("There is no an event for this time");
+            console.log(response);
+        }
+        else{
+          console.log(response);
+            axios.delete(`http://localhost:3001/api/events/samuel.leyonberg@gmail.com/${formattedDate}/123`)
+            console.log("deleted")
+            alert("deleted");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        console.log("not deleted")
+      })
     }
-*/
-
 
     return ( 
         <div className="popup" >
@@ -132,9 +125,9 @@ function SchedulingPopup({formattedDate}) {
                 <header>{formattedDate}</header>
             </div>
             <div className="cudGrid">
-                <button className="create" onClick={AddEvent}>create</button>
+                <button className="create" onClick={AddEvent }>create</button>
                 <button className="update" onClick={UpdateEvents}>update</button>
-                <button className="delete" >delete</button>
+                <button className="delete" onClick={DeleteEvent}>delete</button>
             </div>
             <div>
                 <textarea className='eventName'
@@ -154,7 +147,8 @@ function SchedulingPopup({formattedDate}) {
             <BasicTimePicker
                                 label="Select Time"
                                 value={selectedTime}
-                                onChange={handleTimeChange}/>
+                                onChange={(newTime) => handleTimeChange(newTime)}
+                                />
             <h3>AvalibleTimes</h3>
             <textarea className='location'
                 value={textLocation}

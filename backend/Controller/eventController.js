@@ -99,16 +99,23 @@ const mongoose = require('mongoose')
       };
 
 const deleteEvent = async (req,res) => {
-    const {id,date,time} = req.body
+    //const {id,date,time} = req.params
     try{
+        const {id,date,time} = req.params
+            
+        const events = await Event.findOneAndDelete({email:id, date:date, time:time})
+        console.log('del');
+        /*
          if (!mongoose.Types.ObjectId.isValid(id)) {
-            const event = await Event.findByIdAndDelete({email:id,date:date,time:time})
+            console.log({id,date,time});
+            const event = await Event.findByIdAndDelete({ email: id, date: date, time: time })
 
             if(!event){
                 return res.status(404).json({error: 'No event found to delete'})
             }
-            res.status(200.).json({message:'User was deleted'})
+            res.status(200).json({message:'User was deleted'})
         }
+        */
       }
       catch(error)
       {
