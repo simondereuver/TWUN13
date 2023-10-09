@@ -9,15 +9,17 @@ body {
 }
 
 /* start of css code for logincomponent */
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Set the center div to fill the viewport vertically */
+}
+
 .login-window {
-  background-color: orange; 
-  border-radius: 10px;
-  position: absolute; 
-  top: 50px; 
-  left: 78%; 
-  transition: transform 0.9s ease;
-  position: fixed; 
-  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;  
   align-items: center;
 }
 
