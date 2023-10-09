@@ -10,6 +10,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import "./CreateAccount.css";
 import countryList from '../data/countriesData';
 import axios from 'axios';
+import "../components/Background/background.css"
 
 function CreateAccountForm () {
 
@@ -114,6 +115,7 @@ function CreateAccountForm () {
     };
 
     return (
+        <div className="center">
         <Box
             component="form"
             sx={{
@@ -241,6 +243,7 @@ function CreateAccountForm () {
                 </div>
             </div>
         </Box>
+        </div>
     );
 }
 
