@@ -44,6 +44,7 @@ const getUser = async (req, res) => {
 //API: Endpoint: /api/users/
 //WHAT: Creates a user based on a POST Request
 //USE: POST localhost.../api/users/
+
         //BODY {"email": "bababoi@gmail.com", "password": "secure"}
 
 //TESTED: WORKS

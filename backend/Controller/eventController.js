@@ -26,17 +26,15 @@ const mongoose = require('mongoose')
       }
     }
 
-
-
     const getUserEventsTime = async (req,res) => {
         try{
             const {id,date,time} = req.params
             
-            const events = await Event.findOne({attendies:id, date:date,time:time})
+            const events = await Event.findOne({email:id, date:date, time:time})
     
             if(!events)
             {
-                return res.status(404).json({mssg:"No events found"})
+                return res.status(202).json(0)
             }
         return res.status(200).json(events);
 
@@ -74,7 +72,7 @@ const mongoose = require('mongoose')
         } catch (error) {
             console.error("Error creating event:", error);
             // Handle the error and send an appropriate response
-            return res.status(500).json({ error: "Internal Server Error" });
+            return res.status(500).json({ error: error.message });
         }
     };
     
@@ -86,7 +84,7 @@ const mongoose = require('mongoose')
         if (!mongoose.Types.ObjectId.isValid(id)) {
           // If it's not a valid ObjectId, assume it's an email
           try {
-            const user = await Event.findOneAndUpdate({ email: id,date: date,time:time }, { ...req.body });
+            const user = await Event.findOneAndUpdate({ email: id, date: date, time: time }, { ...req.body });
 
       
             if (!user) {
@@ -117,12 +115,12 @@ const deleteEvent = async (req,res) => {
         return res.status(400).json({ error: error.message })
       }
     }
-    
+
 
 module.exports = {
     getUserEvents,
     getUserEventsTime,
     createEvent,
-    deleteEvent,
-    updateEvent
+    updateEvent,
+    deleteEvent
 };
