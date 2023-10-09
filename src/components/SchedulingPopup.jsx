@@ -20,16 +20,18 @@ function SchedulingPopup({formattedDate}) {
   */
 
   let userEmails = [];
-  let userRole =[];
+  let userRole = [];
     const addAtendee =() =>
     {
-      if(userEmails.indexOf(textAtendee) === -1 && UserRoles !== "")
+      if(UserRoles !== "")
       {
         console.log(textAtendee)
         axios.get(`http://localhost:3001/api/users/${textAtendee}`)
         .then(response => {
-          userEmails.push(textAtendee);
-          userRole.push(UserRoles);
+          const tempAtendee = textAtendee;
+          const tempUserRole = UserRoles;
+          userEmails.push(tempAtendee);
+          userRole.push(tempUserRole);
           console.log(userEmails);
           console.log(userRole);
         })
