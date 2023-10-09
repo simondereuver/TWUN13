@@ -3,6 +3,17 @@ const User = require('../Models/Models');
 const mongoose = require('mongoose')
 const { validateFirstname, validateLastname, validateEmail, validatePassword, existingEmailCheck } = require('./InputValidation');
 
+
+const getAllUsers = async (req, res) => {
+  await User.find().select('email')
+  .then(data =>{
+    return res.status(200).json(data)
+  })
+  .catch(err => {
+    return res.status(404).json({ err: 'User not found' });
+  });
+}
+
 //API: Endpoint: /api/users/id 
 //WHAT: Returns a user from database based on MONGO ID or email
 //USE: GET localhost.../api/users/123 (for ID)
@@ -13,7 +24,6 @@ const { validateFirstname, validateLastname, validateEmail, validatePassword, ex
 const getUser = async (req, res) => {
   try {
     const { id } = req.params;
-
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       // If  not a valid id assume its an email
@@ -124,5 +134,6 @@ const updateUser = async (req, res) => {
 module.exports = {
   createUser,
   getUser,
-  updateUser
+  updateUser,
+  getAllUsers
 };
