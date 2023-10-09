@@ -25,6 +25,9 @@ const eventSchema = new Schema({
    },
    attendies:{
     type:Array,
+   },
+   userRole:{
+    type:Array,
    }
 })
 

@@ -52,7 +52,7 @@ const mongoose = require('mongoose')
 
     const createEvent = async (req, res) => {
         try {
-            const { email, eventName, date, time, location, agenda, attendies } = req.body;
+            const { email, eventName, date, time, location, agenda, attendies, userRole } = req.body;
             const event = await Event.create({
                 email,
                 eventName,
@@ -61,6 +61,7 @@ const mongoose = require('mongoose')
                 location,
                 agenda,
                 attendies,
+                userRole
             });
     
             if (!event) {

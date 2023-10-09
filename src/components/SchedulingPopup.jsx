@@ -28,9 +28,10 @@ function SchedulingPopup({formattedDate}) {
         console.log(textAtendee)
         axios.get(`http://localhost:3001/api/users/${textAtendee}`)
         .then(response => {
-          console.log(response)
           userEmails.push(textAtendee);
           userRole.push(UserRoles);
+          console.log(userEmails);
+          console.log(userRole);
         })
         .catch(err => {
           console.log(err);
@@ -95,7 +96,8 @@ function SchedulingPopup({formattedDate}) {
           time: time,
           location: textLocation,
           agenda: textAgenda,
-          atendees: atendees
+          atendees: atendees,
+          userRole: UserRoles
         };
 
         console.log(newEventData);
@@ -138,7 +140,8 @@ function SchedulingPopup({formattedDate}) {
         time: time,
         location: textLocation,
         agenda: textAgenda,
-        atendees: atendees
+        atendees: atendees,
+        userRole: UserRoles
       };
           
       axios.get(`http://localhost:3001/api/events/samuel.leyonberg@gmail.com/${formattedDate}/${time}`)
