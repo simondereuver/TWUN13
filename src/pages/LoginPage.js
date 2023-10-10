@@ -61,13 +61,11 @@ function LoginPage() {
         */
 
         try {
-            /*const response = */await axios.post('http://localhost:3001/api/login', loginData)
-            .then((res) => {
+            const response = await axios.post('http://localhost:3001/api/login', loginData)
                 setErrorEmail(false);
                 setErrorPassword(false);
                 setLoggedIn(true);
-                //response.data.token
-            })
+                localStorage.setItem('token',response.data.token)
             } catch(error) {
                 
                 const serverError = error.response.data.error;
