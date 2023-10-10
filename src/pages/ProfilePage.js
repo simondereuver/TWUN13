@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect } from "react";
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -14,26 +14,39 @@ import "../components/Background/background.css"
 
 function ProfilePage () {
 
-    //For email
-    const [errorEmail, setErrorEmail] = useState(false);
+    //For email, maybe remove the email field.
+    //swap the out commented code here once token has been implemented AND getUserData function works
+    //const [userEmail, setEmail] = useState(userDataFromAPI ? userDataFromAPI.email : '');
     const [userEmail, setEmail] = useState('');
-    const [errorEmailAlreadyExists, setErrorEmailAlreadyExists] = useState(false);
-    
     //For firstname
     const [errorFirstName, setErrorFirstName] = useState(false);
+    //const [userFirstName, setFirstName] = useState(userDataFromAPI ? userDataFromAPI.firstname : '');
     const [userFirstName, setFirstName] = useState('');
-
-    //For lastname
+    //for lastname
     const [errorLastName, setErrorLastName] = useState(false);
+    //const [userLastName, setLastName] = useState(userDataFromAPI ? userDataFromAPI.lastname : '');
     const [userLastName, setLastName] = useState('');
-
+    /*
+<div>
+                    <TextField
+                        required
+                        id="email-adress"
+                        label="Email"
+                        placeholder="Enter email"
+                        value={userEmail}
+                        onChange={(e) => setEmail(e.target.value)}
+                        error={errorEmail || errorEmailAlreadyExists} // set error state
+                        helperText={errorEmail && !errorEmailAlreadyExists ? "Invalid email address." : errorEmailAlreadyExists ? "Email already in use." : ""} 
+                    />
+                </div>
+                */
     //for password
     const [errorPassword, setErrorPassword] = useState(false);
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
-
-    const [showPassword1, setShowPassword1] = React.useState(false);
-    const [showPassword2, setShowPassword2] = React.useState(false);
+    
+    const [showPassword1, setShowPassword1] = useState(false);
+    const [showPassword2, setShowPassword2] = useState(false);
 
     const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
     const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
@@ -42,6 +55,7 @@ function ProfilePage () {
         event.preventDefault();
     };
 
+
     //For selecting country
     const [selectedCountry, setSelectedCountry] = useState("");
 
@@ -49,6 +63,39 @@ function ProfilePage () {
         setSelectedCountry(event.target.value);
     };
 
+    /*
+    //GET THE USER INFO BY GETTING THE EMAIL OUT OF THE TOKEN and insert it into the axios call 
+    THIS FUNCTION DOESNT WORK AS OF NOW AS WE NEED THE TOKEN TO EXTRACT EMAIL
+    useEffect(() => {
+        const getUserData = async () => {
+            try {
+                //we can use the response later for logging in if needed
+                const response = await axios.get(`http://localhost:3001/api/users//ADDEMAILHERE`);
+                const userDataFromAPI = response.data;
+
+                setEmail(userDataFromAPI.email);
+                setFirstName(userDataFromAPI.firstname);
+                setLastName(userDataFromAPI.lastname);
+                //Add all fields
+
+                
+                console.log("Success");
+                return true;
+
+            } catch(error) {
+            //If we get an error, the user was not found, create the account
+            const serverError = error.response.data.error;
+            console.log("User doesnt exist");
+            if (serverError === 'User not found'){
+                return false;
+            }
+            }
+        };
+
+        getUserData();
+    }, []);
+    */
+    
     const userData = {
         email: userEmail,
         password: password1,
@@ -58,17 +105,16 @@ function ProfilePage () {
         country: selectedCountry,
     };
 
-    const handleSignOutClick = () => {
+    const handleLogoutClick = () => {
         //implement something to logout
     }
-    
-    const handleSignUpClick = async () => {
 
+    const handleUpdateClick = async () => {
+        //change this axios to go to the updateUser api instead, and more or less rewrite the updateUser call to look like createUser
         try {
         await axios.post('http://localhost:3001/api/users', userData)
         .then((res) => {
             console.log("Succesfully created user.\n");
-            setErrorEmail(false);
             setErrorPassword(false);
             setErrorLastName(false); 
             setErrorFirstName(false);
@@ -76,41 +122,20 @@ function ProfilePage () {
         } catch(error) {
             
             const serverError = error.response.data.error;
-            //set error states on input fields
-            if (serverError === "Email") {
-                setErrorEmail(true);
-                setErrorPassword(false);
-                setErrorLastName(false); 
-                setErrorFirstName(false);
-                setErrorEmailAlreadyExists(false);
-            } else if (serverError === "Password") {
+            if (serverError === "Password") {
                 setErrorPassword(true);
-                setErrorEmail(false);
                 setErrorLastName(false); 
                 setErrorFirstName(false);
-                setErrorEmailAlreadyExists(false);
             } else if (serverError === "Firstname") {
                 setErrorFirstName(true);
-                setErrorEmail(false);
                 setErrorPassword(false);
                 setErrorLastName(false); 
-                setErrorEmailAlreadyExists(false);
             }else if (serverError === "Lastname") {
                 setErrorLastName(true); 
-                setErrorEmail(false);
                 setErrorPassword(false);
                 setErrorFirstName(false);
-                setErrorEmailAlreadyExists(false);
-            }else if (serverError === "Email already exist") {
-                setErrorEmailAlreadyExists(true);
-                setErrorLastName(false); 
-                setErrorEmail(false);
-                setErrorPassword(false);
-                setErrorFirstName(false); 
             }else {
                 console.log("Error from axios post", error.response.data);
-                setErrorEmailAlreadyExists(false);
-                setErrorEmail(false);
                 setErrorPassword(false);
                 setErrorLastName(false); 
                 setErrorFirstName(false);
@@ -131,7 +156,9 @@ function ProfilePage () {
             <div className="create-account">
                 <div>
                     <p>This is your profile page, you can change your information below or log out!</p>
-                    <p id="required"> All fields marked with * needs to be filled in!</p>
+                    <p id="required">If you wish to update your account information all fields marked with * 
+                                     needs to be filled in, you do not have to change the fields you want to keep the same,
+                                      enter a new or your old password!</p>
                 </div>
                 <div>
                 <TextField
@@ -155,18 +182,6 @@ function ProfilePage () {
                         onChange={(e) => setLastName(e.target.value)}
                         error={errorLastName}
                         helperText={errorLastName ? "Please fill in required fields." : ""}
-                    />
-                </div>
-                <div>
-                    <TextField
-                        required
-                        id="email-adress"
-                        label="Email"
-                        placeholder="Enter email"
-                        value={userEmail}
-                        onChange={(e) => setEmail(e.target.value)}
-                        error={errorEmail || errorEmailAlreadyExists} // set error state
-                        helperText={errorEmail && !errorEmailAlreadyExists ? "Invalid email address." : errorEmailAlreadyExists ? "Email already in use." : ""} 
                     />
                 </div>
                 <div>
@@ -241,11 +256,11 @@ function ProfilePage () {
                     />
                 </div>
                 <div>
-                    <Button onClick={handleSignUpClick} variant="outlined">
-                        Sign up!
+                    <Button onClick={handleUpdateClick} variant="outlined">
+                        Update!
                     </Button>
                     <Button onClick={handleLogoutClick} variant="outlined">
-                        Log out!
+                        Logout!
                     </Button>
                 </div>
             </div>
