@@ -28,10 +28,14 @@ function SchedulingPopup({formattedDate}) {
         console.log(textAtendee)
         axios.get(`http://localhost:3001/api/users/${textAtendee}`)
         .then(response => {
+          /*
           const tempAtendee = textAtendee;
           const tempUserRole = UserRoles;
           userEmails.push(textAtendee.slice());
           userRole.push(UserRoles.slice());
+          */
+          userEmails.concat(textAtendee);
+          userRole.concat(UserRoles);
           console.log(userEmails);
           console.log(userRole);
         })
