@@ -23,7 +23,7 @@ app.use(cors());
 //Routes
 app.use('/api/users',userRoutes)
 app.use('/api/events',eventRoutes)
-app.use('api/login', loginRoutes)
+app.use('/api/login', loginRoutes)
 
 //console logs added for problem searching
 console.log('Before mongoose.connect');

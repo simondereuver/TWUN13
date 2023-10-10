@@ -20,12 +20,13 @@ const loginUser = async (req, res) => {
             return res.status(404).json({ error: 'Password' });
         }
 
+        /*
         const jwtToken = jwt.sign( 
             { id: user.id, email: user.email },
             process.env.JWT_SECRET
             );
-        
-        return res.status(200).json({ message: "Successfully logged in!", token: jwtToken});
+        */
+        return res.status(200).json({ message: "Successfully logged in!"});
     } catch (error) {
         return res.status(500).json({ message: 'Server error' });
     }
