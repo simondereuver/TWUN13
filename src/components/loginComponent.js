@@ -68,11 +68,6 @@ function LoginWindow() {
                 setErrorEmail(false);
                 setErrorPassword(false);
 
-              
-                
-                const token = response.data.token
-                localStorage.setItem('token',token)
-                console.log("This is token: ",token)
             } catch(error) {
                 
                 const serverError = error.response.data.error;

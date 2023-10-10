@@ -9,7 +9,6 @@ import LoginPage from './pages/LoginPage';
 
 const App = () => {
   const userToken = localStorage.getItem('token');
-
   const authenticatedRoutes = (
     <>
       {/* Authenticated user routes */}
