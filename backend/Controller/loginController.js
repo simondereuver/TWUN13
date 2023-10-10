@@ -1,6 +1,6 @@
 const User = require('../Models/Models');
 const mongoose = require('mongoose');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 const loginUser = async (req, res) => {
     try {
@@ -9,6 +9,9 @@ const loginUser = async (req, res) => {
         //check if there is a user with email entered in login
         console.log("Checking email in mongo")
         const user = await User.findOne({ email: email });
+        console.log(user);
+        console.log(password)
+
 
         if (!user) {
             console.log("Didnt find by email");
@@ -20,14 +23,13 @@ const loginUser = async (req, res) => {
             return res.status(404).json({ error: 'Password' });
         }
 
-        const jwtToken = jwt.sign( 
-            { id: user.id, email: user.email },
-            process.env.JWT_SECRET
-            );
+        const token = jwt.sign({email},process.env.KEY,{expiresIn:'1h'})
+        console.log(token)
         
-        return res.status(200).json({ message: "Successfully logged in!", token: jwtToken});
+        
+        return res.status(200).json({ message: "Successfully logged in!"});
     } catch (error) {
-        return res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: error });
     }
 };
 

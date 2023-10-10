@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 function LoginWindow() {
 
@@ -60,11 +62,17 @@ function LoginWindow() {
         */
 
         try {
+            console.log(loginData)
             const response = await axios.post('http://localhost:3001/api/login', loginData);
+            console.log("This is response", response)
                 setErrorEmail(false);
                 setErrorPassword(false);
+
+              
                 
-                //response.data.token
+                const token = response.data.token
+                localStorage.setItem('token',token)
+                console.log("This is token: ",token)
             } catch(error) {
                 
                 const serverError = error.response.data.error;
