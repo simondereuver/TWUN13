@@ -3,16 +3,12 @@ import "./CalenderStyle.css";
 import BookingWinow from '../SchedulingPopup';
 import { Button } from '@mui/material';
 import axios from 'axios';
-const jwt = require('jsonwebtoken');
-require('dotenv').config()
-
 
 export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
   const formattedDate = day.toLocaleDateString();
   const isoDateTime = new Date(day.getTime() - (day.getTimezoneOffset() * 60000)).toISOString();
-  const token = localStorage.getItem('token')
-  const decodedToken = jwt.verify(token,process.env.KEY)
-  const NameID = decodedToken.id;
+  /*THIS IS CURRENTLY WHAT ATTENDE NAME IT LOOKS FOR*/
+  const NameID = "Gustav";
   const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
