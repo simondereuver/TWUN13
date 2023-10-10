@@ -5,25 +5,16 @@ import PersonIcon from '@mui/icons-material/Person';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { NavLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import LoginWindow from '../loginComponent';
 import { ViewSidebarOutlined } from '@mui/icons-material';
 import { SidepanelDataHome} from '../Sidepanel/SidepanelData';
 import SidePanel from '../Sidepanel/Sidepanel';
 
 function Navigation_Bar()
 {
-
-  //Function and variables to handle toggle of login window
-  const [loginWindowOpen, setLoginWindowOpen] = useState(false);
-
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
 
   const toggleSidePanel = () => {
     setIsSidePanelOpen(!isSidePanelOpen);
-  };
-
-  const toggleLoginWindow = () => {
-    setLoginWindowOpen(!loginWindowOpen);
   };
 
     return (
@@ -48,11 +39,9 @@ function Navigation_Bar()
           </NavLink>
         </div>
         <div class="right-button">
-          <Button className="button" onClick={toggleLoginWindow}><PersonIcon/> </Button>
-        </div>
-        <div>
-          {/* Render LoginWindow when loginWindowOpen is true */}
-          {loginWindowOpen && <LoginWindow />} 
+          <NavLink to="/Login">
+          <Button className="button"> <PersonIcon/> </Button>
+          </NavLink>
         </div>
       </div>
      )

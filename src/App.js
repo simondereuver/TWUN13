@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Calender from './pages/Calender';
 import Error from './pages/Error';
 import CreateAccountForm from './pages/CreateAccount';
+import LoginPage from './pages/LoginPage';
 
 
 const router = createBrowserRouter(
@@ -12,6 +13,7 @@ const router = createBrowserRouter(
         <Route index element = {<Home/>}/>
         <Route path ="Calender" element = {<Calender/>}/>
         <Route path="CreateAccount" element = {<CreateAccountForm/>}/>
+        <Route path="Login" element = {<LoginPage/>}/>
         <Route path = "*" element = {<Error/>}/>
     </Route>
   )
