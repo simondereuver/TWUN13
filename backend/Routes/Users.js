@@ -1,5 +1,5 @@
 const express = require('express');
-const {createUser,getUser,updateUser} = require('../Controller/userController')
+const {createUser,getUser,updateUser, getAllUsers} = require('../Controller/userController')
 
 
 
@@ -15,5 +15,7 @@ Userrouter.post('/', createUser)
 
 //Update a user 
 Userrouter.patch('/:id',updateUser)
+
+Userrouter.get('/', getAllUsers)
 
 module.exports = Userrouter;
