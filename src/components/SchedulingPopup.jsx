@@ -30,8 +30,8 @@ function SchedulingPopup({formattedDate}) {
         .then(response => {
           const tempAtendee = textAtendee;
           const tempUserRole = UserRoles;
-          userEmails.push(tempAtendee);
-          userRole.push(tempUserRole);
+          userEmails.push(textAtendee.slice());
+          userRole.push(UserRoles.slice());
           console.log(userEmails);
           console.log(userRole);
         })
