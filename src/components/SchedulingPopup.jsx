@@ -2,13 +2,13 @@ import './schedulingPopup.css';
 import React, {useState} from 'react';
 import axios from 'axios';
 import Select from 'react-select';
+import jwt_decode from 'jwt-decode';
 
 function SchedulingPopup({formattedDate}) {
-  /*
+  
   const token = localStorage.getItem('token')
-  const decodedToken = jwt.verify(token,process.env.KEY)
-  const NameID = decodedToken.id;
-  */
+  const decodedToken = jwt_decode(token,process.env.KEY)
+  const NameID = decodedToken.email;
 
   let userEmail = [];
   let addedUserRole = [];
@@ -79,7 +79,7 @@ function SchedulingPopup({formattedDate}) {
 
         const time = TimeHour + ':' + TimeMin;
         const newEventData = {
-          email: 'samuel.leyonberg@gmail.com',
+          email: NameID,
           eventName: textEventName,
           date: formattedDate,
           time: time,
@@ -122,14 +122,14 @@ function SchedulingPopup({formattedDate}) {
       }
       const time = TimeHour + ':' + TimeMin;
       const newUpdatedEvent = {
-        email: 'samuel.leyonberg@gmail.com',
+        email: NameID,
         eventName: textEventName,
         date: formattedDate,
         time: time,
         location: textLocation,
         agenda: textAgenda,
-        attendies: ['1','2'],
-        userRole: ['1','2']
+        attendies: selectedAtendees.map(selectedAtendees => selectedAtendees.value),
+        userRole: addedUserRole
       };
           
       axios.get(`http://localhost:3001/api/events/samuel.leyonberg@gmail.com/${formattedDate}/${time}`)
