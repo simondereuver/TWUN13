@@ -4,9 +4,14 @@ import axios from 'axios';
 import Select from 'react-select';
 
 function SchedulingPopup({formattedDate}) {
+  /*
+  const token = localStorage.getItem('token')
+  const decodedToken = jwt.verify(token,process.env.KEY)
+  const NameID = decodedToken.id;
+  */
 
   let userEmail = [];
-  let userRole = [];
+  let addedUserRole = [];
   axios.get(`http://localhost:3001/api/users`)
   .then(response => {
     console.log(response)
@@ -19,20 +24,13 @@ function SchedulingPopup({formattedDate}) {
     console.log(err);
   })
     const [selectedAtendees, setselectedAtendees] = useState([]);
+    const handleAtendee = (e) =>{
+        setselectedAtendees(e);
+    }
 
     const [textAgenda, setTextAgenda] = useState('');
     const handleChangeAgenda = (e) =>{
         setTextAgenda(e.target.value);
-    }
-
-    const [selectedUserRole, setUserRoles] = useState([]);
-    const handleUserRoles = (e) =>{
-      setUserRoles(e);
-    }
-
-    const [textAtendee, setTextAtendee] = useState('');
-    const handleAtendee = (e) =>{
-      setTextAtendee(e.target.value);
     }
 
     const [textLocation, setTextLocation] = useState('');
@@ -56,21 +54,18 @@ function SchedulingPopup({formattedDate}) {
     }
 
     const addAdmin = () => {
-      userRole.push('Admin')
-      //setUserRoles(userRole)
-      console.log(userRole)
+      addedUserRole.push('Admin')
+      console.log(addedUserRole)
     }
 
     const addEditor = () => {
-      userRole.push('Editor')
-      //setUserRoles(userRole)
-      console.log(userRole)
+      addedUserRole.push('Editor')
+      console.log(addedUserRole)
     }
 
     const addViwer = () => {
-      userRole.push('Viwer')
-      //setUserRoles(userRole)
-      console.log(userRole)
+      addedUserRole.push('Viwer')
+      console.log(addedUserRole)
     }
 
     const AddEvent = () =>{
@@ -90,8 +85,8 @@ function SchedulingPopup({formattedDate}) {
           time: time,
           location: textLocation,
           agenda: textAgenda,
-          atendees: selectedAtendees.map(selectedAtendees => selectedAtendees.value),
-          userRole: userRole
+          attendies: selectedAtendees.map(selectedAtendees => selectedAtendees.value),
+          userRole: addedUserRole
         };
 
         console.log(newEventData);
@@ -133,7 +128,7 @@ function SchedulingPopup({formattedDate}) {
         time: time,
         location: textLocation,
         agenda: textAgenda,
-        atendees: ['1','2'],
+        attendies: ['1','2'],
         userRole: ['1','2']
       };
           
@@ -282,7 +277,7 @@ function SchedulingPopup({formattedDate}) {
                   closeMenuOnSelect={false}
                   placeholder="Attendees"
                   className="multi-choice-dropdown-select"
-                  onChange={setselectedAtendees}
+                  onChange={handleAtendee}
                   />
                   </div>
                <div>
@@ -290,6 +285,7 @@ function SchedulingPopup({formattedDate}) {
                 <button className='editor' onClick={addEditor}>Editor</button>
                 <button className='viwer' onClick={addViwer}>Viwer</button>
                </div>
+               {/*
                <div>
                <ul>
                  {userRole.map((str, index) => (
@@ -300,6 +296,7 @@ function SchedulingPopup({formattedDate}) {
                <div>
                   {selectedAtendees.map(selectedAtendees => selectedAtendees.value)}
                </div>
+                 */}
         </div>
      );
 }
