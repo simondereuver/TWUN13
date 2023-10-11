@@ -18,7 +18,6 @@ export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
   const toggleBookingWindow = () => {
     setBookingWindowOpen(!bookingWindowOpen);
   };
-
   useEffect(() => {
     if (monthChanged) {
       setEvents([]);
