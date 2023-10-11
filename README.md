@@ -34,37 +34,20 @@ Create a directory for where you want the project to reside and enter:
 
 ```git clone https://github.com/simondereuver/TWUN13.git```
 
-into the commandline while at the root directory. Before installing dependencies and make sure you have Node.js installed.
+In the commandline while at the root directory. Before installing dependencies and make sure you have Node.js installed. 
+After Node.js is installed and updated install the dependencies of the project with the npm install command. 
 
-Additional compiling and running instructions will be added.
+To start the application use the command in the TWUN13 folder. npm start
+To start the server use the command in the backend folder. npm run start
 
----
-
-# Unit test
-Might not be implemented.
 
 ---
+I, Samuel Väggander Leyonberg, declare that I am the sole author of the content I add to this repository.
 
-# Code Coverage
-Might not be implemented.
-
----
-
-# Linter
-Might not be implemented.
-
----
-
-# Kanban Board
-Link to kanban will be added here.
-
----
-I, Samuel Wallander Leyonberg, declare that I am the sole author of the content I add to this repository.
-
-I, Simon de Reuver, declare that I am the sole author of the content I add to this repository.
+I, Simon de Röven, declare that I am the sole author of the content I add to this repository.
 
 I, Gustav Pråmell, declare that I am the sole author of the content I add to this repository.
 
-I, Jacob Danielsson, declare that I am the sole author of the content I add to this repository. 
+I, The Jacob Danielsson, declare that I am the sole author of the content I add to this repository. 
 
 ---
