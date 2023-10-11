@@ -1,54 +1,30 @@
 import './schedulingPopup.css';
 import React, {useState} from 'react';
 import axios from 'axios';
+import Select from 'react-select';
 
 function SchedulingPopup({formattedDate}) {
+  const roles = [
+    { value: 'Admin', label: 'Admin' },
+    { value: 'Editor', label: 'Editor' },
+    { value: 'viewer', label: 'viewer' },
+  ];
 
-  /*
-  let userEmails = [];
+  let userEmail = [];
   axios.get(`http://localhost:3001/api/users`)
   .then(response => {
     console.log(response)
     response.data.forEach(element => {
       console.log(element.email)
-      userEmails.push({value: `${element.email}`, label: `${element.email}` });
+      userEmail.push({value: `${element.email}`, label: `${element.email}` });
     });
   })
   .catch(err => {
     console.log(err);
   })
-  */
+    const [selectedAtendees, setselectedAtendees] = useState([]);
 
-  let userEmails = [];
-  let userRole = [];
-    const addAtendee =() =>
-    {
-      if(UserRoles !== "")
-      {
-        console.log(textAtendee)
-        axios.get(`http://localhost:3001/api/users/${textAtendee}`)
-        .then(response => {
-          /*
-          const tempAtendee = textAtendee;
-          const tempUserRole = UserRoles;
-          userEmails.push(textAtendee.slice());
-          userRole.push(UserRoles.slice());
-          */
-          userEmails.concat(textAtendee);
-          userRole.concat(UserRoles);
-          console.log(userEmails);
-          console.log(userRole);
-        })
-        .catch(err => {
-          console.log(err);
-          alert("Not a user of EditTime");
-        })
-      }
-      else
-      {
-        alert("Already an atendee or invalid user role");
-      }
-    }
+    const [selectedUserRole, setselectedUserRole] = useState([]);
 
     const [textAgenda, setTextAgenda] = useState('');
     const handleChangeAgenda = (e) =>{
@@ -86,6 +62,7 @@ function SchedulingPopup({formattedDate}) {
     }
 
     const AddEvent = () =>{
+      console.log(selectedAtendees);
 
         if(!(TimeHour < 25 && TimeHour > -1 && TimeHour !== "" && TimeMin < 61 && TimeMin > -1 && TimeMin !== ""))
         {
@@ -94,7 +71,7 @@ function SchedulingPopup({formattedDate}) {
         }
 
         const time = TimeHour + ':' + TimeMin;
-        const atendees = userEmails;
+        //const atendees = userEmails;
         const newEventData = {
           email: 'samuel.leyonberg@gmail.com',
           eventName: textEventName,
@@ -102,8 +79,8 @@ function SchedulingPopup({formattedDate}) {
           time: time,
           location: textLocation,
           agenda: textAgenda,
-          atendees: atendees,
-          userRole: UserRoles
+          atendees: selectedAtendees.map(selectedAtendees => selectedAtendees.value),
+          userRole: ['1','2']
         };
 
         console.log(newEventData);
@@ -138,7 +115,6 @@ function SchedulingPopup({formattedDate}) {
         return -1;
       }
       const time = TimeHour + ':' + TimeMin;
-      const atendees = userEmails;
       const newUpdatedEvent = {
         email: 'samuel.leyonberg@gmail.com',
         eventName: textEventName,
@@ -146,8 +122,8 @@ function SchedulingPopup({formattedDate}) {
         time: time,
         location: textLocation,
         agenda: textAgenda,
-        atendees: atendees,
-        userRole: UserRoles
+        atendees: ['1','2'],
+        userRole: ['1','2']
       };
           
       axios.get(`http://localhost:3001/api/events/samuel.leyonberg@gmail.com/${formattedDate}/${time}`)
@@ -287,37 +263,28 @@ function SchedulingPopup({formattedDate}) {
                     resize: 'none', 
                 }}/>
             </div>
-            <div>
-                <textarea className='Atendee'
-                value={textAtendee}
-                onChange={handleAtendee}
-                placeholder="Atendee"
-                style={{
-                  marginTop: '10px',
-                    width: '70%',
-                    height: '35px',
-                    padding: '8px',
-                    boxSizing: 'border-box',
-                    border: '1px solid gray',
-                    borderRadius: '8px',
-                    resize: 'none', 
-                }}/>
-                <textarea className='UserRoles'
-                value={UserRoles}
-                onChange={handleUserRoles}
-                placeholder="User Roles"
-                style={{
-                  marginTop: '10px',
-                    width: '70%',
-                    height: '35px',
-                    padding: '8px',
-                    boxSizing: 'border-box',
-                    border: '1px solid gray',
-                    borderRadius: '8px',
-                    resize: 'none', 
-                }}/>
-                <button className='addAtendeeButton' onClick={addAtendee}>add</button>
-                </div>
+                <div className="multi-choice-dropdown">
+                  <Select
+                  options={userEmail}
+                  isMulti
+                  isSearchable
+                  closeMenuOnSelect={false}
+                  placeholder="Attendees"
+                  className="multi-choice-dropdown-select"
+                  onChange={setselectedAtendees}
+                  />
+                  </div>
+                  <div className="multi-choice-dropdown">
+                  <Select
+                  options={roles}
+                  isMulti
+                  isSearchable
+                  closeMenuOnSelect={false}
+                  placeholder="UserRole"
+                  className="multi-choice-dropdown-select"
+                  onChange={setselectedUserRole}
+                  />
+              </div>
         </div>
      );
 }
