@@ -3,7 +3,7 @@
 # Github handles
 
 ---
-* samwalle (Samuel Wallander Leyonberg)
+* samBalle (Samuel Wallander Leyonberg)
 * simondereuver (Simon de Reuver)
 * Pramell94 (Gustav Pråmell)
 * McFluffen (Sir Jacob Danielsson)
@@ -48,9 +48,9 @@ If you have followed the instructions the application will run on 'http://localh
 
 
 ---
-I, Samuel Väggander Leyonberg, declare that I am the sole author of the content I add to this repository.
+I, Samuel Wallander Leyonberg, declare that I am the sole author of the content I add to this repository.
 
-I, Simon de Röven, declare that I am the sole author of the content I add to this repository.
+I, Simon de Reuver, declare that I am the sole author of the content I add to this repository.
 
 I, Gustav Pråmell, declare that I am the sole author of the content I add to this repository.
 
