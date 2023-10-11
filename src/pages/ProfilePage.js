@@ -10,7 +10,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import "./CreateAccount.css";
 import countryList from '../data/countriesData';
 import axios from 'axios';
-import "../components/Background/background.css"
+import "../components/Background/background.css";
+import jwt from 'jwt-decode';
 
 function ProfilePage () {
 
@@ -106,39 +107,25 @@ function ProfilePage () {
     };
 
     const handleLogoutClick = () => {
-        //implement something to logout
+        localStorage.clear('token');
     }
 
     const handleUpdateClick = async () => {
         //change this axios to go to the updateUser api instead, and more or less rewrite the updateUser call to look like createUser
         try {
-        await axios.post('http://localhost:3001/api/users', userData)
+        await axios.patch(`http://localhost:3001/api/users/${userData.email}`, userData)
         .then((res) => {
-            console.log("Succesfully created user.\n");
+            console.log("Succesfully updated user.\n");
             setErrorPassword(false);
-            setErrorLastName(false); 
-            setErrorFirstName(false);
         })
         } catch(error) {
             
             const serverError = error.response.data.error;
             if (serverError === "Password") {
                 setErrorPassword(true);
-                setErrorLastName(false); 
-                setErrorFirstName(false);
-            } else if (serverError === "Firstname") {
-                setErrorFirstName(true);
-                setErrorPassword(false);
-                setErrorLastName(false); 
-            }else if (serverError === "Lastname") {
-                setErrorLastName(true); 
-                setErrorPassword(false);
-                setErrorFirstName(false);
             }else {
                 console.log("Error from axios post", error.response.data);
                 setErrorPassword(false);
-                setErrorLastName(false); 
-                setErrorFirstName(false);
             }
         };
     };
