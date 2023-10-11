@@ -3,7 +3,7 @@
 # Github handles
 
 ---
-* samwalle (Samuel Wallander Leyonberg)
+* samBalle (Samuel Wallander Leyonberg)
 * simondereuver (Simon de Reuver)
 * Pramell94 (Gustav Pråmell)
 * McFluffen (Sir Jacob Danielsson)
@@ -24,7 +24,7 @@ HTML, CSS, JavaScript.
 
 # Database
 
-Mongodb, HUMONGOUS DATABASE.
+MongoDB.
 
 ---
 
@@ -34,29 +34,18 @@ Create a directory for where you want the project to reside and enter:
 
 ```git clone https://github.com/simondereuver/TWUN13.git```
 
-into the commandline while at the root directory. Before installing dependencies and make sure you have Node.js installed.
+First make sure you have Node.js installed by visiting https://nodejs.org/en/download and follow the instructions to download Node.js.
+To control that you have Node.js is installed, open the commandline interface and run the command 'node -v' and 'npm -v'.
 
-Additional compiling and running instructions will be added.
 
----
+In the commandline while at the root directory. Before installing dependencies and make sure you have Node.js installed. 
+After Node.js is installed and updated install the dependencies of the project with the '''npm install command''' 
 
-# Unit test
-Might not be implemented.
+To start the application use the command in the TWUN13 folder. 'npm start'
+To start the server use the command in the backend folder. 'npm run start'
 
----
+If you have followed the instructions the application will run on 'http://localhost:3000' 
 
-# Code Coverage
-Might not be implemented.
-
----
-
-# Linter
-Might not be implemented.
-
----
-
-# Kanban Board
-Link to kanban will be added here.
 
 ---
 I, Samuel Wallander Leyonberg, declare that I am the sole author of the content I add to this repository.
@@ -65,6 +54,6 @@ I, Simon de Reuver, declare that I am the sole author of the content I add to th
 
 I, Gustav Pråmell, declare that I am the sole author of the content I add to this repository.
 
-I, Jacob Danielsson, declare that I am the sole author of the content I add to this repository. 
+I, The Jacob Danielsson, declare that I am the sole author of the content I add to this repository. 
 
 ---
