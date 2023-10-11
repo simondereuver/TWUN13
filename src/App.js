@@ -6,6 +6,7 @@ import Calender from './pages/Calender';
 import Error from './pages/Error';
 import CreateAccountForm from './pages/CreateAccount';
 import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
   const [userToken, setUserToken] = useState(localStorage.getItem('token'));
@@ -33,7 +34,7 @@ const App = () => {
       {/* Authenticated user routes */}
       <Route index element={<Home />} />
       <Route path="Calender" element={<Calender />} />
-      <Route path="CreateAccount" element={<CreateAccountForm />} />
+      <Route path="ProfilePage" element={<ProfilePage />} />
       {/* Add more routes for authenticated users */}
     </>
   );

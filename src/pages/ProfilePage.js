@@ -11,21 +11,22 @@ import "./CreateAccount.css";
 import countryList from '../data/countriesData';
 import axios from 'axios';
 import "../components/Background/background.css"
+import jwt from 'jsonwebtoken';
 
 function ProfilePage () {
 
     //For email, maybe remove the email field.
-    //swap the out commented code here once token has been implemented AND getUserData function works
+    //swap the out commented code here once token has been implemented AND getUserData function worksr 
     //const [userEmail, setEmail] = useState(userDataFromAPI ? userDataFromAPI.email : '');
-    const [userEmail, setEmail] = useState('');
+    //const [userEmail, setEmail] = useState('');
     //For firstname
     const [errorFirstName, setErrorFirstName] = useState(false);
-    //const [userFirstName, setFirstName] = useState(userDataFromAPI ? userDataFromAPI.firstname : '');
-    const [userFirstName, setFirstName] = useState('');
+    const [userFirstName, setFirstName] = useState(userDataFromAPI ? userDataFromAPI.firstname : '');
+    //const [userFirstName, setFirstName] = useState('');
     //for lastname
     const [errorLastName, setErrorLastName] = useState(false);
-    //const [userLastName, setLastName] = useState(userDataFromAPI ? userDataFromAPI.lastname : '');
-    const [userLastName, setLastName] = useState('');
+    const [userLastName, setLastName] = useState(userDataFromAPI ? userDataFromAPI.lastname : '');
+    //const [userLastName, setLastName] = useState('');
     /*
 <div>
                     <TextField
@@ -57,25 +58,31 @@ function ProfilePage () {
 
 
     //For selecting country
-    const [selectedCountry, setSelectedCountry] = useState("");
+    const [selectedCountry, setSelectedCountry] = useState(userDataFromAPI ? userDataFromAPI.country : '');
 
     const handleChange = (event) => {
         setSelectedCountry(event.target.value);
     };
 
-    /*
+    
     //GET THE USER INFO BY GETTING THE EMAIL OUT OF THE TOKEN and insert it into the axios call 
-    THIS FUNCTION DOESNT WORK AS OF NOW AS WE NEED THE TOKEN TO EXTRACT EMAIL
+    //THIS FUNCTION DOESNT WORK AS OF NOW AS WE NEED THE TOKEN TO EXTRACT EMAIL
     useEffect(() => {
+
+        const token = localStorage.getItem('token')
+        const decodedToken = jwt.verify(token,process.env.KEY)
+        const NameID = decodedToken.id;
+
         const getUserData = async () => {
             try {
                 //we can use the response later for logging in if needed
-                const response = await axios.get(`http://localhost:3001/api/users//ADDEMAILHERE`);
+                const response = await axios.get(`http://localhost:3001/api/users/${NameID}`);
                 const userDataFromAPI = response.data;
 
-                setEmail(userDataFromAPI.email);
+                //setEmail(userDataFromAPI.email);
                 setFirstName(userDataFromAPI.firstname);
                 setLastName(userDataFromAPI.lastname);
+
                 //Add all fields
 
                 
@@ -94,7 +101,7 @@ function ProfilePage () {
 
         getUserData();
     }, []);
-    */
+    
     
     const userData = {
         email: userEmail,
