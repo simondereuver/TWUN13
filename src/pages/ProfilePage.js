@@ -16,6 +16,7 @@ import jwt_decode from 'jwt-decode'
 
 function ProfilePage () {
 
+    const [userEmail, setEmail] = useState('');
     const userDataFromAPI = useState({});
     //For firstname
     const [errorFirstName, setErrorFirstName] = useState(false);
@@ -86,43 +87,34 @@ function ProfilePage () {
     }
 
     const userData = {
+        email: userEmail,
         password: password1,
         passwordConfirm: password2,
         firstname: userFirstName,
         lastname: userLastName,
         country: selectedCountry,
     };
-    
+
+    const handleLogoutClick = () => {
+        localStorage.clear('token');
+    }
+
     const handleUpdateClick = async () => {
         //change this axios to go to the updateUser api instead, and more or less rewrite the updateUser call to look like createUser
         try {
-        await axios.post('http://localhost:3001/api/users', userData)
+        await axios.patch(`http://localhost:3001/api/users/${userData.email}`, userData)
         .then((res) => {
-            console.log("Succesfully created user.\n");
+            console.log("Succesfully updated user.\n");
             setErrorPassword(false);
-            setErrorLastName(false); 
-            setErrorFirstName(false);
         })
         } catch(error) {
             
             const serverError = error.response.data.error;
             if (serverError === "Password") {
                 setErrorPassword(true);
-                setErrorLastName(false); 
-                setErrorFirstName(false);
-            } else if (serverError === "Firstname") {
-                setErrorFirstName(true);
-                setErrorPassword(false);
-                setErrorLastName(false); 
-            }else if (serverError === "Lastname") {
-                setErrorLastName(true); 
-                setErrorPassword(false);
-                setErrorFirstName(false);
             }else {
                 console.log("Error from axios post", error.response.data);
                 setErrorPassword(false);
-                setErrorLastName(false); 
-                setErrorFirstName(false);
             }
         };
     };
