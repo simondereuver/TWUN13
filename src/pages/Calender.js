@@ -52,8 +52,6 @@ export default function Calender()
               </div>
               <div className="flex_event">
                   <DisplayEvent Event={currentEvent} setEvent={setCurrentEventFunction}></DisplayEvent>
-                  {/* Test buttons */}
-                  <Button onClick={() => setCurrentEventFunction(null)}>NULL</Button>
               </div>
           </div>
           <div className="flex_calender">

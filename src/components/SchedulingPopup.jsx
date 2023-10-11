@@ -283,7 +283,7 @@ function SchedulingPopup({formattedDate}) {
                <div>
                 <button className='admin' onClick={addAdmin}>Admin</button>
                 <button className='editor' onClick={addEditor}>Editor</button>
-                <button className='viwer' onClick={addViwer}>Viwer</button>
+                <button className='viwer' onClick={addViwer}>Viewer</button>
                </div>
         </div>
      );
