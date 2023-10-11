@@ -24,7 +24,7 @@ HTML, CSS, JavaScript.
 
 # Database
 
-Mongodb, HUMONGOUS DATABASE.
+MongoDB.
 
 ---
 
@@ -34,11 +34,17 @@ Create a directory for where you want the project to reside and enter:
 
 ```git clone https://github.com/simondereuver/TWUN13.git```
 
-In the commandline while at the root directory. Before installing dependencies and make sure you have Node.js installed. 
-After Node.js is installed and updated install the dependencies of the project with the npm install command. 
+First make sure you have Node.js installed by visiting https://nodejs.org/en/download and follow the instructions to download Node.js.
+To control that you have Node.js is installed, open the commandline interface and run the command 'node -v' and 'npm -v'.
 
-To start the application use the command in the TWUN13 folder. npm start
-To start the server use the command in the backend folder. npm run start
+
+In the commandline while at the root directory. Before installing dependencies and make sure you have Node.js installed. 
+After Node.js is installed and updated install the dependencies of the project with the '''npm install command''' 
+
+To start the application use the command in the TWUN13 folder. 'npm start'
+To start the server use the command in the backend folder. 'npm run start'
+
+If you have followed the instructions the application will run on 'http://localhost:3000' 
 
 
 ---
