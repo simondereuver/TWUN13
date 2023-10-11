@@ -13,8 +13,6 @@ import "../components/Background/background.css"
 
 function LoginPage() {
 
-    const [loginClicked, setLoggedIn] = useState(false);
-
     const navigate = useNavigate();
 
     const handleCreateAccount = () => {
@@ -42,29 +40,10 @@ function LoginPage() {
         //Reset for each click
         setErrorPassword(false);
         setErrorEmail(false);
-
-        /*
-        if(email === "admin" && password === "admin")
-        {
-            setLoggedIn(true);
-        }
-        else if (email !== "admin") {
-            setErrorEmail(true);
-        }
-        else if (password !== "admin") {
-            setErrorPassword(true);
-        }
-        else {
-            setErrorPassword(true);
-            setErrorEmail(true);
-        }
-        */
-
         try {
             const response = await axios.post('http://localhost:3001/api/login', loginData)
                 setErrorEmail(false);
                 setErrorPassword(false);
-                setLoggedIn(true);
                 localStorage.setItem('token',response.data.token)
             } catch(error) {
                 
@@ -82,30 +61,11 @@ function LoginPage() {
                     setErrorPassword(false);
                 }
             };
-        
-    }
-
-    const handleLogoutClick = () => {
-        setErrorPassword(false);
-        setErrorEmail(false);
-        setLoggedIn(false);
-        setEmail('');
-        setPassword('');
     }
 
     return (
         <div className="center">
             <div className="login-window">
-                {loginClicked ? (
-                    <div>
-                        <ul className="logged-in-window-list">
-                            <p>Logged in as: {email} </p>
-                            <Button onClick={handleLogoutClick} endIcon={<LoginIcon />}>
-                                Logout
-                            </Button>
-                        </ul>
-                    </div>
-                ) : (
                     <ul className="login-window-list">
                     <TextField
                         className="input-field"
@@ -164,7 +124,6 @@ function LoginPage() {
                         </p>
                     </div>
                     </ul>
-                )}
             </div>
         </div>
     )
