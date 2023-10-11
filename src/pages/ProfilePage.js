@@ -11,7 +11,7 @@ import "./CreateAccount.css";
 import countryList from '../data/countriesData';
 import axios from 'axios';
 import "../components/Background/background.css"
-import jwt from 'jsonwebtoken';
+
 
 function ProfilePage () {
 
