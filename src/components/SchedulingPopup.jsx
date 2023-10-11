@@ -285,18 +285,6 @@ function SchedulingPopup({formattedDate}) {
                 <button className='editor' onClick={addEditor}>Editor</button>
                 <button className='viwer' onClick={addViwer}>Viwer</button>
                </div>
-               {/*
-               <div>
-               <ul>
-                 {userRole.map((str, index) => (
-                 <p key={index}>{str}</p>
-                  ))}
-                </ul>
-               </div>
-               <div>
-                  {selectedAtendees.map(selectedAtendees => selectedAtendees.value)}
-               </div>
-                 */}
         </div>
      );
 }
