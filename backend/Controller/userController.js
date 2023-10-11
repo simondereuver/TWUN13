@@ -109,14 +109,19 @@ const createUser = async (req, res) => {
 //TESTED: WORKS
 
 const updateUser = async (req, res) => {
-  const { id, password,firstname,lastname,country } = req.params;
+  const { email, password,passwordConfirm,firstname,lastname,country } = req.body;
 
   // Check if the provided parameter is a valid ObjectId
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    // If it's not a valid ObjectId, assume it's an email
+  if (!mongoose.Types.ObjectId.isValid(email)) {
+  
+      if(!validatePassword(password,passwordConfirm))
+      {
+        return res.status(400).json({ error: "Password" });
+      }
+
     try {
       const user = await User.findOneAndUpdate(
-        { email: id }, // Match the user based on the email
+        { email: email }, // Match the user based on the email
         { $set: { ...req.body }})
 
 

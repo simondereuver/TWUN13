@@ -19,11 +19,11 @@ function ProfilePage () {
     const [userEmail, setEmail] = useState('');
     const userDataFromAPI = useState({});
     //For firstname
-    const [errorFirstName, setErrorFirstName] = useState(false);
+    const [errorFirstName] = useState(false);
     const [userFirstName, setFirstName] = useState(userDataFromAPI ? userDataFromAPI.firstname : '');
 
     //for lastname
-    const [errorLastName, setErrorLastName] = useState(false);
+    const [errorLastName] = useState(false);
     const [userLastName, setLastName] = useState(userDataFromAPI ? userDataFromAPI.lastname : '');
     
     //for password
@@ -61,7 +61,7 @@ function ProfilePage () {
                 //we can use the response later for logging in if needed
                 const response = await axios.get(`http://localhost:3001/api/users/${NameID}`);
                 const userDataFromAPI = response.data;
-
+                setEmail(NameID)
                 setFirstName(userDataFromAPI.firstname);
                 setLastName(userDataFromAPI.lastname);
                 setSelectedCountry(userDataFromAPI.country);
@@ -82,10 +82,6 @@ function ProfilePage () {
         getUserData();
     }, []);
 
-    const handleLogoutClick = () => {
-        //implement something to logout
-    }
-
     const userData = {
         email: userEmail,
         password: password1,
@@ -102,7 +98,11 @@ function ProfilePage () {
     const handleUpdateClick = async () => {
         //change this axios to go to the updateUser api instead, and more or less rewrite the updateUser call to look like createUser
         try {
-        await axios.patch(`http://localhost:3001/api/users/${userData.email}`, userData)
+            const token = localStorage.getItem('token')
+        const decodedToken = jwt_decode(token,process.env.KEY)
+        const NameID = decodedToken.email;
+            console.log(NameID)
+        await axios.patch(`http://localhost:3001/api/users/${NameID}`, userData)
         .then((res) => {
             console.log("Succesfully updated user.\n");
             setErrorPassword(false);
