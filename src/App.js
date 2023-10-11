@@ -34,7 +34,6 @@ const App = () => {
       {/* Authenticated user routes */}
       <Route index element={<Home />} />
       <Route path="Calender" element={<Calender />} />
-      <Route path="CreateAccount" element={<CreateAccountForm />} />
       <Route path="Login" element={<ProfilePage/>}/>
       {/* Add more routes for authenticated users */}
     </>
