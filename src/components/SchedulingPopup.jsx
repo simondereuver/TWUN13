@@ -1,64 +1,36 @@
 import './schedulingPopup.css';
 import React, {useState} from 'react';
 import axios from 'axios';
+import Select from 'react-select';
+import jwt_decode from 'jwt-decode';
 
 function SchedulingPopup({formattedDate}) {
+  
+  const token = localStorage.getItem('token')
+  const decodedToken = jwt_decode(token,process.env.KEY)
+  const NameID = decodedToken.email;
 
-  /*
-  let userEmails = [];
+  let userEmail = [];
+  let addedUserRole = [];
   axios.get(`http://localhost:3001/api/users`)
   .then(response => {
     console.log(response)
     response.data.forEach(element => {
       console.log(element.email)
-      userEmails.push({value: `${element.email}`, label: `${element.email}` });
+      userEmail.push({value: `${element.email}`, label: `${element.email}` });
     });
   })
   .catch(err => {
     console.log(err);
   })
-  */
-
-  let userEmails = [];
-  let userRole = [];
-    const addAtendee =() =>
-    {
-      if(UserRoles !== "")
-      {
-        console.log(textAtendee)
-        axios.get(`http://localhost:3001/api/users/${textAtendee}`)
-        .then(response => {
-          const tempAtendee = textAtendee;
-          const tempUserRole = UserRoles;
-          userEmails.push(tempAtendee);
-          userRole.push(tempUserRole);
-          console.log(userEmails);
-          console.log(userRole);
-        })
-        .catch(err => {
-          console.log(err);
-          alert("Not a user of EditTime");
-        })
-      }
-      else
-      {
-        alert("Already an atendee or invalid user role");
-      }
+    const [selectedAtendees, setselectedAtendees] = useState([]);
+    const handleAtendee = (e) =>{
+        setselectedAtendees(e);
     }
 
     const [textAgenda, setTextAgenda] = useState('');
     const handleChangeAgenda = (e) =>{
         setTextAgenda(e.target.value);
-    }
-
-    const [UserRoles, setUserRoles] = useState('');
-    const handleUserRoles = (e) =>{
-      setUserRoles(e.target.value);
-    }
-
-    const [textAtendee, setTextAtendee] = useState('');
-    const handleAtendee = (e) =>{
-      setTextAtendee(e.target.value);
     }
 
     const [textLocation, setTextLocation] = useState('');
@@ -81,7 +53,23 @@ function SchedulingPopup({formattedDate}) {
         setTimeHour(e.target.value);
     }
 
+    const addAdmin = () => {
+      addedUserRole.push('Admin')
+      console.log(addedUserRole)
+    }
+
+    const addEditor = () => {
+      addedUserRole.push('Editor')
+      console.log(addedUserRole)
+    }
+
+    const addViwer = () => {
+      addedUserRole.push('Viwer')
+      console.log(addedUserRole)
+    }
+
     const AddEvent = () =>{
+      console.log(selectedAtendees);
 
         if(!(TimeHour < 25 && TimeHour > -1 && TimeHour !== "" && TimeMin < 61 && TimeMin > -1 && TimeMin !== ""))
         {
@@ -90,16 +78,15 @@ function SchedulingPopup({formattedDate}) {
         }
 
         const time = TimeHour + ':' + TimeMin;
-        const atendees = userEmails;
         const newEventData = {
-          email: 'samuel.leyonberg@gmail.com',
+          email: NameID,
           eventName: textEventName,
           date: formattedDate,
           time: time,
           location: textLocation,
           agenda: textAgenda,
-          atendees: atendees,
-          userRole: UserRoles
+          attendies: selectedAtendees.map(selectedAtendees => selectedAtendees.value),
+          userRole: addedUserRole
         };
 
         console.log(newEventData);
@@ -134,16 +121,15 @@ function SchedulingPopup({formattedDate}) {
         return -1;
       }
       const time = TimeHour + ':' + TimeMin;
-      const atendees = userEmails;
       const newUpdatedEvent = {
-        email: 'samuel.leyonberg@gmail.com',
+        email: NameID,
         eventName: textEventName,
         date: formattedDate,
         time: time,
         location: textLocation,
         agenda: textAgenda,
-        atendees: atendees,
-        userRole: UserRoles
+        attendies: selectedAtendees.map(selectedAtendees => selectedAtendees.value),
+        userRole: addedUserRole
       };
           
       axios.get(`http://localhost:3001/api/events/samuel.leyonberg@gmail.com/${formattedDate}/${time}`)
@@ -283,37 +269,22 @@ function SchedulingPopup({formattedDate}) {
                     resize: 'none', 
                 }}/>
             </div>
-            <div>
-                <textarea className='Atendee'
-                value={textAtendee}
-                onChange={handleAtendee}
-                placeholder="Atendee"
-                style={{
-                  marginTop: '10px',
-                    width: '70%',
-                    height: '35px',
-                    padding: '8px',
-                    boxSizing: 'border-box',
-                    border: '1px solid gray',
-                    borderRadius: '8px',
-                    resize: 'none', 
-                }}/>
-                <textarea className='UserRoles'
-                value={UserRoles}
-                onChange={handleUserRoles}
-                placeholder="User Roles"
-                style={{
-                  marginTop: '10px',
-                    width: '70%',
-                    height: '35px',
-                    padding: '8px',
-                    boxSizing: 'border-box',
-                    border: '1px solid gray',
-                    borderRadius: '8px',
-                    resize: 'none', 
-                }}/>
-                <button className='addAtendeeButton' onClick={addAtendee}>add</button>
-                </div>
+                <div className="multi-choice-dropdown">
+                  <Select
+                  options={userEmail}
+                  isMulti
+                  isSearchable
+                  closeMenuOnSelect={false}
+                  placeholder="Attendees"
+                  className="multi-choice-dropdown-select"
+                  onChange={handleAtendee}
+                  />
+                  </div>
+               <div>
+                <button className='admin' onClick={addAdmin}>Admin</button>
+                <button className='editor' onClick={addEditor}>Editor</button>
+                <button className='viwer' onClick={addViwer}>Viwer</button>
+               </div>
         </div>
      );
 }

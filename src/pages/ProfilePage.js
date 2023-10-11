@@ -10,37 +10,22 @@ import InputAdornment from '@mui/material/InputAdornment';
 import "./CreateAccount.css";
 import countryList from '../data/countriesData';
 import axios from 'axios';
-import "../components/Background/background.css";
-import jwt from 'jwt-decode';
+import "../components/Background/background.css"
+import jwt_decode from 'jwt-decode'
+
 
 function ProfilePage () {
 
-    //For email, maybe remove the email field.
-    //swap the out commented code here once token has been implemented AND getUserData function works
-    //const [userEmail, setEmail] = useState(userDataFromAPI ? userDataFromAPI.email : '');
     const [userEmail, setEmail] = useState('');
+    const userDataFromAPI = useState({});
     //For firstname
     const [errorFirstName, setErrorFirstName] = useState(false);
-    //const [userFirstName, setFirstName] = useState(userDataFromAPI ? userDataFromAPI.firstname : '');
-    const [userFirstName, setFirstName] = useState('');
+    const [userFirstName, setFirstName] = useState(userDataFromAPI ? userDataFromAPI.firstname : '');
+
     //for lastname
     const [errorLastName, setErrorLastName] = useState(false);
-    //const [userLastName, setLastName] = useState(userDataFromAPI ? userDataFromAPI.lastname : '');
-    const [userLastName, setLastName] = useState('');
-    /*
-<div>
-                    <TextField
-                        required
-                        id="email-adress"
-                        label="Email"
-                        placeholder="Enter email"
-                        value={userEmail}
-                        onChange={(e) => setEmail(e.target.value)}
-                        error={errorEmail || errorEmailAlreadyExists} // set error state
-                        helperText={errorEmail && !errorEmailAlreadyExists ? "Invalid email address." : errorEmailAlreadyExists ? "Email already in use." : ""} 
-                    />
-                </div>
-                */
+    const [userLastName, setLastName] = useState(userDataFromAPI ? userDataFromAPI.lastname : '');
+    
     //for password
     const [errorPassword, setErrorPassword] = useState(false);
     const [password1, setPassword1] = useState('');
@@ -56,30 +41,31 @@ function ProfilePage () {
         event.preventDefault();
     };
 
-
     //For selecting country
-    const [selectedCountry, setSelectedCountry] = useState("");
+    const [selectedCountry, setSelectedCountry] = useState(userDataFromAPI ? userDataFromAPI.country : '');
 
     const handleChange = (event) => {
         setSelectedCountry(event.target.value);
     };
 
-    /*
     //GET THE USER INFO BY GETTING THE EMAIL OUT OF THE TOKEN and insert it into the axios call 
-    THIS FUNCTION DOESNT WORK AS OF NOW AS WE NEED THE TOKEN TO EXTRACT EMAIL
+    //THIS FUNCTION DOESNT WORK AS OF NOW AS WE NEED THE TOKEN TO EXTRACT EMAIL
     useEffect(() => {
+
+        const token = localStorage.getItem('token')
+        const decodedToken = jwt_decode(token,process.env.KEY)
+        const NameID = decodedToken.email;
+
         const getUserData = async () => {
             try {
                 //we can use the response later for logging in if needed
-                const response = await axios.get(`http://localhost:3001/api/users//ADDEMAILHERE`);
+                const response = await axios.get(`http://localhost:3001/api/users/${NameID}`);
                 const userDataFromAPI = response.data;
 
-                setEmail(userDataFromAPI.email);
                 setFirstName(userDataFromAPI.firstname);
                 setLastName(userDataFromAPI.lastname);
-                //Add all fields
+                setSelectedCountry(userDataFromAPI.country);
 
-                
                 console.log("Success");
                 return true;
 
@@ -95,8 +81,11 @@ function ProfilePage () {
 
         getUserData();
     }, []);
-    */
-    
+
+    const handleLogoutClick = () => {
+        //implement something to logout
+    }
+
     const userData = {
         email: userEmail,
         password: password1,
@@ -151,7 +140,6 @@ function ProfilePage () {
                 <TextField
                         required
                         id="first-name"
-                        label="Firstname"
                         placeholder="Enter firstname"
                         value={userFirstName}
                         onChange={(e) => setFirstName(e.target.value)}
@@ -163,7 +151,6 @@ function ProfilePage () {
                 <TextField
                         required
                         id="last-name"
-                        label="Lastname"
                         placeholder="Enter lastname"
                         value={userLastName}
                         onChange={(e) => setLastName(e.target.value)}
@@ -178,6 +165,7 @@ function ProfilePage () {
                         value={selectedCountry}
                         onChange={handleChange}
                         label="Select Country"
+                        defaultValue={userDataFromAPI.country}
                     >
                     <MenuItem value="">
                         <em>None</em>
