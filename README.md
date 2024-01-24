@@ -39,7 +39,7 @@ To control that you have Node.js is installed, open the commandline interface an
 
 
 In the commandline while at the root directory. Before installing dependencies and make sure you have Node.js installed. 
-After Node.js is installed and updated install the dependencies of the project with the ```npm install``` command. 
+After Node.js is installed and updated install the dependencies of the project with the ```npm install``` command. An additional command is needed to be run which is ```npm install jsonwebtoken``` before being able to run the server.
 
 To start the application use the command in the TWUN13 folder. ```npm start```
 To start the server use the command in the backend folder. ```npm run start```
