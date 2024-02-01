@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import "./CalenderStyle.css";
 import BookingWinow from '../SchedulingPopup';
 import { Button } from '@mui/material';
-import axios from 'axios';
+import Axios from 'axios';
+import { setupCache } from 'axios-cache-adapter';
 import jwt_decode from 'jwt-decode'
 
 export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
@@ -14,6 +15,12 @@ export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
   const NameID = decodedToken.email;
   const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
   const [events, setEvents] = useState([]);
+  const cache = setupCache({
+    maxAge: 10 * 60 * 1000, // 10 min
+  });
+  const axios = Axios.create({
+    adapter: cache.adapter,
+  });
 
   const toggleBookingWindow = () => {
     setBookingWindowOpen(!bookingWindowOpen);
@@ -34,6 +41,8 @@ export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
 
   console.log(isoDateTime);
   console.log(events);
+  console.log(cache.store);
+
   return (
     <div className="calender_day">
       <header className="date" onClick={toggleBookingWindow}>
