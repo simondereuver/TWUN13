@@ -2,11 +2,9 @@ import React, {useState, useEffect} from 'react';
 import "./CalenderStyle.css";
 import BookingWinow from '../SchedulingPopup';
 import { Button } from '@mui/material';
-import Axios from 'axios';
-import { setupCache } from 'axios-cache-adapter';
 import jwt_decode from 'jwt-decode'
 
-export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
+export default function CalenderDay({ day, monthChanged, setEventCallBack, axiosWithCache}) {
   const formattedDate = day.toLocaleDateString();
   const isoDateTime = new Date(day.getTime() - (day.getTimezoneOffset() * 60000)).toISOString();
   /*THIS IS CURRENTLY WHAT ATTENDE NAME IT LOOKS FOR*/
@@ -15,12 +13,6 @@ export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
   const NameID = decodedToken.email;
   const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
   const [events, setEvents] = useState([]);
-  const cache = setupCache({
-    maxAge: 10 * 60 * 1000, // 10 min
-  });
-  const axios = Axios.create({
-    adapter: cache.adapter,
-  });
 
   const toggleBookingWindow = () => {
     setBookingWindowOpen(!bookingWindowOpen);
@@ -29,19 +21,20 @@ export default function CalenderDay({ day, monthChanged, setEventCallBack}) {
     if (monthChanged) {
       setEvents([]);
     }
-    axios
-      .get(`http://localhost:3001/api/events/${NameID}/${isoDateTime}`)
+
+    const cacheKey = `http://localhost:3001/api/events/${NameID}/${isoDateTime}`;
+    axiosWithCache 
+      .get(cacheKey)
       .then((response) => {
+        console.log('cache?', response.cached);
         setEvents(response.data);
       })
       .catch((error) => {
         console.error('Error fetching events:', error);
       });
-  }, [NameID, isoDateTime, monthChanged]);
-
-  console.log(isoDateTime);
-  console.log(events);
-  console.log(cache.store);
+    }
+  , [NameID, isoDateTime, monthChanged, axiosWithCache]);
+  
 
   return (
     <div className="calender_day">
