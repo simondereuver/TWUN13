@@ -16,7 +16,6 @@ app.get('/events', async (req, res) => {
     }
   });
 
-<<<<<<< HEAD
 // Define the login route and forward requests to the corresponding microservice
 app.get('/api/login', async (req, res) => {
     try {
@@ -30,8 +29,6 @@ app.get('/api/login', async (req, res) => {
 //Calender Routes
 
 //User Routes
-=======
->>>>>>> 17729a1b5c5bb43e996072f2e7513abc5949f9b3
 
   
   app.get('/api2', async (req, res) => {
