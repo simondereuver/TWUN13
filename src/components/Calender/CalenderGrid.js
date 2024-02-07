@@ -2,14 +2,14 @@ import React from 'react';
 import CalenderDay from './CalenderDay';
 import './CalenderStyle.css';
 
-function CalendarGrid({ day, monthChanged, setEvent}) {
+function CalendarGrid({ day, monthChanged, setEvent, axiosWithCache}) {
   const numDaysInMonth = new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate();
   const calendarGrid = [];
 
   let dayOfMonth = 1;
-  for (let r = 0; r < 7; r++) {
+  for (let r = 0; r < 5; r++) {
     const row = [];
-    for (let c = 0; c < 5; c++) {
+    for (let c = 0; c < 7; c++) {
       if (dayOfMonth <= numDaysInMonth) {
         const currentDate = new Date(day.getFullYear(), day.getMonth(), dayOfMonth);
         row.push(
@@ -18,6 +18,7 @@ function CalendarGrid({ day, monthChanged, setEvent}) {
               day={currentDate}
               monthChanged={monthChanged}
               setEventCallBack={setEvent}
+              axiosWithCache={axiosWithCache}
             />
           </td>
         );
