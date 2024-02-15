@@ -41,7 +41,7 @@ jobs:
 
       # Builds the Docker image.
       - name: Build
-        run: docker build -t $CONTAINER_REGISTRY_LOGIN_SERVER/User-MicroService:$VERSION --file ./Dockerfile .
+        run: docker build -t $CONTAINER_REGISTRY_LOGIN_SERVER/Event Microservice:$VERSION --file ./Dockerfile .
 
       # Publishes the Docker image to the Azure Container Registry.
       - name: Publish
