@@ -1,42 +1,14 @@
-const express = require('express')
-const app = express()
-const PORT = 5001
-const User = require('../Models/Models');
-const Event = require('../Models/Events')
+//Models
+const User = require('../User-MicroService/Models')
+const Event = require('../Event Microservice/Events')
 const mongoose = require('mongoose')
-const axios = require('axios')
-
-//Internal Routes
-app.get('/:id/:date',getUserEvents)
-app.get('/:id/:date/:time',getUserEventsTime)
-app.post('/',createEvent)
-app.patch('/:id/:date/:time',updateEvent)
-app.delete('/:id/:date/:time', deleteEvent)
-
-app.use(express.json())
-app.use((req,res,next)=>{
-    console.log(req.path,req.method)
-    next()
-})
-
-mongoose.connect(process.env.DATABASE_ACESS)
-    .then(() => {
-        console.log('Before app.listen');
-        app.listen(PORT,() => console.log("FILL THIS HOLE"))
-        console.log('After app.listen');})
-    .catch((error) =>{console.log(error)})
-
-app.listen(PORT,() =>{
-    console.log("Event Microservice is started")
-})
 
 
 //API: Endpoint: /api/events/:id
 //WHAT: Updates a user on a PATCH reqqust 
 //USE: PATCH localhost.../api/users/id 
-// PATCH localhost../api/users/bababoi@gmail.com
-//BODY {"email": "bababoi@gmail.com", "password": "secure"}
-
+    // PATCH localhost../api/users/bababoi@gmail.com
+        //BODY {"email": "bababoi@gmail.com", "password": "secure"}
     const getUserEvents = async (req, res) => {
         try {
             const { id,date } = req.params;  
@@ -141,3 +113,10 @@ const deleteEvent = async (req,res) => {
     }
 
 
+module.exports = {
+    getUserEvents,
+    getUserEventsTime,
+    createEvent,
+    updateEvent,
+    deleteEvent
+};

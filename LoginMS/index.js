@@ -1,15 +1,11 @@
 const express = require('express');
 const app = express();
-const PORT = 3001;
-const User = require('../Models/Models');
+const PORT = 3003;
+const User = require('../User-MicroService/Models');
 const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 
-app.listen(PORT, () => {
-    console.log(`API login running on port ${PORT}`);
-});
 
-app.get('/api/login', loginUser);
 
 const loginUser = async (req, res) => {
     try {
@@ -36,3 +32,5 @@ const loginUser = async (req, res) => {
         return res.status(500).json({ message: 'Server error' });
     }
 };
+
+app.get('/api/login', loginUser);

@@ -1,49 +1,43 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const httpProxy = require('http-proxy');
+
+const app = express();
+const proxy = httpProxy.createProxyServer({});
+
+app.use(express.json())
+
 const PORT = 5000;
-const axios = require('axios')
 
+// Middleware to log incoming requests
+app.use((req, res, next) => {
+  console.log('Incoming Request:');
+  console.log('Method:', req.method);
+  console.log('URL:', req.originalUrl);
+  console.log('Headers:', req.headers);
+  console.log('Query:', req.query);
+  console.log('Body:', req.body);
+  console.log('--------------------------');
 
-//Routes definitions
-app.get('/event', async (req, res) => {
-    try {
-      const request = req.query;
-      const response = await axios.get(`http://localhost:5001/${request}/`)
-      res.json(response.data);
-    } catch (error) {
-      res.status(500).json({ error: 'Error communicating with Event Microservice' });
-    }
-  });
-
-// Define the login route and forward requests to the corresponding microservice
-app.get('/api/login', async (req, res) => {
-    try {
-      const response = await axios.get('http://localhost:3001/api/login'); // Request to Service 1: API login
-      res.json(response.data);
-    } catch (error) {
-      res.status(500).json({ error: 'Error communicating with API login' });
-    }
+  next();
 });
 
-//Calender Routes
+// Route requests to the appropriate backend services
+app.all('/event', (req, res) => {
+  console.log(req.url)
+  proxy.web(req, res, { target: 'http://localhost:5002' });
+});
 
-//User Routes
+app.all('/user', (req, res) => {
+  proxy.web(req, res, { target: 'http://localhost:5001' });
+});
 
-  
-  app.get('/api2', async (req, res) => {
-    try {
-      const response = await axios.get('http://localhost:3002/api2'); // Request to Service 2: API 2
-      res.json(response.data);
-    } catch (error) {
-      res.status(500).json({ error: 'Error communicating with API 2' });
-    }
-  });
-  
+// Error handling
+proxy.on('error', (err, req, res) => {
+  console.error('Proxy error:', err);
+  res.status(500).send('Proxy error');
+});
 
-
-//Gateway Start
-
-app.listen(PORT,() => 
-{
-    console.log(`API Gateway is running on ${PORT}`)
-})
+// Start the server
+app.listen(PORT, () => {
+  console.log(`API Gateway is running on port ${PORT}`);
+});
