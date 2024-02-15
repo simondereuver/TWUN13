@@ -11,7 +11,6 @@ app.use(cors())
 app.use(express.json());
 app.use((req, res, next) => {
     console.log(req.path, req.method);
-    console.log(req.body)
     //Implement logging of Requests here
     next();
 });
@@ -25,7 +24,7 @@ app.post('/', createUser)
 //Update a user 
 app.patch('/:id',updateUser)
 
-app.get('/', getAllUsers)
+app.get('/user', getAllUsers)
 
 
 mongoose.connect("mongodb+srv://userDB:jH3ctwIUnr0nlEGr@user.q5hnsyx.mongodb.net/?retryWrites=true&w=majority")

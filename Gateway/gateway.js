@@ -1,43 +1,47 @@
 const express = require('express');
-const httpProxy = require('http-proxy');
+const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const app = express()
 
-const app = express();
-const proxy = httpProxy.createProxyServer({});
+// Middleware to parse request body
+app.use(express.json());
+app.use(cors())
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.json())
+// Define routes to forward requests to microservices
+app.use('/event', createProxyMiddleware({ 
+  target: 'http://localhost:5002', 
+  changeOrigin: true,
+  onProxyReq(proxyReq, req, res) {
+    if (req.body) {
+      const bodyData = JSON.stringify(req.body);
+      proxyReq.setHeader('Content-Type', 'application/json');
+      proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+      proxyReq.write(bodyData);
+    }
+  }
+}));
 
-const PORT = 5000;
+app.use('/user', createProxyMiddleware({ 
+  target: 'http://localhost:5001', 
+  changeOrigin: true,
+  onProxyReq(proxyReq, req, res) {
+    if (req.body) {
+      const bodyData = JSON.stringify(req.body);
+      proxyReq.setHeader('Content-Type', 'application/json');
+      proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+      proxyReq.write(bodyData);
+    }
+  }
+}));
 
-// Middleware to log incoming requests
-app.use((req, res, next) => {
-  console.log('Incoming Request:');
-  console.log('Method:', req.method);
-  console.log('URL:', req.originalUrl);
-  console.log('Headers:', req.headers);
-  console.log('Query:', req.query);
-  console.log('Body:', req.body);
-  console.log('--------------------------');
 
-  next();
-});
-
-// Route requests to the appropriate backend services
-app.all('/event', (req, res) => {
-  console.log(req.url)
-  proxy.web(req, res, { target: 'http://localhost:5002' });
-});
-
-app.all('/user', (req, res) => {
-  proxy.web(req, res, { target: 'http://localhost:5001' });
-});
-
-// Error handling
-proxy.on('error', (err, req, res) => {
-  console.error('Proxy error:', err);
-  res.status(500).send('Proxy error');
+app.all('*', (req, res) => {
+  res.status(404).send('Route not found');
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`API Gateway is running on port ${PORT}`);
+const port = 5000;
+app.listen(port, () => {
+  console.log(`Gateway server is running on port ${port}`);
 });
