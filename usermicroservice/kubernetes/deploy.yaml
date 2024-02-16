@@ -22,21 +22,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: video-storage
+  name: usermicroservice
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: video-storage
+      app: usermicroservice
   template:
     metadata:
       labels:
-        app: video-storage
+        app: usermicroservice
     spec:
       containers: 
-      - name: video-storage
-        image: $CONTAINER_REGISTRY_LOGIN_SERVER/video-storage:$VERSION
-        imagePullPolicy: IfNotPresent
+      - name: usermicroservice
+        image: $CONTAINER_REGISTRY_LOGIN_SERVER/usermicroservice:$VERSION
+        imagePullPolicy: Always
         env:
         - name: PORT
           value: "4000"
@@ -55,10 +55,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: video-storage
+  name: usermicroservice
 spec:
   selector:
-    app: video-storage
+    app: usermicroservice
   type: ClusterIP
   ports:
     - protocol: TCP
