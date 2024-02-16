@@ -2,12 +2,12 @@ name: Deploy usermicroservice
 
 on:
 
-  # Deploys the microservice on push to subfolder video-streaming on the main branch of this code repository.
+  # Deploys the microservice on push to subfolder usermicroservice on the main branch of this code repository.
   push:
     branches:
       - main
     paths:
-      - 'usermicroservice/**' # Only trigger on push to video-streaming subfolder.
+      - 'usermicroservice/**' # Only trigger on push to usermicroservice subfolder.
   
   # Allows workflow to be invoked manually through the GitHub Actions user interface.
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: 19.9.0
           cache: 'npm'
-          cache-dependency-path: 'usermicroservice/package-lock.json' # Path to package-lock.json in video-streaming subfolder.
+          cache-dependency-path: 'usermicroservice/package-lock.json' # Path to package-lock.json in usermicroservice subfolder.
 
       # Builds the Docker image.
       - name: Build
