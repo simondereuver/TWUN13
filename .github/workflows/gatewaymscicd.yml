@@ -1,4 +1,4 @@
-name: Deploy gatewaymicroservice
+name: Deploy gateway
 
 on:
 
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: 'gateway' # Sets default path for "run" commands to the User-MicroService subfolder.
+        working-directory: 'gateway' # Sets default path for "run" commands to the gateway subfolder.
     
     # Sets environment variables with values extracted from GitHub Actions Repository Secrets.
     env:
