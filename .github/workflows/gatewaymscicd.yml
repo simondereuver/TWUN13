@@ -2,12 +2,12 @@ name: Deploy gatewaymicroservice
 
 on:
 
-  # Deploys the microservice on push to subfolder video-streaming on the main branch of this code repository.
+  # Deploys the microservice on push to subfolder gateway on the main branch of this code repository.
   push:
     branches:
       - main
     paths:
-      - 'gateway/**' # Only trigger on push to video-streaming subfolder.
+      - 'gateway/**' # Only trigger on push to gateway subfolder.
   
   # Allows workflow to be invoked manually through the GitHub Actions user interface.
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: 19.9.0
           cache: 'npm'
-          cache-dependency-path: 'gateway/package-lock.json' # Path to package-lock.json in video-streaming subfolder.
+          cache-dependency-path: 'gateway/package-lock.json' # Path to package-lock.json in gateway subfolder.
       
 
       # Builds the Docker image.
