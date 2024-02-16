@@ -43,7 +43,7 @@ spec:
         - name: STORAGE_ACCOUNT_NAME
           value: edittime
         - name: STORAGE_ACCESS_KEY
-          value: n+Hnreff9PE3NqN5nZWtRTSx+/X4cuiZydwe2I9QOme+paJwD9oNCRLBH0iILX742CKjucyB4gIW+AStAzqE+A==
+          value: jTT9w4HI4N092pe8b+TP2uv44S/GVsEzYbDIfXBNuBMWBy5NIwkm1cvW4/C303UByEzW8Ygxg2Kx+AStdUPbkg==
         resources:
           requests:
             cpu: 126m
