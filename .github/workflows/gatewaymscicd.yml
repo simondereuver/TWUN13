@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths:
-      - './Gateway/**' # Only trigger on push to video-streaming subfolder.
+      - 'gateway/**' # Only trigger on push to video-streaming subfolder.
   
   # Allows workflow to be invoked manually through the GitHub Actions user interface.
   workflow_dispatch:

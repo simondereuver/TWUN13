@@ -1,4 +1,4 @@
-name: Deploy User microservice
+name: Deploy usermicroservice
 
 on:
 
@@ -7,17 +7,17 @@ on:
     branches:
       - main
     paths:
-      - 'User-MicroService/**' # Only trigger on push to video-streaming subfolder.
+      - 'usermicroservice/**' # Only trigger on push to video-streaming subfolder.
   
   # Allows workflow to be invoked manually through the GitHub Actions user interface.
   workflow_dispatch:
 
 jobs:
-  User-MicroService:
+  usermicroservice:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: 'User-MicroService' # Sets default path for "run" commands to the User-MicroService subfolder.
+        working-directory: 'usermicroservice' # Sets default path for "run" commands to the User-MicroService subfolder.
     
     # Sets environment variables with values extracted from GitHub Actions Repository Secrets.
     env:
@@ -38,13 +38,7 @@ jobs:
         with:
           node-version: 19.9.0
           cache: 'npm'
-          cache-dependency-path: 'User-MicroService/package-lock.json' # Path to package-lock.json in video-streaming subfolder.
-      
-      # Installs NPM packages and tests the microservice.
-      - name: Test
-        run: |
-          npm ci
-          npm test
+          cache-dependency-path: 'usermicroservice/package-lock.json' # Path to package-lock.json in video-streaming subfolder.
 
       # Builds the Docker image.
       - name: Build

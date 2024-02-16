@@ -1,4 +1,4 @@
-name: Deploy Event microservice
+name: Deploy eventmicroservice
 
 on:
 
@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths:
-      - './Event Microservice/**' # Only trigger on push to video-streaming subfolder.
+      - 'eventmicroservice/**' # Only trigger on push to video-streaming subfolder.
   
   # Allows workflow to be invoked manually through the GitHub Actions user interface.
   workflow_dispatch:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: 'Event Microservice' # Sets default path for "run" commands to the User-MicroService subfolder.
+        working-directory: 'eventmicroservice' # Sets default path for "run" commands to the User-MicroService subfolder.
     
     # Sets environment variables with values extracted from GitHub Actions Repository Secrets.
     env:
@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: 19.9.0
           cache: 'npm'
-          cache-dependency-path: 'Event Microservice/package-lock.json' # Path to package-lock.json in video-streaming subfolder.
+          cache-dependency-path: 'eventmicroservice/package-lock.json' # Path to package-lock.json in video-streaming subfolder.
       
 
       # Builds the Docker image.
