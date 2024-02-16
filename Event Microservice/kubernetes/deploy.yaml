@@ -22,28 +22,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: video-storage
+  name: eventmicroservice
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: video-storage
+      app: eventmicroservice
   template:
     metadata:
       labels:
-        app: video-storage
+        app: eventmicroservice
     spec:
       containers: 
-      - name: video-storage
-        image: $CONTAINER_REGISTRY_LOGIN_SERVER/video-storage:$VERSION
+      - name: eventmicroservice
+        image: edittime.azurecr.io/eventmicroservice:$VERSION
         imagePullPolicy: IfNotPresent
         env:
         - name: PORT
-          value: "4000"
+          value: "5002"
         - name: STORAGE_ACCOUNT_NAME
-          value: $STORAGE_ACCOUNT_NAME
+          value: edittime
         - name: STORAGE_ACCESS_KEY
-          value: $STORAGE_ACCESS_KEY
+          value: n+Hnreff9PE3NqN5nZWtRTSx+/X4cuiZydwe2I9QOme+paJwD9oNCRLBH0iILX742CKjucyB4gIW+AStAzqE+A==
         resources:
           requests:
             cpu: 126m
@@ -55,12 +55,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: video-storage
+  name: eventmicroservice
 spec:
   selector:
-    app: video-storage
+    app: eventmicroservice
   type: ClusterIP
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 4000
+      targetPort: 5002
