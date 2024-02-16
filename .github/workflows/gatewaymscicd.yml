@@ -1,4 +1,4 @@
-name: Deploy Gateway microservice
+name: Deploy gatewaymicroservice
 
 on:
 
