@@ -1,6 +1,5 @@
 //Models
-const User = require('../User-MicroService/Models')
-const Event = require('../Event Microservice/Events')
+const Event = require('./Events')
 const mongoose = require('mongoose')
 
 

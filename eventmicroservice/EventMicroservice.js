@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
-const {getUserEvents, getUserEventsTime,createEvent, updateEvent, deleteEvent} = require('../Event Microservice/Eventfunctions')
-const Event = require("../Event Microservice/Events")
-const user = require("../User-MicroService/Models")
+const {getUserEvents, getUserEventsTime,createEvent, updateEvent, deleteEvent} = require('./Eventfunctions')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const PORT = 5002
