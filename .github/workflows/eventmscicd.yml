@@ -46,7 +46,7 @@ jobs:
       # Publishes the Docker image to the Azure Container Registry.
       - name: Publish
         run: |
-          echo scLbo3UJ1Z0PXMYjzSHfyB7JVZIOjsj/Ppse0wa4Jy+ACRBNoSiz | docker login edittime.azurecr.io --username edittime --password-stdin
+          echo w9aY336n3Ls4R4WmWrDVEYCTg8aoOYnCjTS1OD2A6f+ACRBW8Qec | docker login edittime.azurecr.io --username edittime --password-stdin
           docker push edittime.azurecr.io/eventmicroservice:$VERSION
 
       # Installs Kubectl and connects it to the Azure Kubernetes Service (AKS) cluster.
