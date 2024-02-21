@@ -1,15 +1,17 @@
+$APP_NAME = "edittime"
+
 # Set STORAGE_ACCESS_KEY
-$STORAGE_ACCESS_KEY = az storage account keys list --account-name edittime --resource-group edittime --query [0].value -o tsv
+$STORAGE_ACCESS_KEY = az storage account keys list --account-name $APP_NAME --resource-group $APP_NAME --query [0].value -o tsv
 gh secret set -R McFluffen/TSFN-14 STORAGE_ACCESS_KEY --body $STORAGE_ACCESS_KEY
 
 # Set CONTAINER_REGISTRY_PASSWORD
-$CONTAINER_REGISTRY_PASSWORD = az acr credential show -n edittime --query passwords[0].value -o tsv
+$CONTAINER_REGISTRY_PASSWORD = az acr credential show -n $APP_NAME --query passwords[0].value -o tsv
 gh secret set -R McFluffen/TSFN-14 CONTAINER_REGISTRY_PASSWORD --body $CONTAINER_REGISTRY_PASSWORD
 
 # Updatning config file
 Copy-Item "$env:USERPROFILE\.kube\config" "$env:USERPROFILE\.kube\config.bak" -Recurse
 Remove-Item "$env:USERPROFILE\.kube\config"
-az aks get-credentials --name edittime --resource-group edittime
+az aks get-credentials --name $APP_NAME --resource-group $APP_NAME
 kubectl config current-context
 
 # Set KUBE_CONFIG
