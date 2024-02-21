@@ -6,6 +6,12 @@ gh secret set -R McFluffen/TSFN-14 STORAGE_ACCESS_KEY --body $STORAGE_ACCESS_KEY
 $CONTAINER_REGISTRY_PASSWORD = az acr credential show -n edittime --query passwords[0].value -o tsv
 gh secret set -R McFluffen/TSFN-14 CONTAINER_REGISTRY_PASSWORD --body $CONTAINER_REGISTRY_PASSWORD
 
+# Updatning config file
+Copy-Item "$env:USERPROFILE\.kube\config" "$env:USERPROFILE\.kube\config.bak" -Recurse
+Remove-Item "$env:USERPROFILE\.kube\config"
+az aks get-credentials --name edittime --resource-group edittime
+kubectl config current-context
+
 # Set KUBE_CONFIG
 $KUBE_CONFIG = certutil -encode "$env:USERPROFILE\.kube\config" - | Select-String -Pattern '^' -NotMatch | Select-String -Pattern 'CERTIFICATE' -NotMatch | Out-String
 gh secret set -R McFluffen/TSFN-14 KUBE_CONFIG --body $KUBE_CONFIG
