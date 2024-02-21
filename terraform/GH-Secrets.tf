@@ -8,7 +8,8 @@ resource "null_resource" "run_script" {
     azurerm_kubernetes_cluster.main,
     azurerm_role_assignment.main,
     azurerm_storage_container.main,
-    azurerm_container_registry.main
+    azurerm_container_registry.main,
+    azurerm_storage_account.main
   ]
 
   triggers = {
