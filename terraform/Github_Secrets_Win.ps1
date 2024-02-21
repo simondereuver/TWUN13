@@ -13,5 +13,5 @@ az aks get-credentials --name edittime --resource-group edittime
 kubectl config current-context
 
 # Set KUBE_CONFIG
-$KUBE_CONFIG = certutil -encode "$env:USERPROFILE\.kube\config" - | Select-String -Pattern '^' -NotMatch | Select-String -Pattern 'CERTIFICATE' -NotMatch | Out-String
+$KUBE_CONFIG = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes((Get-Content -Path "$env:USERPROFILE\.kube\config" -Raw)))
 gh secret set -R McFluffen/TSFN-14 KUBE_CONFIG --body $KUBE_CONFIG
