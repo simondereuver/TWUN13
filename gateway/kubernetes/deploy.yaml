@@ -30,18 +30,6 @@ spec:
           limits:
             cpu: 256m
             memory: 256Mi
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 5000
-            initialDelaySeconds: 5
-            periodSeconds: 15
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 5000
-            initialDelaySeconds: 5
-            periodSeconds: 2
 ---
 apiVersion: v1
 kind: Service
@@ -50,7 +38,7 @@ metadata:
 spec:
   selector:
     app: gateway
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80
