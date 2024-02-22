@@ -1,4 +1,4 @@
-# GH-Secrets.tf
+# gh-secrets.tf
 variable "os" {
   default = "windows"
 }
@@ -8,7 +8,8 @@ resource "null_resource" "run_script" {
     azurerm_kubernetes_cluster.main,
     azurerm_role_assignment.main,
     azurerm_storage_container.main,
-    azurerm_container_registry.main
+    azurerm_container_registry.main,
+    azurerm_storage_account.main
   ]
 
   triggers = {
@@ -21,6 +22,6 @@ resource "null_resource" "run_script" {
 }
 
 locals {
-  os_command_linux = "bash Github_Secrets_linux.sh"
-  os_command_windows = "powershell.exe -ExecutionPolicy Bypass -File Github_Secrets_Win.ps1"
+  os_command_linux = "bash githubsecrets_linux.sh"
+  os_command_windows = "powershell.exe -ExecutionPolicy Bypass -File githubsecrets_win.ps1"
 }
