@@ -43,3 +43,41 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 3000
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-cpu-edittime
+spec:
+  minReplicas: 1
+  maxReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: edittime
+  metrics:
+  - type: Resource
+    resource:
+      name: edittime-cpu #this is for cpu usage
+      target:
+        type: Utilization
+        averageUtilization: 50 #The average utilization of the cpu in the application container of all the pods is 50%
+  - type: Resource
+    resource:
+      name: edittime-memory #this is for memory usage
+      target:
+        type: AverageValue
+        averageValue: 192Mi #The average utilization of the memory in the application container of all the pods is 75%
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60 
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15
