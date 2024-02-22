@@ -49,7 +49,7 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: hpa-cpu-edittime
 spec:
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 3
   scaleTargetRef:
     apiVersion: apps/v1
