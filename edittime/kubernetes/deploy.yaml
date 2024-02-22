@@ -38,7 +38,7 @@ metadata:
 spec:
   selector:
     app: edittime
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80
