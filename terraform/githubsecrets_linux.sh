@@ -20,7 +20,7 @@
 
 
 #Sajmon cheatcodes:
-export APP_NAME="edittimee"
+export APP_NAME="edittime"
 
 export CONTAINER_REGISTRY_LOGIN_SERVER=$(az acr show -n "$APP_NAME" --query loginServer -o tsv)
 #echo "$CONTAINER_REGISTRY_LOGIN_SERVER"
