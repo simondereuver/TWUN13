@@ -1,6 +1,6 @@
 # gh-secrets.tf
 variable "os" {
-  default = "windows"
+  default = "linux"
 }
 
 resource "null_resource" "run_script" {
