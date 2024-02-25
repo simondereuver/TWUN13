@@ -15,7 +15,7 @@ spec:
       containers: 
       - name: edittime
         image: $CONTAINER_REGISTRY_LOGIN_SERVER/edittime:$VERSION
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: PORT
           value: "3000"
