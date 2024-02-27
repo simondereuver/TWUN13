@@ -1,5 +1,13 @@
 $APP_NAME = "edittime"
 
+# Set CONTAINER_REGISTRY_LOGIN_SERVER
+$CONTAINER_REGISTRY_LOGIN_SERVER= az acr show -n "$APP_NAME" --query loginServer -o tsv
+gh secret set -R McFluffen/TSFN-14 CONTAINER_REGISTRY_LOGIN_SERVER --body "$CONTAINER_REGISTRY_LOGIN_SERVER"
+
+# Set CONTAINER_REGISTRY_USERNAME
+$CONTAINER_REGISTRY_USERNAME= az acr credential show -n "$APP_NAME" --query username -o tsv
+gh secret set -R McFluffen/TSFN-14 CONTAINER_REGISTRY_USERNAME --body "$CONTAINER_REGISTRY_USERNAME"
+
 # Set STORAGE_ACCESS_KEY
 $STORAGE_ACCESS_KEY = az storage account keys list --account-name $APP_NAME --resource-group $APP_NAME --query [0].value -o tsv
 gh secret set -R McFluffen/TSFN-14 STORAGE_ACCESS_KEY --body $STORAGE_ACCESS_KEY
