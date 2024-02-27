@@ -52,7 +52,7 @@ metadata:
 spec:
   selector:
     app: gateway
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80

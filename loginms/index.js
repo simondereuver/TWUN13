@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 3003;
-const User = require('../User-MicroService/Models');
-const mongoose = require('mongoose');
+const User = require('./models');
 const jwt = require("jsonwebtoken");
 
 
