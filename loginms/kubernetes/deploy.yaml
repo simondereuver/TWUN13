@@ -15,7 +15,7 @@ spec:
       containers: 
       - name: loginms
         image: $CONTAINER_REGISTRY_LOGIN_SERVER/loginms:$VERSION
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: PORT
           value: "4000"

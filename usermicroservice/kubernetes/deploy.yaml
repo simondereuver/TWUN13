@@ -15,7 +15,7 @@ spec:
       containers: 
       - name: usermicroservice
         image: $CONTAINER_REGISTRY_LOGIN_SERVER/usermicroservice:$VERSION
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: PORT
           value: "4000"

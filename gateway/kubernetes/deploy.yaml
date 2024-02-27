@@ -15,7 +15,7 @@ spec:
       containers: 
       - name: gateway
         image: $CONTAINER_REGISTRY_LOGIN_SERVER/gateway:$VERSION
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: PORT
           value: "5000"

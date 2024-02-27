@@ -15,7 +15,7 @@ spec:
       containers: 
       - name: eventmicroservice
         image: $CONTAINER_REGISTRY_LOGIN_SERVER/eventmicroservice:$VERSION
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: PORT
           value: "5002"
