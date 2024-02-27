@@ -1,7 +1,7 @@
 //Models
 const User = require('./Models');
 const mongoose = require('mongoose')
-const { validateFirstname, validateLastname, validateEmail, validatePassword, existingEmailCheck } = require('../LoginMS/index');
+//const { validateFirstname, validateLastname, validateEmail, validatePassword, existingEmailCheck } = require('../LoginMS/index');
 
 
 const getAllUsers = async (req, res) => {
