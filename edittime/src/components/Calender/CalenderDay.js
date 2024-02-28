@@ -22,7 +22,7 @@ export default function CalenderDay({ day, monthChanged, setEventCallBack, axios
       setEvents([]);
     }
 
-    const cacheKey = `http://localhost:3001/api/events/${NameID}/${isoDateTime}`;
+    const cacheKey = `http://process.env.GATEWAY_IP/events/${NameID}/${isoDateTime}`;
     axiosWithCache 
       .get(cacheKey)
       .then((response) => {

@@ -12,7 +12,7 @@ function SchedulingPopup({formattedDate}) {
 
   let userEmail = [];
   let addedUserRole = [];
-  axios.get(`http://localhost:3001/api/users`)
+  axios.get(`http://process.env.GATEWAY_IP/users`)
   .then(response => {
     console.log(response)
     response.data.forEach(element => {
@@ -90,7 +90,7 @@ function SchedulingPopup({formattedDate}) {
         };
 
         console.log(newEventData);
-          axios.get(`http://localhost:3001/api/events/${NameID}/${formattedDate}/${time}`)
+          axios.get(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`)
           .then(response => {
             console.log(response);
             if(response.status !== 202 )
@@ -101,7 +101,7 @@ function SchedulingPopup({formattedDate}) {
             }
             else{
 
-                axios.post('http://localhost:3001/api/events/', newEventData)
+                axios.post('http://process.env.GATEWAY_IP/events/', newEventData)
                 console.log("added")
                 alert('added');
                 console.log(response);
@@ -132,7 +132,7 @@ function SchedulingPopup({formattedDate}) {
         userRole: addedUserRole
       };
           
-      axios.get(`http://localhost:3001/api/events/${NameID}/${formattedDate}/${time}`)
+      axios.get(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`)
       .then(response => {
         if(response.status === 202)
         {
@@ -141,7 +141,7 @@ function SchedulingPopup({formattedDate}) {
             console.log(response);
         }
         else{
-            axios.patch(`http://localhost:3001/api/events/${NameID}/${formattedDate}/${time}`, newUpdatedEvent)
+            axios.patch(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`, newUpdatedEvent)
             console.log("updated")
             console.log(response);
             alert("updated");
@@ -160,7 +160,7 @@ function SchedulingPopup({formattedDate}) {
         return -1;
       }
       const time = TimeHour + ':' + TimeMin;
-      axios.get(`http://localhost:3001/api/events/${NameID}/${formattedDate}/${time}`)
+      axios.get(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`)
       .then(response => {
         if(response.status === 202)
         {
@@ -169,7 +169,7 @@ function SchedulingPopup({formattedDate}) {
         }
         else{
           console.log(response);
-            axios.delete(`http://localhost:3001/api/events/${NameID}/${formattedDate}/${time}`)
+            axios.delete(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`)
             console.log("deleted")
             alert("deleted");
         }

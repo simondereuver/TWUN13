@@ -41,7 +41,7 @@ function LoginPage() {
         setErrorPassword(false);
         setErrorEmail(false);
         try {
-            const response = await axios.post('http://localhost:3001/api/login', loginData)
+            const response = await axios.post('http://process.env.GATEWAY_IP/login', loginData)
                 setErrorEmail(false);
                 setErrorPassword(false);
                 localStorage.setItem('token',response.data.token)

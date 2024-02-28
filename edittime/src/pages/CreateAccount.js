@@ -61,7 +61,7 @@ function CreateAccountForm () {
     const handleSignUpClick = async () => {
 
         try {
-        await axios.post('http://localhost:3001/api/users', userData)
+        await axios.post('http://process.env.GATEWAY_IP/users', userData)
         .then((res) => {
             console.log("Succesfully created user.\n");
             setErrorEmail(false);
