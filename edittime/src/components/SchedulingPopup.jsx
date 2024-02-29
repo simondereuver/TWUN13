@@ -9,10 +9,11 @@ function SchedulingPopup({formattedDate}) {
   const token = localStorage.getItem('token')
   const decodedToken = jwt_decode(token,process.env.KEY)
   const NameID = decodedToken.email;
+  const gatewayIP = process.env.GATEWAY_IP;
 
   let userEmail = [];
   let addedUserRole = [];
-  axios.get(`http://process.env.GATEWAY_IP/users`)
+  axios.get(`http://${gatewayIP}/users`)
   .then(response => {
     console.log(response)
     response.data.forEach(element => {
@@ -90,7 +91,7 @@ function SchedulingPopup({formattedDate}) {
         };
 
         console.log(newEventData);
-          axios.get(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`)
+          axios.get(`http://${gatewayIP}//events/${NameID}/${formattedDate}/${time}`)
           .then(response => {
             console.log(response);
             if(response.status !== 202 )
@@ -101,7 +102,7 @@ function SchedulingPopup({formattedDate}) {
             }
             else{
 
-                axios.post('http://process.env.GATEWAY_IP/events/', newEventData)
+                axios.post(`http://${gatewayIP}/events`, newEventData)
                 console.log("added")
                 alert('added');
                 console.log(response);
@@ -132,7 +133,7 @@ function SchedulingPopup({formattedDate}) {
         userRole: addedUserRole
       };
           
-      axios.get(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`)
+      axios.get(`http://${gatewayIP}/events/${NameID}/${formattedDate}/${time}`)
       .then(response => {
         if(response.status === 202)
         {
@@ -141,7 +142,7 @@ function SchedulingPopup({formattedDate}) {
             console.log(response);
         }
         else{
-            axios.patch(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`, newUpdatedEvent)
+            axios.patch(`http://${gatewayIP}/events/${NameID}/${formattedDate}/${time}`, newUpdatedEvent)
             console.log("updated")
             console.log(response);
             alert("updated");
@@ -160,7 +161,7 @@ function SchedulingPopup({formattedDate}) {
         return -1;
       }
       const time = TimeHour + ':' + TimeMin;
-      axios.get(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`)
+      axios.get(`http://${gatewayIP}/events/${NameID}/${formattedDate}/${time}`)
       .then(response => {
         if(response.status === 202)
         {
@@ -169,7 +170,7 @@ function SchedulingPopup({formattedDate}) {
         }
         else{
           console.log(response);
-            axios.delete(`http://process.env.GATEWAY_IP/events/${NameID}/${formattedDate}/${time}`)
+            axios.delete(`http://${gatewayIP}/events/${NameID}/${formattedDate}/${time}`)
             console.log("deleted")
             alert("deleted");
         }

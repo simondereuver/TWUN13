@@ -14,6 +14,8 @@ import "../components/Background/background.css"
 
 function CreateAccountForm () {
 
+    const gatewayIP = process.env.GATEWAY_IP;
+
     //For email
     const [errorEmail, setErrorEmail] = useState(false);
     const [userEmail, setEmail] = useState('');
@@ -61,7 +63,7 @@ function CreateAccountForm () {
     const handleSignUpClick = async () => {
 
         try {
-        await axios.post('http://process.env.GATEWAY_IP/users', userData)
+        await axios.post(`http://${gatewayIP}/users`, userData)
         .then((res) => {
             console.log("Succesfully created user.\n");
             setErrorEmail(false);

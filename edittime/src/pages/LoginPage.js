@@ -13,6 +13,7 @@ import "../components/Background/background.css"
 
 function LoginPage() {
 
+    
     const navigate = useNavigate();
 
     const handleCreateAccount = () => {
@@ -21,6 +22,8 @@ function LoginPage() {
     const [errorEmail, setErrorEmail] = useState(false);
     const [email, setEmail] = useState('');
 
+    const gatewayIP = process.env.GATEWAY_IP
+    
     const [errorPassword, setErrorPassword] = useState(false);
     const [password, setPassword] = useState('');
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -41,7 +44,7 @@ function LoginPage() {
         setErrorPassword(false);
         setErrorEmail(false);
         try {
-            const response = await axios.post('http://process.env.GATEWAY_IP/login', loginData)
+            const response = await axios.post(`http://${gatewayIP}/login`, loginData)
                 setErrorEmail(false);
                 setErrorPassword(false);
                 localStorage.setItem('token',response.data.token)

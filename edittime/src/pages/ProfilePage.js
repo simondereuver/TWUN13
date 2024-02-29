@@ -16,6 +16,8 @@ import jwt_decode from 'jwt-decode'
 
 function ProfilePage () {
 
+    const gatewayIP = process.env.GATEWAY_IP;
+    
     const [userEmail, setEmail] = useState('');
     const userDataFromAPI = useState({});
     //For firstname
@@ -59,7 +61,7 @@ function ProfilePage () {
         const getUserData = async () => {
             try {
                 //we can use the response later for logging in if needed
-                const response = await axios.get(`http://process.env.GATEWAY_IP/users/${NameID}`);
+                const response = await axios.get(`http://${gatewayIP}/users/${NameID}`);
                 const userDataFromAPI = response.data;
                 setEmail(NameID)
                 setFirstName(userDataFromAPI.firstname);
@@ -102,7 +104,7 @@ function ProfilePage () {
         const decodedToken = jwt_decode(token,process.env.KEY)
         const NameID = decodedToken.email;
             console.log(NameID)
-        await axios.patch(`http://process.env.GATEWAY_IP/users/${NameID}`, userData)
+        await axios.patch(`http://${gatewayIP}/users/${NameID}`, userData)
         .then((res) => {
             console.log("Succesfully updated user.\n");
             setErrorPassword(false);
