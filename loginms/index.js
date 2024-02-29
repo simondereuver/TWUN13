@@ -32,3 +32,5 @@ const loginUser = async (req, res) => {
 };
 
 app.get('/api/login', loginUser);
+
+module.exports = app
