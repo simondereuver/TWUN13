@@ -22,7 +22,6 @@ async function existingEmailCheck(email) {
   try {
       //we can use the response later for logging in if needed
       //RabbitMQ
-      const response = await 
       const response = await axios.get(`http://localhost:3001/api/users/${email}`)
       console.log("User exists");
       return true;
