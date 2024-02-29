@@ -84,4 +84,4 @@ app.use((req,res,next)=>{
 
 app.post("/",loginUser)
     
-app.listen(() => console.log(`Database has been accessed successfully on ${PORT}`))
+app.listen(PORT, () => console.log(`Database has been accessed successfully on ${PORT}`))
