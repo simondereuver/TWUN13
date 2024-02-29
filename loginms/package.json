@@ -1,8 +1,8 @@
 {
-  "name": "loginms",
+  "name": "loginMS",
   "version": "1.0.0",
   "description": "",
-  "main": "loginms.js",
+  "main": "loginMS.js",
   "scripts": {
     "start": "node loginms.js",
     "test": "echo \"Error: no test specified\" && exit 1"
