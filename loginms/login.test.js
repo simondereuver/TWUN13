@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('./index');
+const app = require('./loginMS');
 const http = require('http');
 
 const server = http.createServer(app);

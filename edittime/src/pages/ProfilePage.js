@@ -16,7 +16,7 @@ import jwt_decode from 'jwt-decode'
 
 function ProfilePage () {
 
-    const gatewayIP = process.env.GATEWAY_IP;
+    const gatewayIP = "20.76.217.223";
     
     const [userEmail, setEmail] = useState('');
     const userDataFromAPI = useState({});

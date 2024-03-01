@@ -9,7 +9,7 @@ function SchedulingPopup({formattedDate}) {
   const token = localStorage.getItem('token')
   const decodedToken = jwt_decode(token,process.env.KEY)
   const NameID = decodedToken.email;
-  const gatewayIP = process.env.GATEWAY_IP;
+  const gatewayIP = "20.76.217.223";
 
   let userEmail = [];
   let addedUserRole = [];

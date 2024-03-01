@@ -13,7 +13,7 @@ export default function CalenderDay({ day, monthChanged, setEventCallBack, axios
   const NameID = decodedToken.email;
   const [bookingWindowOpen, setBookingWindowOpen] = useState(false);
   const [events, setEvents] = useState([]);
-  const gatewayIP = process.env.GATEWAY_IP;
+  const gatewayIP = "20.76.217.223";
 
   const toggleBookingWindow = () => {
     setBookingWindowOpen(!bookingWindowOpen);

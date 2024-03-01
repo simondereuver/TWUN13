@@ -22,7 +22,7 @@ function LoginPage() {
     const [errorEmail, setErrorEmail] = useState(false);
     const [email, setEmail] = useState('');
 
-    const gatewayIP = process.env.GATEWAY_IP
+    const gatewayIP = "20.76.217.223";
     
     const [errorPassword, setErrorPassword] = useState(false);
     const [password, setPassword] = useState('');
