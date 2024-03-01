@@ -40,6 +40,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'gateway/package-lock.json' # Path to package-lock.json in gateway subfolder.
       
+      # Runs test
+      - name: Test
+        run: npm test
 
       # Builds the Docker image.
       - name: Build
