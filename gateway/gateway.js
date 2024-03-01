@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express()
+const userIP = process.env.USER_MS_IP;
+const loginIP = process.env.LOGIN_MS_IP;
+const eventIP = process.env.EVENT_MS_IP;
 
 // Middleware to parse request body
 app.use(express.json());
@@ -10,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Define routes to forward requests to microservices
 app.use('/event', createProxyMiddleware({ 
-  target: 'http://localhost:5002', 
+  target: `http://${eventIP}`, 
   changeOrigin: true,
   onProxyReq(proxyReq, req, res) {
     if (req.body) {
@@ -22,8 +25,8 @@ app.use('/event', createProxyMiddleware({
   }
 }));
 
-app.use('/user', createProxyMiddleware({ 
-  target: 'http://localhost:5001', 
+app.use('/users', createProxyMiddleware({ 
+  target: `http://${userIP}`, 
   changeOrigin: true,
   onProxyReq(proxyReq, req, res) {
     if (req.body) {
