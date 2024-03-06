@@ -6,14 +6,14 @@ const cors = require('cors')
 const axios = require('axios')
 const PORT = 5001
 const amqp = require('amqplib')
-const RabbitURL = "FaKOFF"
+const RabbitURL = "10.244.0.17"
 const URL = "10.0.128.16"
 const QUEUE_NAME = "User_Login_SendQueue"
 
 
 async function connectToRabbitMQ() {
     try {
-        const connection = await amqp.connect(RabbitURL);
+        const connection = await amqp.connect({host:RabbitURL, port: 5672});
         const channel = await connection.createChannel();
         const queue = QUEUE_NAME;
         await channel.assertQueue(queue);

@@ -1,3 +1,5 @@
+const User = require('../Models/Models');
+const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const express = require('express')  
 
@@ -7,7 +9,8 @@ const PORT = 5055
 const amqp = require('amqplib')
 const QUEUE_SEND = "Login_User_SendQueue"
 const QUEUE_RECIEVE = "User_Login_RecieveQueue"
-const RabbitURL = "10.0.222.226"
+const RabbitURL = "10.244.0.17"
+
 
 async function connectToRabbitMQ(queueInput) {
     try{
@@ -71,10 +74,6 @@ const loginUser = async (req, res) => {
     }
 };
 
-
-
-
-
 //MiddleWare
 app.use(express.json())
 app.use((req,res,next)=>{
@@ -84,4 +83,16 @@ app.use((req,res,next)=>{
 
 app.post("/",loginUser)
     
-app.listen(PORT, () => console.log(`Database has been accessed successfully on ${PORT}`))
+try{
+    app.listen(PORT, () => {
+        console.log(`Server listening at ${PORT}`);
+        
+      });
+} catch(error){
+    console.error(error)
+}
+
+module.exports = {
+    connectToRabbitMQ,
+    ConsumeMessage
+}
