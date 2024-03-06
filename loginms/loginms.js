@@ -1,4 +1,4 @@
-const User = require('../Models/Models');
+const User = require('../usermicroservice/Models');
 const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const express = require('express')  
