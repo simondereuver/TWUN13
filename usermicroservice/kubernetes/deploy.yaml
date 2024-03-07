@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usermicroservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usermicroservice
+  template:
+    metadata:
+      labels:
+        app: usermicroservice
+    spec:
+      containers: 
+      - name: usermicroservice
+        image: $CONTAINER_REGISTRY_LOGIN_SERVER/usermicroservice:$VERSION
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PORT
+          value: "4000"
+        - name: STORAGE_ACCOUNT_NAME
+          value: $STORAGE_ACCOUNT_NAME
+        - name: STORAGE_ACCESS_KEY
+          value: $STORAGE_ACCESS_KEY
+        resources:
+          requests:
+            cpu: 126m
+            memory: 126Mi
+          limits:
+            cpu: 256m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: usermicroservice
+spec:
+  selector:
+    app: usermicroservice
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4000

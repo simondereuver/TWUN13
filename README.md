@@ -1,9 +1,8 @@
-# TWUN13
+# TSFN-14 forked from TWUN13
 
 # Github handles
 
 ---
-* samBalle (Samuel Wallander Leyonberg)
 * simondereuver (Simon de Reuver)
 * Pramell94 (Gustav Pråmell)
 * McFluffen (Sir Jacob Danielsson)
@@ -32,7 +31,7 @@ MongoDB.
 
 Create a directory for where you want the project to reside and enter:
 
-```git clone https://github.com/simondereuver/TWUN13.git```
+```git clone https://github.com/McFluffen/TSFN-14```
 
 First make sure you have Node.js installed by visiting https://nodejs.org/en/download and follow the instructions to download Node.js.
 To control that you have Node.js is installed, open the commandline interface and run the command ```node -v``` and ```npm -v```.
@@ -48,8 +47,6 @@ If you have followed the instructions the application will run on ```http://loca
 
 
 ---
-I, Samuel Wallander Leyonberg, declare that I am the sole author of the content I add to this repository.
-
 I, Simon de Reuver, declare that I am the sole author of the content I add to this repository.
 
 I, Gustav Pråmell, declare that I am the sole author of the content I add to this repository.

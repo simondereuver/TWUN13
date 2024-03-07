@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers: 
+      - name: gateway
+        image: $CONTAINER_REGISTRY_LOGIN_SERVER/gateway:$VERSION
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PORT
+          value: "5000"
+        - name: STORAGE_ACCOUNT_NAME
+          value: $STORAGE_ACCOUNT_NAME
+        - name: STORAGE_ACCESS_KEY
+          value: $STORAGE_ACCESS_KEY
+        resources:
+          requests:
+            cpu: 126m
+            memory: 126Mi
+          limits:
+            cpu: 256m
+            memory: 256Mi
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+spec:
+  selector:
+    app: gateway
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-cpu-gateway
+spec:
+  minReplicas: 1
+  maxReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gateway
+  metrics:
+  - type: Resource
+    resource:
+      name: gateway-cpu #this is for cpu usage
+      target:
+        type: Utilization
+        averageUtilization: 50 #The average utilization of the cpu in the application container of all the pods is 50%
+  - type: Resource
+    resource:
+      name: gateway-memory #this is for memory usage
+      target:
+        type: AverageValue
+        averageValue: 192Mi #The average utilization of the memory in the application container of all the pods is 75%
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60 
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15
